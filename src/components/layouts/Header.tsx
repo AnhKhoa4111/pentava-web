@@ -1,55 +1,38 @@
 import { NavLink } from "react-router-dom"
 
 export default function Header() {
-    return (
-        <header className="fixed top-0 z-50 w-full border-b border-[#cfc4c5] bg-[#f9f9f9]/80 backdrop-blur-md">
-            <div className="mx-auto flex max-w-[1200px] items-center justify-between px-8 py-5">
-                <div className="flex items-center gap-2 text-2xl font-extrabold tracking-tighter text-[#1b1b1b]">
-                    <span>PENTAVA</span>
-                </div>
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `text-[9px] font-bold uppercase tracking-widest md:text-xs ${
+      isActive
+        ? "border-b-2 border-black text-black"
+        : "text-[#4c4546]"
+    }`
 
-                <nav className="hidden items-center gap-8 md:flex">
-                    <NavLink
-                        to="/home"
-                        className={({ isActive }) =>
-                            `text-xs font-bold uppercase tracking-widest ${isActive
-                                ? "border-b-2 border-black text-black"
-                                : "text-[#4c4546]"
-                            }`
-                        }
-                    >
-                        Trang chủ
-                    </NavLink>
+  return (
+    <header className="fixed top-0 z-50 w-full border-b border-[#cfc4c5] bg-[#f9f9f9]/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-3 px-4 py-4 md:px-8 md:py-5">
+        <div className="flex items-center gap-2 text-xl font-extrabold tracking-tighter text-[#1b1b1b] md:text-2xl">
+          <span>PENTAVA</span>
+        </div>
 
-                    <NavLink
-                        to="/community"
-                        className={({ isActive }) =>
-                            `text-xs font-bold uppercase tracking-widest ${isActive
-                                ? "border-b-2 border-black text-black"
-                                : "text-[#4c4546]"
-                            }`
-                        }
-                    >
-                        Cộng đồng
-                    </NavLink>
+        <nav className="flex items-center gap-3 md:gap-8">
+          <NavLink to="/home" className={navLinkClass}>
+            Trang chủ
+          </NavLink>
 
-                    <NavLink
-                        to="/about"
-                        className={({ isActive }) =>
-                            `text-xs font-bold uppercase tracking-widest ${isActive
-                                ? "border-b-2 border-black text-black"
-                                : "text-[#4c4546]"
-                            }`
-                        }
-                    >
-                        Về PENTAVA
-                    </NavLink>
-                </nav>
+          <NavLink to="/community" className={navLinkClass}>
+            Cộng đồng
+          </NavLink>
 
-                <button className="pill-button bg-black px-6 py-2.5 text-[12px] font-bold text-white hover:bg-[#4c4546]">
-                    Tải App
-                </button>
-            </div>
-        </header>
-    )
+          <NavLink to="/about" className={navLinkClass}>
+            Về PENTAVA
+          </NavLink>
+        </nav>
+
+        <button className="pill-button bg-black px-3 py-2 text-[10px] font-bold text-white hover:bg-[#4c4546] md:px-6 md:py-2.5 md:text-[12px]">
+          Tải App
+        </button>
+      </div>
+    </header>
+  )
 }
