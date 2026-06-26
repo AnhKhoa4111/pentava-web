@@ -3,22 +3,23 @@
 body {
   margin: 0;
   font-family: "Be Vietnam Pro", sans-serif;
-  background-color: #f9f9f9;
-  color: #1b1b1b;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   overflow-x: hidden;
 }
 
-.artisanal-card {
+.artisanal-card,
+.doodle-card {
   background: #ffffff;
-  border: 1px solid #d9d9d9;
+  border: 1.5px solid var(--border);
   border-radius: 15px;
-  box-shadow: 0 4px 0px 0px #000000;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.artisanal-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 6px 0px 0px #000000;
+.artisanal-card:hover,
+.doodle-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 4px 4px 0px var(--health);
 }
 
 .pill-button {
@@ -42,4 +43,23 @@ body {
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+:root {
+  --bg-main: #ffffff;
+  --text-main: #000000;
+  --text-sub: #727272;
+  --text-disabled: #c1c0c0;
+  --border: #d9d9d9;
+
+  --energy: #ffc857;
+  --alert: #f25f5c;
+  --health: #3a8157;
+  --calm: #529cff;
+  --purple: #8b63f6;
+
+  --soft-pink: #fff1f1;
+  --soft-green: #e8f3ec;
+  --soft-yellow: #fff4d8;
+  --soft-blue: #eaf3ff;
 }
