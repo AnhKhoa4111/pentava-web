@@ -1,15 +1,23 @@
+import { NavLink } from "react-router-dom"
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-[#D9D9D9] bg-[#F7FAFF] py-10">
       <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-8 px-8 md:flex-row">
         <div className="max-w-xs">
-          <div className="mb-4 text-2xl font-extrabold tracking-tighter text-[#3A8157]">
-            PENTAVA
-          </div>
+          <NavLink
+            to="/home"
+            className="flex h-12 w-[150px] shrink-0 items-center overflow-visible"
+          >
+            <img
+              src="/logo/logo.png"
+              alt="PENTAVA Logo"
+              className="h-10 w-auto origin-left scale-[2.5] object-contain"
+            />
+          </NavLink>
 
           <p className="text-sm leading-relaxed text-[#727272]">
-            Nâng tầm phong cách sống thông qua những thói quen nhỏ nhất,
-            đẹp nhất và bền vững nhất bằng ngôn ngữ đồ họa artisanal.
+            Nâng tầm phong cách sống thông qua những thói quen nhỏ nhất.
           </p>
         </div>
 
@@ -20,19 +28,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm font-medium text-[#727272]">
               <li>
-                <a className="transition-colors hover:text-[#3A8157]" href="#">
+                <NavLink className="transition-colors hover:text-[#3A8157]" to="/feature">
                   Tính năng
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a className="transition-colors hover:text-[#3A8157]" href="#">
+                <NavLink className="transition-colors hover:text-[#3A8157]" to="/cinema">
                   PENTA-CINEMA
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a className="transition-colors hover:text-[#3A8157]" href="#">
-                  Tải app
-                </a>
+                <NavLink className="transition-colors hover:text-[#3A8157]" to="/download">
+                  Tải App
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="transition-colors hover:text-[#3A8157]" to="/support">
+                  Hỗ trợ
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -43,19 +56,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm font-medium text-[#727272]">
               <li>
-                <a className="transition-colors hover:text-[#529CFF]" href="#">
-                  Về chúng tôi
-                </a>
+                <NavLink className="transition-colors hover:text-[#529CFF]" to="/about">
+                  Về PENTAVA
+                </NavLink>
               </li>
               <li>
-                <a className="transition-colors hover:text-[#529CFF]" href="#">
+                <NavLink className="transition-colors hover:text-[#529CFF]" to="/community">
                   Cộng đồng
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a className="transition-colors hover:text-[#529CFF]" href="#">
+                <NavLink className="transition-colors hover:text-[#529CFF]" to="/blog">
                   Blog
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -66,14 +79,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm font-medium text-[#727272]">
               <li>
-                <a className="transition-colors hover:text-[#8B63F6]" href="#">
+                <NavLink className="transition-colors hover:text-[#8B63F6]" to="/privacy">
                   Bảo mật
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a className="transition-colors hover:text-[#8B63F6]" href="#">
+                <NavLink className="transition-colors hover:text-[#8B63F6]" to="/terms">
                   Điều khoản
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>

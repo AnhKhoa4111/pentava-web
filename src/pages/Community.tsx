@@ -54,34 +54,15 @@ export default function Community() {
                 </span>
 
                 <h1 className="mb-6 text-[40px] font-extrabold leading-tight text-black md:text-6xl">
-                  Cùng nhau giữ nhịp thay đổi.
+                  Cùng nhau giữ nhịp thay đổi
                 </h1>
 
                 <p className="max-w-xl text-base leading-relaxed text-black/70">
-                  Cộng đồng PENTAVA giúp mỗi hành trình self-growth bớt cô độc hơn:
-                  cùng chia sẻ visual logs, tiếp thêm năng lượng và ăn mừng những bước tiến nhỏ.
+                  Xây dựng cộng đồng PENTAVA để trở thành nơi kết nối những "Kẻ mộng mơ thực tế" –
+                  những người trẻ đang trên hành trình tự hoàn thiện bản thân nhưng không cô độc.
                 </p>
 
-                <div className="mt-10 flex items-center space-x-4">
-                  <div className="flex -space-x-3">
-                    {members.map((src) => (
-                      <div
-                        key={src}
-                        className="h-11 w-11 overflow-hidden rounded-full border-2 border-white bg-slate-200"
-                      >
-                        <img className="h-full w-full object-cover" src={src} alt="Community member" />
-                      </div>
-                    ))}
 
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white bg-[#8B63F6] text-[10px] font-bold text-white">
-                      +2k
-                    </div>
-                  </div>
-
-                  <span className="text-xs font-semibold text-black/70">
-                    2,000+ người đang cùng xây thói quen tích cực
-                  </span>
-                </div>
               </div>
             </div>
           </section>
@@ -106,7 +87,6 @@ export default function Community() {
 
                 <div className="mt-6 flex items-center justify-between border-t border-[#D9D9D9] pt-6">
                   <span className="text-xs font-bold text-[#FFC857]">#ENERGY30</span>
-                  <span className="material-symbols-outlined text-[#FFC857]">arrow_forward</span>
                 </div>
               </div>
 
@@ -123,18 +103,15 @@ export default function Community() {
                   <p className="mb-6 text-base leading-relaxed text-[#727272]">
                     Những câu chuyện visual giúp người dùng nhìn thấy sự ổn định tinh thần và thể chất theo thời gian.
                   </p>
-
-                  <button className="w-fit rounded-full bg-[#529CFF] px-8 py-2.5 font-bold text-white shadow-[4px_4px_0px_0px_#8B63F6] transition-all hover:-translate-y-1">
-                    Xem thư viện
-                  </button>
                 </div>
 
+                {/* Đã bỏ class `grayscale` và `contrast-125` để ảnh hiển thị màu sắc tươi sáng */}
                 <div className="relative hidden w-1/3 border-l border-[#D9D9D9] md:block">
                   <div
-                    className="absolute inset-0 bg-cover bg-center grayscale contrast-125"
+                    className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage:
-                        "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAqpsB3ZDe5elJda3tHNTzZuMFF6sy-KbHpOvvHWiqCwx88HqZtRlYETeVtI3UDeNc9-xRGhkOJA8NqMyoxfd2Fj4jaXb7KzYQl-Ja5bs3w1GX27-NsHNVlSnMRuSppjsZ3Pd77kMBhd2jAqAMY43m2gpAD5WBswTqP0IJfrhdj-z5sIQv_3BmaFD6uaw8MjhM5uNosuiT4J3cda6iVeqvwjSi4KcE22ZupJydFODiaqGy4IEf2XVuAnCgxgkGHIGYEVuPlOPZPW5w')",
+                        "url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80')",
                     }}
                   />
                 </div>

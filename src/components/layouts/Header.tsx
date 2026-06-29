@@ -1,8 +1,26 @@
 import { NavLink } from "react-router-dom"
 
+const mainLinks = [
+  { label: "Tính năng", to: "/feature" },
+  { label: "PENTA-CINEMA", to: "/cinema" },
+  { label: "Tải App", to: "/download" },
+  { label: "Hỗ trợ", to: "/support" },
+]
+
+const companyLinks = [
+  { label: "Về PENTAVA", to: "/about" },
+  { label: "Cộng đồng", to: "/community" },
+  { label: "Blog", to: "/blog" },
+]
+
+const legalLinks = [
+  { label: "Bảo mật", to: "/privacy" },
+  { label: "Điều khoản", to: "/terms" },
+]
+
 export default function Header() {
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `rounded-full px-3 py-2 text-[9px] font-bold uppercase tracking-widest transition-all md:px-4 md:text-xs ${
+    `shrink-0 rounded-full px-3 py-2 text-[9px] font-bold uppercase tracking-widest transition-all md:px-4 md:text-[11px] ${
       isActive
         ? "bg-[#FFC857] text-black shadow-[3px_3px_0px_0px_#3A8157]"
         : "text-[#727272] hover:bg-[#F7FAFF] hover:text-[#3A8157]"
@@ -10,31 +28,41 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-[#D9D9D9] bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-3 px-4 py-4 md:px-8 md:py-5">
+      <div className="mx-auto flex h-[80px] max-w-[1200px] items-center px-4 md:px-8">
         <NavLink
           to="/home"
-          className="flex items-center gap-2 text-xl font-extrabold tracking-tighter text-[#3A8157] md:text-2xl"
+          className="flex h-12 w-[150px] shrink-0 items-center overflow-visible"
         >
-          PENTAVA
+          <img
+            src="/logo/logo.png"
+            alt="PENTAVA Logo"
+            className="h-10 w-auto origin-left scale-[2.5] object-contain"
+          />
         </NavLink>
 
-        <nav className="flex items-center gap-1 md:gap-3">
-          <NavLink to="/home" className={navLinkClass}>
-            Trang chủ
-          </NavLink>
+        <nav className="ml-80 flex gap-2 overflow-x-auto pb-1 lg:justify-center lg:overflow-visible lg:pb-0">
+          {mainLinks.map((item) => (
+            <NavLink key={item.to} to={item.to} className={navLinkClass}>
+              {item.label}
+            </NavLink>
+          ))}
 
-          <NavLink to="/community" className={navLinkClass}>
-            Cộng đồng
-          </NavLink>
+          <span className="hidden h-8 w-px shrink-0 bg-[#D9D9D9] lg:block" />
 
-          <NavLink to="/about" className={navLinkClass}>
-            Về PENTAVA
-          </NavLink>
+          {companyLinks.map((item) => (
+            <NavLink key={item.to} to={item.to} className={navLinkClass}>
+              {item.label}
+            </NavLink>
+          ))}
+
+          <span className="hidden h-8 w-px shrink-0 bg-[#D9D9D9] lg:block" />
+
+          {legalLinks.map((item) => (
+            <NavLink key={item.to} to={item.to} className={navLinkClass}>
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
-
-        <button className="pill-button hidden bg-[#3A8157] px-6 py-2.5 text-[12px] font-bold text-white shadow-[3px_3px_0px_0px_#FFC857] transition-all hover:-translate-y-0.5 hover:bg-[#2F6D49] sm:block">
-          Tải App
-        </button>
       </div>
     </header>
   )
