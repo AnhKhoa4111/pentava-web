@@ -74,19 +74,23 @@ export default function About() {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
                 <div className="rounded-[26px] bg-[#F7FAFF] p-10 shadow-[0_5px_0px_0px_rgba(255,200,87,0.6)]">
                   <h3 className="mb-4 text-2xl font-extrabold text-[#3A8157]">
-                    WHO-5 Certified
+                    Big Three Health Behaviors
                   </h3>
+
                   <p className="mb-6 text-sm leading-7 text-[#727272]">
-                    PENTAVA được xây dựng dựa trên khung đánh giá WHO-5 nhằm giúp người dùng tập trung vào sức khỏe toàn diện thay vì chỉ các chỉ số cơ thể khô khan.
+                    PENTAVA lấy cảm hứng từ nghiên cứu về vai trò của giấc ngủ, vận động thể
+                    chất và dinh dưỡng đối với well-being ở người trẻ. Đây là ba hành vi nền
+                    tảng giúp hành trình chăm sóc bản thân trở nên toàn diện, thực tế và bền
+                    vững hơn.
                   </p>
 
                   <a
-                    href="https://www.who.int/tools/who-5-well-being-index"
+                    href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0329689"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex rounded-full bg-[#FFC857] px-6 py-3 text-sm font-bold text-black shadow-[3px_3px_0px_0px_#3A8157] transition-all hover:-translate-y-1"
                   >
-                    Tìm hiểu thêm về WHO-5
+                    Xem nghiên cứu nền tảng
                   </a>
                 </div>
 
