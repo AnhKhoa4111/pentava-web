@@ -65,28 +65,13 @@ export default function Cinema() {
                 </p>
               </div>
 
-              <div className="relative rounded-[32px] border border-[#D9D9D9] bg-white p-6 shadow-[12px_12px_0px_0px_#FFC857]">
-                <div className="aspect-[9/14] rounded-[26px] bg-[#3A8157] p-6 text-white">
-                  <div className="mb-8 flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-widest text-[#FFC857]">
-                      Weekly Capsule
-                    </span>
-                    <span className="material-symbols-outlined text-[#FFC857]">
-                      movie
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="aspect-square rounded-3xl bg-[#FFC857]" />
-                    <div className="aspect-square rounded-3xl bg-[#529CFF]" />
-                    <div className="aspect-square rounded-3xl bg-[#8B63F6]" />
-                    <div className="aspect-square rounded-3xl bg-[#F25F5C]" />
-                  </div>
-
-                  <div className="mt-8 rounded-3xl bg-white/15 p-5">
-                    <div className="mb-3 h-2 w-24 rounded-full bg-white" />
-                    <div className="h-2 w-40 rounded-full bg-white/50" />
-                  </div>
+              <div className="relative rounded-[32px] border border-[#D9D9D9] bg-white p-4 shadow-[12px_12px_0px_0px_#FFC857]">
+                <div className="aspect-[9/14] overflow-hidden rounded-[26px] bg-[#3A8157]">
+                  <img
+                    src="/image/pentava-web-cinema.png"
+                    alt="PENTA-CINEMA preview"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
             </div>

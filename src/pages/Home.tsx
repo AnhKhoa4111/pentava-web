@@ -76,23 +76,12 @@ export default function Home() {
 
             <div className="relative mx-auto hidden w-full max-w-[420px] lg:block">
               <div className="rounded-[42px] border-[4px] border-[#3A8157] bg-[#FFC857] p-3 shadow-[16px_16px_0px_0px_#529CFF]">
-                <div className="aspect-[9/18] overflow-hidden rounded-[32px] border-2 border-white bg-white p-8">
-                  <div className="flex h-full flex-col justify-between rounded-[28px] bg-[#F7FAFF] p-6">
-                    <div>
-                      <div className="mb-6 h-3 w-24 rounded-full bg-[#3A8157]" />
-                      <div className="space-y-3">
-                        <div className="h-14 rounded-2xl bg-white shadow-sm" />
-                        <div className="h-14 rounded-2xl bg-white shadow-sm" />
-                        <div className="h-14 rounded-2xl bg-white shadow-sm" />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="aspect-square rounded-2xl bg-[#FFC857]" />
-                      <div className="aspect-square rounded-2xl bg-[#529CFF]" />
-                      <div className="aspect-square rounded-2xl bg-[#8B63F6]" />
-                    </div>
-                  </div>
+                <div className="aspect-[9/18] overflow-hidden rounded-[32px] border-2 border-white bg-white">
+                  <img
+                    src="/image/pentava-app-home.png"
+                    alt="PENTAVA app preview"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
 
