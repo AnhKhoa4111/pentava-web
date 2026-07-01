@@ -263,7 +263,7 @@ export default function Privacy() {
                   </a>
 
                   <a
-                    href="https://docs.google.com/document/d/1u9mX3gokH7iLaNAwozo3OvagstLYgfW9o_jPjKyq9SQ/edit?tab=t.364o052urj7r#heading=h.j5uagdkw73mc"
+                    href="https://drive.google.com/drive/folders/1Y_QUnHTtUT8YFWHxWz9zch2Ie-ffSxlj?usp=sharing"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex w-fit items-center gap-2 rounded-full border-2 border-white bg-transparent px-7 py-3 text-sm font-extrabold text-white shadow-[4px_4px_0px_0px_rgba(255,200,87,0.55)] transition-all hover:-translate-y-1 hover:bg-[#FFC857] hover:text-black"
