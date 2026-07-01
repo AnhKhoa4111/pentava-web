@@ -154,7 +154,7 @@ export default function Footer() {
 
               <NavLink
                 className="inline-flex items-center gap-2 text-sm font-semibold text-white/65 transition-all hover:translate-x-1 hover:scale-[1.04] hover:text-[#8B63F6]"
-                to="/legal"
+                to="/privacy"
               >
                 <span className="material-symbols-outlined text-[18px]">
                   shield_lock

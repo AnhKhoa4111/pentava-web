@@ -209,61 +209,75 @@ export default function Privacy() {
             </div>
           </aside>
 
-            <article className="rounded-[32px] border border-[#D9D9D9] bg-white px-6 py-8 shadow-[0_8px_0px_0px_rgba(0,0,0,0.04)] md:px-10 md:py-12">
-              {sections.map((section, index) => (
-                <section
-                  key={section.id}
-                  id={section.id}
-                  className={`scroll-mt-28 ${
-                    index !== 0 ? "border-t border-[#D9D9D9] pt-12" : ""
+          <article className="rounded-[32px] border border-[#D9D9D9] bg-white px-6 py-8 shadow-[0_8px_0px_0px_rgba(0,0,0,0.04)] md:px-10 md:py-12">
+            {sections.map((section, index) => (
+              <section
+                key={section.id}
+                id={section.id}
+                className={`scroll-mt-28 ${index !== 0 ? "border-t border-[#D9D9D9] pt-12" : ""
                   } ${index !== sections.length - 1 ? "pb-12" : ""}`}
-                >
-                  <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start">
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F7FAFF] text-sm font-extrabold text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">
-                      {section.label}
-                    </span>
+              >
+                <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F7FAFF] text-sm font-extrabold text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">
+                    {section.label}
+                  </span>
 
-                    <div>
-                      <p className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#727272]">
-                        {section.eyebrow}
-                      </p>
-
-                      <h2 className="text-3xl font-extrabold leading-tight text-black md:text-[42px]">
-                        {section.title}
-                      </h2>
-                    </div>
-                  </div>
-
-                  <div className="space-y-5 text-[15px] leading-8 text-[#727272]">
-                    {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-
-              <div className="mt-8 rounded-[28px] bg-[#3A8157] p-8 text-white shadow-[6px_6px_0px_0px_#FFC857]">
-                <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
                   <div>
-                    <h3 className="text-2xl font-extrabold">
-                      Cần hỗ trợ về dữ liệu hoặc điều khoản?
-                    </h3>
-
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
-                      Gửi yêu cầu cho PENTAVA nếu bạn cần hỗ trợ về tài khoản,
-                      dữ liệu cá nhân, quyền riêng tư hoặc quy chuẩn cộng đồng.
+                    <p className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#727272]">
+                      {section.eyebrow}
                     </p>
-                  </div>
 
+                    <h2 className="text-3xl font-extrabold leading-tight text-black md:text-[42px]">
+                      {section.title}
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="space-y-5 text-[15px] leading-8 text-[#727272]">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+
+            <div className="mt-8 rounded-[28px] bg-[#3A8157] p-8 text-white shadow-[6px_6px_0px_0px_#FFC857]">
+              <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+                <div>
+                  <h3 className="text-2xl font-extrabold">
+                    Cần hỗ trợ về dữ liệu hoặc điều khoản?
+                  </h3>
+
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
+                    Gửi yêu cầu cho PENTAVA nếu bạn cần hỗ trợ về tài khoản,
+                    dữ liệu cá nhân, quyền riêng tư hoặc quy chuẩn cộng đồng.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
                   <a
                     href="/support"
                     className="w-fit rounded-full bg-white px-7 py-3 text-sm font-extrabold text-[#3A8157] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1"
                   >
                     Liên hệ hỗ trợ
                   </a>
+
+                  <a
+                    href="https://docs.google.com/document/d/1u9mX3gokH7iLaNAwozo3OvagstLYgfW9o_jPjKyq9SQ/edit?tab=t.364o052urj7r#heading=h.j5uagdkw73mc"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex w-fit items-center gap-2 rounded-full border-2 border-white bg-transparent px-7 py-3 text-sm font-extrabold text-white shadow-[4px_4px_0px_0px_rgba(255,200,87,0.55)] transition-all hover:-translate-y-1 hover:bg-[#FFC857] hover:text-black"
+                  >
+                    Xem bản đầy đủ
+
+                    <span className="material-symbols-outlined text-[18px]">
+                      open_in_new
+                    </span>
+                  </a>
                 </div>
               </div>
-            </article>
+            </div>
+          </article>
         </section>
       </main>
 

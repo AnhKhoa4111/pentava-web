@@ -80,7 +80,7 @@ export default function Community() {
                 </div>
 
                 <div>
-                  <h3 className="mb-3 text-xl font-bold text-black">
+                  <h3 className="mb-3 text-[18px] font-bold leading-tight text-black md:whitespace-nowrap">
                     Thử thách năng lượng 30 ngày
                   </h3>
                   <p className="text-base leading-relaxed text-[#727272]">

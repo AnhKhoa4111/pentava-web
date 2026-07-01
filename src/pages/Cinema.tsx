@@ -45,8 +45,18 @@ export default function Cinema() {
                     Bộ phim điện ảnh
                   </span>
 
-                  <span className="mt-2 block max-w-[720px] text-[34px] leading-[1.14] text-[#3A8157] md:text-[48px]">
-                    về hành trình trở thành phiên bản tốt hơn của bạn
+                  <span className="mt-2 block max-w-[900px] text-[#3A8157]">
+                    <span className="block text-[32px] leading-[1.12] sm:whitespace-nowrap md:text-[46px]">
+                      về hành trình trở thành
+                    </span>
+
+                    <span className="block text-[34px] leading-[1.12] md:text-[48px]">
+                      phiên bản tốt hơn
+                    </span>
+
+                    <span className="block text-[30px] leading-[1.12] md:text-[42px]">
+                      của bạn
+                    </span>
                   </span>
                 </h1>
 
