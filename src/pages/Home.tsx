@@ -22,8 +22,19 @@ export default function Home() {
                 PENTAVA ECOSYSTEM
               </span>
 
-              <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-                Hệ sinh thái phát triển bản thân toàn diện PENTAVA
+              <h1 className="max-w-4xl font-extrabold leading-[0.95] tracking-tight text-black">
+                <span className="mb-3 block text-[42px] leading-none text-[#3A8157] md:text-[56px]">
+                  Hệ sinh thái
+                </span>
+
+                <span className="block max-w-[720px] text-[46px] leading-[1.08] md:text-[64px]">
+                  phát triển bản thân toàn diện
+                </span>
+
+                <span className="relative mt-4 inline-block text-[64px] leading-none tracking-[-0.06em] text-black md:text-[96px]">
+                  <span className="relative z-10">PENTAVA</span>
+                  <span className="absolute bottom-2 left-1 right-1 z-0 h-5 rounded-full bg-[#FFC857] md:h-7" />
+                </span>
               </h1>
 
               <p className="max-w-[560px] text-base leading-8 text-[#727272]">

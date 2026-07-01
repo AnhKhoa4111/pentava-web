@@ -16,8 +16,38 @@ export default function Cinema() {
                   PENTA-CINEMA
                 </span>
 
-                <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-                  PENTA-CINEMA – Bộ phim điện ảnh về hành trình trưởng thành của bạn
+                <h1 className="max-w-4xl font-extrabold tracking-tight text-black">
+                  <span className="relative mb-6 inline-flex rotate-[-1.5deg] items-center overflow-hidden rounded-[24px] border-2 border-[#3A8157] bg-black px-6 py-4 text-[34px] leading-none text-white shadow-[6px_6px_0px_0px_#FFC857] md:px-8 md:py-5 md:text-[52px]">
+                    <span className="absolute left-0 top-2 flex w-full justify-between px-3">
+                      {Array.from({ length: 9 }).map((_, index) => (
+                        <span
+                          key={index}
+                          className="h-2 w-2 rounded-sm bg-white/35 md:h-3 md:w-3"
+                        />
+                      ))}
+                    </span>
+
+                    <span className="absolute bottom-2 left-0 flex w-full justify-between px-3">
+                      {Array.from({ length: 9 }).map((_, index) => (
+                        <span
+                          key={index}
+                          className="h-2 w-2 rounded-sm bg-white/35 md:h-3 md:w-3"
+                        />
+                      ))}
+                    </span>
+
+                    <span className="relative z-10 tracking-[-0.05em]">
+                      PENTA-CINEMA
+                    </span>
+                  </span>
+
+                  <span className="block text-[38px] leading-[1.12] md:text-[56px]">
+                    Bộ phim điện ảnh
+                  </span>
+
+                  <span className="mt-2 block max-w-[720px] text-[34px] leading-[1.14] text-[#3A8157] md:text-[48px]">
+                    về hành trình trở thành phiên bản tốt hơn của bạn
+                  </span>
                 </h1>
 
                 <p className="max-w-[600px] text-base leading-8 text-[#727272]">

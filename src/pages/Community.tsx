@@ -35,29 +35,38 @@ export default function Community() {
                 </svg>
               </div>
 
-              <div className="absolute -right-12 -top-12 opacity-30">
-                <span className="material-symbols-outlined text-[180px] text-[#529CFF]">
-                  diversity_3
+              <div className="mb-6 inline-flex w-fit max-w-fit items-center gap-2 rounded-full bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(58,129,87,0.25)]">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#3A8157] text-white">
+                  <span className="material-symbols-outlined text-[18px]">
+                    diversity_3
+                  </span>
                 </span>
 
-              </div>
-
-              <div className="relative z-10 max-w-2xl">
-                <span className="mb-6 inline-block rounded-full bg-white px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
+                <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
                   PENTAVA COMMUNITY
                 </span>
-
-                <h1 className="mb-6 text-[40px] font-extrabold leading-tight text-black md:text-6xl">
-                  Cùng nhau giữ nhịp thay đổi
-                </h1>
-
-                <p className="max-w-xl text-base leading-relaxed text-black/70">
-                  Xây dựng cộng đồng PENTAVA để trở thành nơi kết nối những "Kẻ mộng mơ thực tế" –
-                  những người trẻ đang trên hành trình tự hoàn thiện bản thân nhưng không cô độc.
-                </p>
-
-
               </div>
+
+              <h1 className="mb-6 max-w-3xl font-extrabold tracking-tight text-black">
+                <span className="mb-4 block text-[36px] leading-none text-[#3A8157] md:text-[52px]">
+                  Cùng nhau
+                </span>
+
+                <span className="inline-flex rotate-[-1deg] items-center gap-3 rounded-[24px] bg-white px-5 py-3 text-[44px] leading-none shadow-[5px_5px_0px_0px_#529CFF] md:text-[64px]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFC857] md:h-12 md:w-12">
+                    <span className="material-symbols-outlined text-[24px] text-black md:text-[30px]">
+                      favorite
+                    </span>
+                  </span>
+
+                  giữ nhịp
+                </span>
+
+                <span className="relative mt-5 block w-fit text-[48px] leading-none tracking-[-0.05em] md:text-[72px]">
+                  <span className="relative z-10">thay đổi</span>
+                  <span className="absolute bottom-1 left-1 right-1 z-0 h-4 rounded-full bg-[#8B63F6]/25 md:bottom-2 md:h-6" />
+                </span>
+              </h1>
             </div>
           </section>
         </Reveal>

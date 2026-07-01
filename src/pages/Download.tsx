@@ -15,8 +15,26 @@ export default function Download() {
                 DOWNLOAD PENTAVA
               </span>
 
-              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-                Bắt đầu hành trình thiết lập Routine 1 Chạm
+              <h1 className="max-w-4xl font-extrabold tracking-tight text-black">
+                <span className="mb-4 block text-[34px] leading-none text-[#3A8157] md:text-[48px]">
+                  Bắt đầu hành trình
+                </span>
+
+                <span className="block text-[38px] leading-[1.1] md:text-[56px]">
+                  thiết lập
+                </span>
+
+                <span className="mt-5 inline-flex rotate-[-1deg] items-center gap-3 rounded-[26px] border-2 border-[#3A8157] bg-white px-5 py-4 text-[42px] leading-none text-black shadow-[6px_6px_0px_0px_#FFC857] md:px-7 md:py-5 md:text-[68px]">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#3A8157] text-white md:h-14 md:w-14">
+                    <span className="material-symbols-outlined text-[28px] md:text-[34px]">
+                      touch_app
+                    </span>
+                  </span>
+
+                  <span className="tracking-[-0.06em]">
+                    Routine 1 Chạm
+                  </span>
+                </span>
               </h1>
 
               <p className="max-w-[560px] text-base leading-8 text-[#727272]">

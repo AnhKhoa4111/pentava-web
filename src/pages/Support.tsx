@@ -22,28 +22,44 @@ export default function Support() {
         <Reveal>
           <section className="mx-auto max-w-[960px] px-6 py-20 md:px-8">
             <div className="mb-14 text-center">
-              <span className="inline-block rounded-full bg-[#529CFF] px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-[3px_3px_0px_0px_#8B63F6]">
-                FAQ
-              </span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(82,156,255,0.25)]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#529CFF] text-white">
+                  <span className="material-symbols-outlined text-[18px]">
+                    support_agent
+                  </span>
+                </span>
 
-              <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-                Trung tâm hỗ trợ người dùng PENTAVA
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#529CFF]">
+                  FAQ
+                </span>
+              </div>
+
+              <h1 className="mx-auto mt-8 max-w-4xl font-extrabold tracking-tight text-black">
+                <span className="mb-4 block text-[34px] leading-none text-[#3A8157] md:text-[46px]">
+                  Trung tâm hỗ trợ
+                </span>
+
+                <span className="flex flex-wrap items-baseline justify-center gap-3 text-[40px] leading-[1.12] md:text-[58px]">
+                  <span>người dùng</span>
+
+                  <span className="relative inline-block text-[44px] leading-none tracking-[-0.05em] text-black md:text-[68px]">
+                    <span className="relative z-10">PENTAVA</span>
+                    <span className="absolute bottom-1 left-1 right-1 z-0 h-3 rounded-full bg-[#529CFF]/30 md:bottom-2 md:h-5" />
+                  </span>
+                </span>
+
+
               </h1>
             </div>
 
             <div className="space-y-6">
-              {faqs.map((item, index) => (
+              {faqs.map((item) => (
                 <div
                   key={item.q}
                   className="rounded-[26px] border border-[#D9D9D9] bg-white p-8 shadow-[0_5px_0px_0px_rgba(0,0,0,0.06)]"
                 >
                   <div className="mb-5 flex items-start gap-4">
-                    <span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white"
-                      style={{
-                        backgroundColor: index === 0 ? "#3A8157" : "#F25F5C",
-                      }}
-                    >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#3A8157] text-sm font-extrabold text-white">
                       Q
                     </span>
 

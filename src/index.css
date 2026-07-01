@@ -63,3 +63,37 @@ body {
   --soft-yellow: #fff4d8;
   --soft-blue: #eaf3ff;
 }
+
+@keyframes bookPage {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-22deg) translateY(28px);
+    filter: blur(4px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(4deg) translateY(0);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0deg) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes bookFade {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+} 

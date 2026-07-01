@@ -30,13 +30,26 @@ export default function Blog() {
 
       <main className="bg-[#F7FAFF] pt-32 text-black lg:pt-28">
         <Reveal>
-          <section className="mx-auto max-w-[1200px] px-6 py-20 text-center md:px-8">
-            <span className="inline-block rounded-full bg-[#8B63F6] px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-[3px_3px_0px_0px_#529CFF]">
-              PENTAVA MAGAZINE
-            </span>
+          <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-20 text-center md:px-8">
+            <h1 className="mx-auto max-w-5xl font-extrabold tracking-tight text-black">
+              <span className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-[48px] leading-none tracking-[-0.06em] md:text-[82px]">
+                <span>PENTAVA</span>
 
-            <h1 className="mx-auto mt-8 max-w-5xl text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-              PENTAVA Magazine – Cảm hứng sống và Tâm lý học ứng dụng
+                <span className="rotate-[-1deg] rounded-[24px] bg-[#8B63F6] px-5 py-3 text-[34px] leading-none text-white shadow-[5px_5px_0px_0px_#529CFF] md:px-7 md:py-4 md:text-[54px]">
+                  Magazine
+                </span>
+              </span>
+
+              <span className="mt-8 flex flex-col items-center text-center">
+                <span className="block text-[38px] leading-[1.05] text-[#3A8157] md:text-[58px]">
+                  Cảm hứng sống
+                </span>
+
+                <span className="relative mt-3 inline-block w-fit text-[34px] leading-[1.08] text-black md:text-[52px]">
+                  <span className="relative z-10">& Tâm lý học ứng dụng</span>
+                  <span className="absolute bottom-1 left-1 right-1 z-0 h-3 rounded-full bg-[#FFC857] md:bottom-2 md:h-5" />
+                </span>
+              </span>
             </h1>
           </section>
         </Reveal>

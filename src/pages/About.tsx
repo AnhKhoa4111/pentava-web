@@ -19,12 +19,29 @@ export default function About() {
       <main className="bg-[#F7FAFF] pt-32 text-black lg:pt-28">
         <Reveal>
           <section className="mx-auto max-w-[1200px] px-6 py-20 text-center md:px-8">
-            <span className="inline-block rounded-full bg-[#FFC857] px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-black shadow-[3px_3px_0px_0px_#3A8157]">
-              Về PENTAVA
-            </span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(255,200,87,0.75)]">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#FFC857]" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
+                Về PENTAVA
+              </span>
+            </div>
 
-            <h1 className="mx-auto mt-8 max-w-5xl text-5xl font-extrabold leading-[1.05] tracking-tight md:text-[64px]">
-              Câu chuyện PENTAVA – Tái định nghĩa cách người trẻ chăm sóc bản thân
+            <h1 className="mx-auto mt-8 max-w-5xl font-extrabold tracking-tight text-black">
+              <span className="mb-4 block text-[34px] leading-none text-[#727272] md:text-[44px]">
+                Câu chuyện
+              </span>
+
+              <span className="relative inline-block rotate-[-1deg] rounded-[26px] bg-[#FFC857] px-5 py-3 text-[54px] leading-none tracking-[-0.06em] text-black shadow-[6px_6px_0px_0px_#3A8157] md:px-7 md:py-4 md:text-[84px]">
+                PENTAVA
+              </span>
+
+              <span className="mt-7 block text-[34px] leading-[1.12] text-[#3A8157] md:text-[52px]">
+                Tái định nghĩa cách
+              </span>
+
+              <span className="mx-auto mt-2 block max-w-[800px] text-[40px] leading-[1.12] md:text-[56px]">
+                người trẻ chăm sóc bản thân
+              </span>
             </h1>
           </section>
         </Reveal>
