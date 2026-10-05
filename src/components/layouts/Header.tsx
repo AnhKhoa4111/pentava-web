@@ -35,6 +35,8 @@ export default function Header() {
   const isLegalActive =
     location.pathname.startsWith("/privacy") ||
     location.pathname.startsWith("/terms")
+  const isAdminActive =
+    location.pathname.startsWith("/login") || location.pathname.startsWith("/admin")
 
   const triggerClass = (active: boolean) =>
     `group inline-flex items-center gap-2 rounded-full px-5 py-3 text-[11px] font-extrabold uppercase tracking-widest transition-all ${
@@ -136,6 +138,20 @@ export default function Header() {
               ))}
             </div>
           </div>
+
+          <NavLink
+            to="/login"
+            className={`inline-flex h-12 w-12 items-center justify-center rounded-full transition-all ${
+              isAdminActive
+                ? "bg-[#FFC857] text-black shadow-[3px_3px_0px_0px_#3A8157]"
+                : "bg-[#F7FAFF] text-[#727272] hover:bg-[#FFC857] hover:text-black hover:shadow-[3px_3px_0px_0px_#3A8157]"
+            }`}
+            aria-label="Đăng nhập quản trị"
+          >
+            <span className="material-symbols-outlined text-[23px]">
+              admin_panel_settings
+            </span>
+          </NavLink>
         </nav>
 
         <nav className="flex max-w-[68vw] gap-2 overflow-x-auto pb-1 lg:hidden">
@@ -177,6 +193,22 @@ export default function Header() {
           >
             <span className="material-symbols-outlined text-[19px]">
               shield_lock
+            </span>
+          </NavLink>
+
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              `flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                isActive
+                  ? "bg-[#FFC857] text-black shadow-[3px_3px_0px_0px_#3A8157]"
+                  : "bg-[#F7FAFF] text-[#727272]"
+              }`
+            }
+            aria-label="Đăng nhập quản trị"
+          >
+            <span className="material-symbols-outlined text-[19px]">
+              admin_panel_settings
             </span>
           </NavLink>
         </nav>

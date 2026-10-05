@@ -10,8 +10,20 @@ import About from "./pages/About"
 import Community from "./pages/Community"
 import Blog from "./pages/Blog"
 import Privacy from "./pages/Privacy"
+import Login from "./pages/Login"
+import Admin from "./pages/Admin"
 import ScrollToTop from "./components/common/ScrollToTop"
 import "./index.css"
+
+function ProtectedAdminRoute() {
+  const token = localStorage.getItem("pentava-admin-token")
+
+  if (!token) {
+    return <Navigate to="/login" replace />
+  }
+
+  return <Admin />
+}
 
 function App() {
   return (
@@ -34,6 +46,8 @@ function App() {
         <Route path="/blog" element={<Blog />} />
 
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<ProtectedAdminRoute />} />
 
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
