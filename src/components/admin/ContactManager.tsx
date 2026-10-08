@@ -292,14 +292,14 @@ export default function ContactManager() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* <button
+            <button
               type="button"
               onClick={handleExportCsv}
               className="inline-flex h-11 items-center gap-2 rounded-full border-2 border-[#3A8157] bg-white px-4 text-xs font-extrabold text-[#3A8157] transition-colors hover:bg-[#E8F3EC]"
             >
               <span className="material-symbols-outlined text-[18px]">download</span>
               Xuất CSV
-            </button> */}
+            </button>
 
             <button
               type="button"

@@ -18,12 +18,12 @@ const socialLinks = ["Facebook", "Instagram", "LinkedIn"]
 export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden bg-[#1F2621] text-white">
-      <div className="relative h-16 w-full bg-[#FFC857] overflow-hidden">
+      <div className="relative h-16 w-full overflow-hidden bg-[#FFC857]">
         {/* Lớp 1: sợi giấy tưa - màu be nhạt gần giống bóng đổ của giấy, nằm ngay trên viền tối */}
         <div
           className="absolute bottom-0 left-0 w-full bg-[#0F1410]"
           style={{
-            height: '46px',
+            height: "46px",
             clipPath: `polygon(
         0% 10%, 1% 4%, 1.8% 9%, 2.6% 2%, 3.5% 12%, 4.3% 5%,
         5.2% 11%, 6% 3%, 6.9% 15%, 7.7% 6%, 8.6% 10%, 9.4% 2%,
@@ -48,7 +48,7 @@ export default function Footer() {
         100% 100%, 0% 100%
       )`,
             opacity: 0.35,
-            filter: 'blur(0.5px)',
+            filter: "blur(0.5px)",
           }}
         />
 
@@ -56,7 +56,7 @@ export default function Footer() {
         <div
           className="absolute bottom-0 left-0 w-full bg-[#1F2621]"
           style={{
-            height: '42px',
+            height: "42px",
             clipPath: `polygon(
         0% 12%, 1% 5%, 1.8% 15%, 2.6% 3%, 3.5% 10%, 4.3% 18%,
         5.2% 4%, 6% 13%, 6.9% 6%, 7.7% 22%, 8.6% 3%, 9.4% 11%,
@@ -80,7 +80,7 @@ export default function Footer() {
         97% 21%, 97.8% 5%, 98.7% 12%, 100% 7%,
         100% 100%, 0% 100%
       )`,
-            filter: 'drop-shadow(0 -2px 3px rgba(0,0,0,0.15))',
+            filter: "drop-shadow(0 -2px 3px rgba(0,0,0,0.15))",
           }}
         />
       </div>
@@ -171,7 +171,7 @@ export default function Footer() {
                     element.scrollIntoView({ behavior: "smooth" })
                   }
                 }}
-                className="mt-7 inline-block rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#1F2621] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1 text-center"
+                className="mt-7 inline-block rounded-full bg-white px-6 py-3 text-center text-sm font-extrabold text-[#1F2621] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1"
               >
                 Liên hệ
               </a>
@@ -181,7 +181,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-start justify-between gap-5 border-t border-white/10 pt-6 md:flex-row md:items-center">
           <p className="text-[11px] font-bold uppercase tracking-widest text-white/45">
-            © 2024 PENTAVA. All rights reserved.
+            © 2026 PENTAVA. All rights reserved.
           </p>
 
           <div className="flex flex-wrap gap-4">
