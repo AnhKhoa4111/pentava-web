@@ -117,11 +117,11 @@ export default function Hero() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="rounded-[36px] border-[4px] border-[#3A8157] bg-[#FFC857] p-3 shadow-[14px_14px_0px_0px_#529CFF]"
           >
-            <div className="aspect-[9/18] overflow-hidden rounded-[26px] border-2 border-white bg-white shadow-inner">
+            <div className="aspect-[1284/2121] w-full overflow-hidden rounded-[26px] border-2 border-white bg-white shadow-inner">
               <img
                 src="/image/pentava-app-home.png"
                 alt="Giao diện ứng dụng PENTAVA"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
           </motion.div>

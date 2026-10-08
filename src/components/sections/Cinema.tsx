@@ -50,11 +50,7 @@ export default function Cinema() {
               alt="PENTA-CINEMA preview"
               className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="pointer-events-none absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-black bg-white text-black shadow-lg">
-                <span className="material-symbols-outlined text-3xl">play_arrow</span>
-              </span>
-            </div>
+
           </div>
         </motion.div>
       </div>
