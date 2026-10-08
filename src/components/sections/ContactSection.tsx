@@ -160,7 +160,7 @@ export default function ContactSection({
             {/* Direct Contact Cards */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <a
-                href="mailto:hello@pentava.vn"
+                href="mailto:pentava.official@gmail.com"
                 className="flex items-center gap-3 rounded-2xl border-2 border-black bg-white p-4 shadow-[4px_4px_0px_0px_#3A8157] transition-all hover:-translate-y-0.5"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-black bg-[#E8F3EC] text-[#3A8157]">
@@ -293,11 +293,10 @@ export default function ContactSection({
                         key={topic}
                         type="button"
                         onClick={() => setFormData({ ...formData, subject: topic })}
-                        className={`rounded-full border-2 border-black px-3.5 py-1 text-xs font-bold transition-all cursor-pointer ${
-                          formData.subject === topic
+                        className={`rounded-full border-2 border-black px-3.5 py-1 text-xs font-bold transition-all cursor-pointer ${formData.subject === topic
                             ? "bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
                             : "bg-[#F7FAFF] text-[#727272] hover:bg-[#FFC857] hover:text-black hover:shadow-[2px_2px_0px_0px_#3A8157]"
-                        }`}
+                          }`}
                       >
                         {topic}
                       </button>

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --color-border: #e5e7eb;
+  --color-input: #e5e7eb;
+  --color-ring: #3a8157;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-primary: #3a8157;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f4f6;
+  --color-secondary-foreground: #111827;
+  --color-muted: #f9fafb;
+  --color-muted-foreground: #6b7280;
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+}
+
 body {
   margin: 0;
   font-family: "Be Vietnam Pro", sans-serif;
@@ -64,6 +80,42 @@ body {
   --soft-blue: #eaf3ff;
 }
 
+/* Scroll Reel Animation Classes & Keyframes */
+.scroll-reel-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation-name: scroll-reel-char-rise;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.scroll-reel-exit {
+  animation-name: scroll-reel-exit;
+  animation-duration: 0.24s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes scroll-reel-char-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-reel-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
 @keyframes bookPage {
   0% {
     opacity: 0;
@@ -96,4 +148,4 @@ body {
     transform: translateY(0) scale(1);
     filter: blur(0);
   }
-} 
+}
