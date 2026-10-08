@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
 import ContactManager from "../components/admin/ContactManager"
+import SubscriptionManager from "../components/admin/SubscriptionManager"
+import UserManager from "../components/admin/UserManager"
 import { authService } from "../services/authService"
 
-type ModuleKey = "contacts" | "users"
+type ModuleKey = "contacts" | "subscriptions" | "users"
 
 type AdminRecord = {
   id: number
@@ -27,16 +29,28 @@ type AdminModule = {
   records: AdminRecord[]
 }
 
-const user = (id: number, name: string, email: string, verified: string, onboarding: string, provider: string, created: string): AdminRecord => ({
-  id,
-  primary: name,
-  secondary: email,
-  status: verified,
-  detail: { ID: String(id), Email: email, "Xác thực": verified, "Onboarding": onboarding, "Provider": provider, "Ngày tạo": created },
-  searchable: `${name} ${email} ${verified} ${provider}`,
-})
 
 const modules: AdminModule[] = [
+  {
+    key: "users",
+    label: "Người dùng",
+    table: "users",
+    icon: "group",
+    color: "#3A8157",
+    description: "Theo dõi tài khoản, trạng thái xác thực và onboarding.",
+    columns: ["Người dùng", "Xác thực", "Onboarding", "Provider", "Ngày tạo"],
+    records: [],
+  },
+  {
+    key: "subscriptions",
+    label: "Gói cước",
+    table: "subscriptions",
+    icon: "workspace_premium",
+    color: "#D97706",
+    description: "Quản trị các gói hội viên, cấu hình modular tính năng và theo dõi thuê bao.",
+    columns: ["Gói cước", "Giá tiền", "Thời hạn", "Trạng thái", "Tính năng"],
+    records: [],
+  },
   {
     key: "contacts",
     label: "Yêu cầu liên hệ",
@@ -46,21 +60,6 @@ const modules: AdminModule[] = [
     description: "Quản lý và cập nhật trạng thái các yêu cầu hỗ trợ từ khách hàng.",
     columns: ["Người gửi", "Tiêu đề", "Trạng thái", "Ngày gửi", "Ghi chú admin"],
     records: [],
-  },
-  {
-    key: "users",
-    label: "Người dùng",
-    table: "users",
-    icon: "group",
-    color: "#3A8157",
-    description: "Theo dõi tài khoản, trạng thái xác thực và onboarding.",
-    columns: ["Người dùng", "Xác thực", "Onboarding", "Provider", "Ngày tạo"],
-    records: [
-      user(1, "Nguyễn Minh Anh", "minhanh@example.com", "Đã xác thực", "Hoàn tất", "Google", "12/09/2026"),
-      user(2, "Trần Gia Hân", "giahan@example.com", "Chưa xác thực", "Đang làm", "Email", "15/09/2026"),
-      user(3, "Lê Hoàng Nam", "hoangnam@example.com", "Đã xác thực", "Hoàn tất", "Email", "18/09/2026"),
-      user(4, "Phạm Khánh Linh", "khanhlinh@example.com", "Đã xác thực", "Hoàn tất", "Google", "22/09/2026"),
-    ],
   },
 ]
 
@@ -78,7 +77,7 @@ function exportCsv(module: AdminModule, records: AdminRecord[]) {
 
 export default function Admin() {
   const navigate = useNavigate()
-  const [activeKey, setActiveKey] = useState<ModuleKey>("contacts")
+  const [activeKey, setActiveKey] = useState<ModuleKey>("users")
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("Tất cả")
   const [selected, setSelected] = useState<AdminRecord | null>(null)
@@ -113,19 +112,29 @@ export default function Admin() {
         <section className="mx-auto max-w-[1260px] py-10">
           <div className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
             <div>
-              <span className="mb-4 inline-flex rounded-full border-2 border-[#FFC857] bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">PENTAVA admin</span>
+              <span className="mb-4 inline-flex rounded-full border-2 border-[#FFC857] bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">
+                PENTAVA admin
+              </span>
               <h1 className="text-[36px] font-extrabold leading-tight md:text-[52px]">Quản trị hệ thống</h1>
               <p className="mt-3 max-w-[700px] text-sm leading-7 text-[#727272]">
-                Xem và quản lý các yêu cầu liên hệ từ Landing Page cũng như các bảng dữ liệu người dùng PENTAVA.
+                Xem và quản lý các yêu cầu liên hệ, cấu hình các gói cước dịch vụ và dữ liệu người dùng PENTAVA.
               </p>
             </div>
             <div className="flex gap-3">
-              {activeKey !== "contacts" && (
-                <button type="button" onClick={() => exportCsv(activeModule, filteredRecords)} className="inline-flex h-12 items-center gap-2 rounded-full border-2 border-[#3A8157] bg-white px-5 text-xs font-extrabold uppercase tracking-widest text-[#3A8157] hover:bg-[#E8F3EC]">
+              {activeKey !== "contacts" && activeKey !== "subscriptions" && activeKey !== "users" && (
+                <button
+                  type="button"
+                  onClick={() => exportCsv(activeModule, filteredRecords)}
+                  className="inline-flex h-12 items-center gap-2 rounded-full border-2 border-[#3A8157] bg-white px-5 text-xs font-extrabold uppercase tracking-widest text-[#3A8157] hover:bg-[#E8F3EC]"
+                >
                   <span className="material-symbols-outlined text-[19px]">download</span> Xuất CSV
                 </button>
               )}
-              <button type="button" onClick={handleLogout} className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-5 text-xs font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] hover:-translate-y-1">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-5 text-xs font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] hover:-translate-y-1"
+              >
                 Đăng xuất <span className="material-symbols-outlined text-[19px]">logout</span>
               </button>
             </div>
@@ -133,24 +142,25 @@ export default function Admin() {
 
           <div className="grid gap-6 lg:grid-cols-[250px_1fr]">
             <aside className="h-fit rounded-[24px] border border-[#D9D9D9] bg-white p-3 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)]">
-              <p className="px-3 pb-3 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-[#727272]">Danh mục quản lý</p>
+              <p className="px-3 pb-3 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-[#727272]">
+                Danh mục quản lý
+              </p>
               <nav className="space-y-1">
                 {modules.map((item) => (
                   <button
                     key={item.key}
                     type="button"
                     onClick={() => handleModuleChange(item.key)}
-                    className={`flex w-full items-center gap-3 rounded-[14px] px-3 py-3 text-left text-sm font-extrabold transition-colors ${
-                      activeKey === item.key
-                        ? "bg-[#E8F3EC] text-[#3A8157]"
-                        : "text-[#727272] hover:bg-[#F7FAFF]"
-                    }`}
+                    className={`flex w-full items-center gap-3 rounded-[14px] px-3 py-3 text-left text-sm font-extrabold transition-colors ${activeKey === item.key
+                      ? "bg-[#E8F3EC] text-[#3A8157]"
+                      : "text-[#727272] hover:bg-[#F7FAFF]"
+                      }`}
                   >
                     <span className="material-symbols-outlined text-[21px]" style={{ color: item.color }}>
                       {item.icon}
                     </span>
                     <span className="flex-1">{item.label}</span>
-                    {item.key === "contacts" ? (
+                    {item.key === "contacts" || item.key === "subscriptions" || item.key === "users" ? (
                       <span className="rounded-full bg-[#3A8157] px-2 py-0.5 text-[9px] font-extrabold text-white">
                         LIVE
                       </span>
@@ -165,6 +175,10 @@ export default function Admin() {
             <section className="min-w-0">
               {activeKey === "contacts" ? (
                 <ContactManager />
+              ) : activeKey === "subscriptions" ? (
+                <SubscriptionManager />
+              ) : activeKey === "users" ? (
+                <UserManager />
               ) : (
                 <div className="rounded-[24px] border border-[#D9D9D9] bg-white p-4 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)] md:p-6">
                   <div className="mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-start">
