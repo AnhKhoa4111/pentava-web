@@ -9,34 +9,34 @@ const TRANSFORMATION_STORIES: ScrollReelTestimonial[] = [
   {
     quote:
       "Trước đây mình dùng 4-5 app rời rạc cho thói quen, cảm xúc và nhật ký. Với PENTAVA, Routine 1 chạm tích hợp trọn vẹn giúp mình bắt đầu ngày mới nhẹ nhàng mà không quá tải.",
-    author: "Minh Anh • Giải pháp Routine 1 chạm tích hợp",
+    author: "Thanh Hải • Giải pháp Routine 1 chạm tích hợp",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Minh Anh",
+    alt: "Chân dung Thanh Hải",
   },
   {
     quote:
       "Các ứng dụng khác trừng phạt khi lỡ đứt streak khiến mình rất tội lỗi. PENTAVA có tính năng Nhịp thở an lành tự động hạ cường độ khi mệt, giúp mình phục hồi và gắn bó lâu dài.",
-    author: "Quốc Bảo • Chuyển hóa từ áp lực streak sang kỷ luật tử tế",
+    author: "Anh Khoa • Chuyển hóa từ áp lực streak sang kỷ luật tử tế",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Quốc Bảo",
+    alt: "Chân dung Anh Khoa",
   },
   {
     quote:
       "Thay vì những ô checkbox vô hồn, PENTAVA lưu lại ảnh và mood thật, cuối tuần dựng thành thước phim PENTA-CINEMA sinh động. Cảm giác nhìn thấy chính mình tiến bộ mỗi tuần thật tuyệt vời.",
-    author: "Thảo Vy • Visual Verification & PENTA-CINEMA Recap",
+    author: "Gia Hân • Visual Verification & PENTA-CINEMA Recap",
     image:
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Thảo Vy",
+    alt: "Chân dung Gia Hân",
   },
   {
     quote:
       "Nhóm đồng hành 5 người không hề có bảng xếp hạng hay đố kỵ, chỉ có những cái đập tay tiếp sức chân thành. Mình tìm thấy sự kỷ luật tự giác mà không hề cảm thấy cô đơn.",
-    author: "Hoàng Long • Đồng hành nhóm nhỏ văn minh",
+    author: "Hải Đăng • Đồng hành nhóm nhỏ văn minh",
     image:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Hoàng Long",
+    alt: "Chân dung Hải Đăng",
   },
 ]
 
@@ -116,31 +116,7 @@ export default function Solution() {
               whileHover={{ y: -4 }}
               className="relative h-full flex flex-col justify-between rounded-3xl border-2 border-black bg-white p-7 shadow-[6px_6px_0px_0px_#3A8157] transition-all"
             >
-              <div>
-                <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-5">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-black bg-black font-black text-white text-sm shadow-[2px_2px_0px_0px_#FFC857]">
-                    {item.step}
-                  </span>
-                  <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#727272]">
-                    {item.tag}
-                  </span>
-                </div>
 
-                {/* Rào cản cũ */}
-                <div className="mb-4 rounded-2xl border border-red-200 bg-red-50/70 p-3.5">
-                  <p className="text-[10px] font-extrabold uppercase tracking-wider text-red-600 mb-1">
-                    Rào cản cũ
-                  </p>
-                  <p className="text-xs font-bold text-black/80">{item.before}</p>
-                </div>
-
-                {/* Mũi tên chuyển đổi */}
-                <div className="my-2 flex justify-center">
-                  <span className="material-symbols-outlined text-[18px] text-[#3A8157] animate-bounce">
-                    arrow_downward
-                  </span>
-                </div>
-              </div>
 
               {/* Giải pháp PENTAVA */}
               <div

@@ -163,11 +163,10 @@ export default function CommunityPreview() {
                   whileTap={{ scale: 0.9 }}
                   whileHover={{ scale: 1.05 }}
                   onClick={() => handleClap(card.tag)}
-                  className={`flex items-center gap-1.5 rounded-full border-2 border-black px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                    userClapCount > 0
+                  className={`flex items-center gap-1.5 rounded-full border-2 border-black px-4 py-2 text-xs font-black transition-all cursor-pointer ${userClapCount > 0
                       ? "bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
                       : "bg-[#FFC857] text-black shadow-[2px_2px_0px_0px_#3A8157] hover:bg-[#ffe082]"
-                  }`}
+                    }`}
                   aria-label="Đập tay tiếp sức"
                 >
                   <span className="material-symbols-outlined text-[16px]">
@@ -175,8 +174,8 @@ export default function CommunityPreview() {
                   </span>
                   <span>
                     {userClapCount > 0
-                      ? `Đã đập tay (+${userClapCount})`
-                      : "Đập tay tiếp sức"}
+                      ? `+${userClapCount}`
+                      : ""}
                   </span>
                 </motion.button>
               </div>
