@@ -42,15 +42,15 @@ export default function Cinema() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
           whileHover={{ y: -5 }}
-          className="rounded-3xl border-2 border-black bg-[#F7FAFF] p-4 shadow-[12px_12px_0px_0px_#FFC857] transition-all"
+          className="mx-auto w-full max-w-[380px] lg:justify-self-end rounded-3xl border-2 border-black bg-[#F7FAFF] p-3 md:p-4 shadow-[12px_12px_0px_0px_#FFC857] transition-all"
         >
-          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-[#3A8157] lg:aspect-[4/3] group border border-black/10">
+          <div className="relative aspect-[1284/2504] w-full overflow-hidden rounded-2xl bg-white group border border-black/10">
             <img
               src="/image/pentava-web-cinema.png"
               alt="PENTA-CINEMA preview"
-              className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="pointer-events-none absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-black bg-white text-black shadow-lg">
                 <span className="material-symbols-outlined text-3xl">play_arrow</span>
               </span>
