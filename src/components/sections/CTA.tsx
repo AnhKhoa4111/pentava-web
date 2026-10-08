@@ -1,6 +1,5 @@
 import { motion } from "motion/react"
 import ScrambleText from "../common/ScrambleText"
-import { NumberTicker } from "../common/Ticker"
 
 export default function CTA() {
   return (
@@ -29,15 +28,15 @@ export default function CTA() {
             Trải nghiệm miễn phí các tính năng cốt lõi ngay hôm nay. Không quảng cáo độc hại, không áp lực streak vô nghĩa, đồng hành cùng bạn trên từng bước tiến bộ nhỏ nhất.
           </p>
 
-          {/* Live Stat Ticker */}
+          {/* Cam kết trải nghiệm tích cực (thay cho số liệu ảo) */}
           <div className="inline-flex items-center gap-3 rounded-2xl border-2 border-black bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white shadow-[3px_3px_0px_0px_#FFC857]">
-            <span className="material-symbols-outlined text-2xl text-[#FFC857]">trending_up</span>
+            <span className="material-symbols-outlined text-2xl text-[#FFC857]">health_and_safety</span>
             <div>
               <p className="font-extrabold text-white text-base">
-                <NumberTicker value={5420} suffix="+" /> bạn trẻ đã bắt đầu
+                Trải nghiệm phát triển bản thân lành mạnh
               </p>
-              <p className="text-xs text-white/75 font-semibold">
-                Đánh giá ⭐ 4.9/5 trên App Store & Google Play
+              <p className="text-xs text-white/80 font-semibold">
+                Cá nhân hóa theo nhịp sinh học • Không quảng cáo • Tôn trọng tiến trình riêng
               </p>
             </div>
           </div>
