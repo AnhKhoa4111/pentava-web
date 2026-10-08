@@ -207,7 +207,7 @@ export default function SubscriptionManager() {
     setFeatureConfigForm((prev) =>
       prev.map((item) => {
         if (item.featureCode === featureCode) {
-          const nextVal = !Boolean(item.isEnabled ?? (item as any).enabled)
+          const nextVal = !(item.isEnabled ?? (item as any).enabled)
           return { ...item, isEnabled: nextVal, enabled: nextVal }
         }
         return item

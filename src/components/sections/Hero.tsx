@@ -1,10 +1,9 @@
 import { motion } from "motion/react"
-import { GlowCard } from "../ui/spotlight-card"
 
 const stats = [
-  { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157", glow: "green" as const },
-  { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857", glow: "orange" as const },
-  { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF", glow: "blue" as const },
+  { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157", shadow: "#3A8157" },
+  { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857", shadow: "#FFC857" },
+  { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF", shadow: "#529CFF" },
 ]
 
 export default function Hero() {
@@ -22,7 +21,7 @@ export default function Hero() {
       >
         <motion.span
           whileHover={{ scale: 1.05 }}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-[#FFC857] bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857] cursor-default"
+          className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857] cursor-default"
         >
           <span className="h-2 w-2 rounded-full bg-[#3A8157] animate-pulse" />
           PENTAVA Ecosystem
@@ -52,7 +51,7 @@ export default function Hero() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             href="#download"
-            className="inline-flex items-center gap-2 rounded-full bg-[#3A8157] px-7 py-4 font-extrabold text-white shadow-[4px_4px_0px_0px_#FFC857] hover:shadow-[6px_6px_0px_0px_#FFC857] transition-all"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#3A8157] px-7 py-4 font-extrabold text-white shadow-[4px_4px_0px_0px_#FFC857] hover:shadow-[6px_6px_0px_0px_#FFC857] transition-all"
           >
             <span className="material-symbols-outlined text-[21px]">download</span>
             Tải PENTAVA
@@ -63,14 +62,14 @@ export default function Hero() {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             href="#solution"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#529CFF] bg-white px-7 py-4 font-extrabold text-[#529CFF] shadow-[4px_4px_0px_0px_rgba(82,156,255,0.25)] hover:shadow-[6px_6px_0px_0px_#529CFF] transition-all"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-7 py-4 font-extrabold text-[#529CFF] shadow-[4px_4px_0px_0px_#529CFF] hover:shadow-[6px_6px_0px_0px_#529CFF] transition-all"
           >
             <span className="material-symbols-outlined text-[21px]">auto_awesome</span>
             Xem giải pháp
           </motion.a>
         </div>
 
-        {/* Thống kê nổi bật (Stats Cards với Glow Spotlight) */}
+        {/* Thống kê nổi bật (Neo-brutalist Stats Cards) */}
         <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
           {stats.map((item, index) => (
             <motion.div
@@ -78,33 +77,28 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              whileHover={{ y: -5 }}
+              className="group relative overflow-hidden rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_#3A8157] hover:shadow-[6px_6px_0px_0px_#FFC857] transition-all"
             >
-              <GlowCard
-                customSize
-                glowColor={item.glow}
-                className="group relative overflow-hidden rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.06)] hover:shadow-[5px_5px_0px_0px_#3A8157] transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-white group-hover:scale-110 transition-transform"
-                    style={{ backgroundColor: item.color }}
-                  >
-                    <span className="material-symbols-outlined text-[18px]">
-                      {item.icon}
-                    </span>
+              <div className="flex items-center justify-between">
+                <span
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/10 text-white shadow-sm"
+                  style={{ backgroundColor: item.color }}
+                >
+                  <span className="material-symbols-outlined text-[20px]">
+                    {item.icon}
                   </span>
-                  <span className="rounded-full bg-[#F7FAFF] px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#727272]">
-                    {item.tag}
-                  </span>
-                </div>
-                <p className="mt-3 text-3xl font-extrabold text-black group-hover:text-[#3A8157] transition-colors">
-                  {item.value}
-                </p>
-                <p className="mt-1 text-xs font-semibold leading-5 text-[#727272]">
-                  {item.label}
-                </p>
-              </GlowCard>
+                </span>
+                <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#727272]">
+                  {item.tag}
+                </span>
+              </div>
+              <p className="mt-3 text-3xl font-black text-black group-hover:text-[#3A8157] transition-colors">
+                {item.value}
+              </p>
+              <p className="mt-1 text-xs font-bold leading-5 text-[#727272]">
+                {item.label}
+              </p>
             </motion.div>
           ))}
         </div>

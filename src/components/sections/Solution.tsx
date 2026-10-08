@@ -4,7 +4,6 @@ import {
   ScrollReelTestimonials,
   type ScrollReelTestimonial,
 } from "../ui/scroll-reel-testimonials"
-import { GlowCard } from "../ui/spotlight-card"
 
 const TRANSFORMATION_STORIES: ScrollReelTestimonial[] = [
   {
@@ -48,7 +47,6 @@ const PILLARS = [
     before: "Phân mảnh 4-5 ứng dụng riêng lẻ",
     after: "Routine 1 chạm tinh gọn 5 khía cạnh sức khỏe",
     color: "#FFC857",
-    glow: "orange" as const,
     icon: "all_inclusive",
   },
   {
@@ -57,7 +55,6 @@ const PILLARS = [
     before: "Checkbox khô khan, dễ nản lòng",
     after: "Visual log & Thước phim PENTA-CINEMA",
     color: "#529CFF",
-    glow: "blue" as const,
     icon: "movie_filter",
   },
   {
@@ -66,7 +63,6 @@ const PILLARS = [
     before: "Áp lực Streak đè nặng, sợ đứt chuỗi",
     after: "Nhịp thở an lành & Nhóm nhỏ 5 người tiếp sức",
     color: "#3A8157",
-    glow: "green" as const,
     icon: "spa",
   },
 ]
@@ -112,61 +108,55 @@ export default function Solution() {
           />
         </div>
 
-        {/* 3 TRỤ CỘT CHUYỂN HÓA CỐT LÕI (3 PILLARS CARDS VỚI GLOW SPOTLIGHT) */}
+        {/* 3 TRỤ CỘT CHUYỂN HÓA CỐT LÕI (3 PILLARS CARDS) */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {PILLARS.map((item) => (
             <motion.div
               key={item.step}
               whileHover={{ y: -4 }}
-              className="h-full"
+              className="relative h-full flex flex-col justify-between rounded-3xl border-2 border-black bg-white p-7 shadow-[6px_6px_0px_0px_#3A8157] transition-all"
             >
-              <GlowCard
-                customSize
-                glowColor={item.glow}
-                className="relative h-full flex flex-col justify-between rounded-3xl border-2 border-black bg-white p-7 shadow-[6px_6px_0px_0px_#3A8157] transition-all"
+              <div>
+                <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-black bg-black font-black text-white text-sm shadow-[2px_2px_0px_0px_#FFC857]">
+                    {item.step}
+                  </span>
+                  <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#727272]">
+                    {item.tag}
+                  </span>
+                </div>
+
+                {/* Rào cản cũ */}
+                <div className="mb-4 rounded-2xl border border-red-200 bg-red-50/70 p-3.5">
+                  <p className="text-[10px] font-extrabold uppercase tracking-wider text-red-600 mb-1">
+                    Rào cản cũ
+                  </p>
+                  <p className="text-xs font-bold text-black/80">{item.before}</p>
+                </div>
+
+                {/* Mũi tên chuyển đổi */}
+                <div className="my-2 flex justify-center">
+                  <span className="material-symbols-outlined text-[18px] text-[#3A8157] animate-bounce">
+                    arrow_downward
+                  </span>
+                </div>
+              </div>
+
+              {/* Giải pháp PENTAVA */}
+              <div
+                className="rounded-2xl border-2 border-black p-4 shadow-sm mt-2"
+                style={{ backgroundColor: `${item.color}15` }}
               >
-                <div>
-                  <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-black bg-black font-black text-white text-sm shadow-[2px_2px_0px_0px_#FFC857]">
-                      {item.step}
-                    </span>
-                    <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#727272]">
-                      {item.tag}
-                    </span>
-                  </div>
-
-                  {/* Rào cản cũ */}
-                  <div className="mb-4 rounded-2xl border border-red-200 bg-red-50/70 p-3.5">
-                    <p className="text-[10px] font-extrabold uppercase tracking-wider text-red-600 mb-1">
-                      Rào cản cũ
-                    </p>
-                    <p className="text-xs font-bold text-black/80">{item.before}</p>
-                  </div>
-
-                  {/* Mũi tên chuyển đổi */}
-                  <div className="my-2 flex justify-center">
-                    <span className="material-symbols-outlined text-[18px] text-[#3A8157] animate-bounce">
-                      arrow_downward
-                    </span>
-                  </div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="material-symbols-outlined text-[18px] text-[#3A8157] font-bold">
+                    check_circle
+                  </span>
+                  <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#3A8157]">
+                    PENTAVA Chuyển hóa
+                  </p>
                 </div>
-
-                {/* Giải pháp PENTAVA */}
-                <div
-                  className="rounded-2xl border-2 border-black p-4 shadow-sm mt-2"
-                  style={{ backgroundColor: `${item.color}15` }}
-                >
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="material-symbols-outlined text-[18px] text-[#3A8157] font-bold">
-                      check_circle
-                    </span>
-                    <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#3A8157]">
-                      PENTAVA Chuyển hóa
-                    </p>
-                  </div>
-                  <p className="text-sm font-extrabold text-black">{item.after}</p>
-                </div>
-              </GlowCard>
+                <p className="text-sm font-extrabold text-black">{item.after}</p>
+              </div>
             </motion.div>
           ))}
         </div>

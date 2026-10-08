@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
   contactService,
   STATUS_META,
@@ -39,7 +39,7 @@ export default function ContactManager() {
   }
 
   // Fetch contacts
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
@@ -53,11 +53,11 @@ export default function ContactManager() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [statusFilter])
 
   useEffect(() => {
     fetchContacts()
-  }, [statusFilter])
+  }, [fetchContacts])
 
   // Open detail modal and fetch freshest details from GET /api/manage/contacts/{id}
   const handleOpenDetail = async (contact: ContactInquiry) => {
