@@ -36,12 +36,14 @@ PENTAVA sử dụng phong cách **Playful Neo-Brutalist & Artisanal Clean** (v�
 - 📄 **Backgrounds:** `#F7FAFF` (Nền sáng nhẹ), `#FFFFFF` (Card)
 - 🖋️ **Text:** `#000000` (Tiêu đề đậm), `#727272` (Mô tả), `#D9D9D9` (Viền border)
 
-### Quy chuẩn Card & Shadows (Neo-brutalist Offset Shadow)
-- Không dùng shadow mờ mịt thông thường, ưu tiên **solid offset shadow**:
+### Quy chuẩn Card & Shadows (Neo-brutalist Offset Shadow & Spotlight Glow)
+- **Solid offset shadow:**
   - `shadow-[4px_4px_0px_0px_#FFC857]`
   - `shadow-[6px_6px_0px_0px_#3A8157]`
   - `shadow-[8px_8px_0px_0px_#3A8157]`
-  - `shadow-[12px_12px_0px_0px_#FFC857]`
+  - `shadow-[10px_10px_0px_0px_#529CFF]`
+  - `shadow-[12px_12px_0px_0px_#8B63F6]`
+- **Spotlight & Pointer Glow:** Thẻ `GlowCard` (`src/components/ui/spotlight-card.tsx`) hỗ trợ hiệu ứng vệt sáng và viền phát sáng theo con trỏ chuột (`green`, `orange`, `blue`, `purple`).
 - Bo góc: `rounded-2xl` hoặc `rounded-3xl` cho card, `rounded-full` cho pill badge và nút bấm.
 - Viền: `border-2 border-black` hoặc `border border-[#D9D9D9]`.
 
@@ -67,39 +69,48 @@ src/
 │   ├── common/              # UI dùng chung:
 │   │   ├── ScrambleText.tsx # Hiệu ứng chữ giải mã ngẫu nhiên
 │   │   ├── Ticker.tsx       # NumberTicker (nhảy số) & ActivityTicker (tin tức chạy)
-│   │   ├── Reveal.tsx       # Wrapper reveal cũ
+│   │   ├── Reveal.tsx       # Wrapper reveal
 │   │   └── ScrollToTop.tsx  # Nút cuộn lên đầu trang
-│   ├── layouts/             # Header.tsx, Footer.tsx
-│   ├── sections/            # Các section landing page đã được modular hóa:
-│   │   ├── Hero.tsx         # Hero banner, stats cards, mockup app
-│   │   ├── Solution.tsx     # Problem vs Solution với useScroll timeline progress
+│   ├── layouts/             # Header.tsx, Footer.tsx (hiệu ứng viền xé giấy torn-paper)
+│   ├── sections/            # Các section landing page modular:
+│   │   ├── Hero.tsx         # Hero banner, GlowCard stats, mockup app
+│   │   ├── Solution.tsx     # ScrollReelTestimonials 3D reel + 3 Trụ cột GlowCard
 │   │   ├── Features.tsx     # 3D Perspective Feature Carousel
-│   │   ├── Cinema.tsx       # PENTA-CINEMA preview & recap cards
-│   │   ├── CommunityPreview.tsx # Live Ticker, ScrambleText, High-Five counter
-│   │   ├── CTA.tsx          # Download banner, Live NumberTicker, QR card
-│   │   └── FAQ.tsx          # Animated accordion với Category filters
+│   │   ├── Cinema.tsx       # PENTA-CINEMA preview với GlowCard tím
+│   │   ├── CommunityPreview.tsx # Gợi ý routine ticker, High-Five counter thực tế
+│   │   ├── CTA.tsx          # Download banner giá trị thật, QR card Neo-brutalist
+│   │   ├── FAQ.tsx          # Animated accordion với cầu nối mượt dẫn xuống Contact
+│   │   └── ContactSection.tsx # Form gửi liên hệ, hỗ trợ API backend & admin
 │   └── ui/                  # Component chuẩn shadcn:
 │       ├── button.tsx       # Button chuẩn shadcn với cva & Radix Slot
-│       └── feature-carousel.tsx # 3D perspective carousel engine
+│       ├── feature-carousel.tsx # 3D perspective carousel engine
+│       ├── scroll-reel-testimonials.tsx # 3D counter-rotating reel + per-char text rise
+│       └── spotlight-card.tsx # GlowCard pointer-following spotlight effects
 ├── lib/
 │   └── utils.ts             # Helper cn() (clsx + tailwind-merge)
 ├── pages/
-│   ├── Home.tsx             # Trang chủ rút gọn (~27 dòng, chỉ ghép các section)
-│   ├── About.tsx, Cinema.tsx, Community.tsx, v.v.
-├── App.tsx
-├── index.css                # Token CSS, Tailwind v4
+│   ├── Home.tsx             # Trang chủ rút gọn (~28 dòng, ghép các section độc lập)
+│   ├── About.tsx, Cinema.tsx, Community.tsx, Privacy.tsx, Support.tsx
+│   ├── Login.tsx, Admin.tsx (Quản trị danh bạ, liên hệ, người dùng)
+├── App.tsx                  # BrowserRouter routing + ProtectedAdminRoute
+├── index.css                # Token CSS, Tailwind v4, Scroll Reel keyframes
 └── main.tsx
 ```
 
 ---
 
-## 5. Danh mục các Module đã hoàn thiện trên nhánh `feature/thanhhai`
-1. **Trang chủ [Home.tsx](file:///d:/FPT7/EXE101/pentava-web/src/pages/Home.tsx):** Đã phân rã từ file nguyên khối 400+ dòng thành các component section độc lập trong `src/components/sections/`.
-2. **[Solution.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Solution.tsx):** Thiết kế dạng Sticky Timeline 2 cột, kết hợp `useScroll` + `useSpring` làm thanh tiến trình chạy dọc theo nhịp cuộn trang.
-3. **[Features.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Features.tsx):** Tích hợp **3D Perspective Feature Carousel** (`rotateY`, `scale`, `[perspective:1000px]`, nút Prev / Next và chỉ báo phân trang).
-4. **[CommunityPreview.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/CommunityPreview.tsx):** Tích hợp `ScrambleText`, `ActivityTicker` (tin trực tiếp), `NumberTicker` và nút bấm tương tác High-Five đập tay.
-5. **[CTA.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/CTA.tsx):** Thêm bộ đếm lượt tải `NumberTicker` và thẻ QR quét mã Neo-brutalist.
-6. **[FAQ.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/FAQ.tsx):** Bộ lọc chủ đề (Category pills) + Accordion động `<AnimatePresence>` + Hộp hỗ trợ.
+## 5. Danh mục các Module đã hoàn thiện
+1. **Trang chủ [Home.tsx](file:///d:/FPT7/EXE101/pentava-web/src/pages/Home.tsx):** Phân rã hoàn toàn thành các component section độc lập, tải trang mượt mà.
+2. **[Hero.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Hero.tsx):** Tích hợp bộ 3 thẻ thống kê tương tác với `GlowCard` spotlight viền sáng theo con trỏ chuột.
+3. **[Solution.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Solution.tsx):** Tích hợp `ScrollReelTestimonials` (guồng cuộn ảnh 3 cột counter-rotating, hiệu ứng chữ trồi từng ký tự) kết hợp 3 Trụ cột chuyển hóa `GlowCard`.
+4. **[Features.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Features.tsx):** Tích hợp **3D Perspective Feature Carousel** (`rotateY`, `scale`, `[perspective:1000px]`, nút Prev / Next và chỉ báo phân trang).
+5. **[Cinema.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/Cinema.tsx):** Tích hợp `GlowCard` màu tím `#8B63F6` bao bọc khung xem trước video PENTA-CINEMA.
+6. **[CommunityPreview.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/CommunityPreview.tsx):** Loại bỏ toàn bộ số liệu ảo, thay bằng thẻ giá trị tính năng, ticker gợi ý tích cực và nút *"Đập tay tiếp sức"* tăng đếm thực tế.
+7. **[CTA.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/CTA.tsx):** Thay thế số liệu ảo bằng cam kết giá trị phát triển bản thân lành mạnh và thẻ mã QR Neo-brutalist.
+8. **[FAQ.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/FAQ.tsx) & [ContactSection.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/sections/ContactSection.tsx):** Tạo cầu nối điều hướng trực tiếp xuống form liên hệ `#contact`, chuẩn hóa viền `border-2 border-black` và đổ bóng khối.
+9. **UI Components (`/components/ui/`):**
+   - `scroll-reel-testimonials.tsx`: Guồng cuộn ảnh 3 cột đối xứng, vệt sáng chéo và hiệu ứng chữ động.
+   - `spotlight-card.tsx` (`GlowCard`): Thẻ phát sáng viền và tâm theo tọa độ trỏ chuột, hỗ trợ các dải màu thương hiệu PENTAVA.
 
 ---
 
@@ -107,36 +118,29 @@ src/
 
 ### A. Những vị trí DỄ XẢY RA CONFLICT nhất:
 1. **`src/pages/Home.tsx`:**
-   - **Thực trạng:** Nhánh này (`feature/thanhhai`) đã tách `Home.tsx` thành `<Hero />`, `<Solution />`, `<Features />`, v.v.
-   - **Xử lý:** Nếu nhánh của bạn bạn vẫn giữ `Home.tsx` nguyên khối cũ nhưng có sửa đổi nội dung: **Ưu tiên giữ cấu trúc modular mới của `Home.tsx`**, sau đó chuyển các thay đổi nội dung của bạn vào đúng file component tương ứng trong `src/components/sections/`.
+   - **Thực trạng:** `Home.tsx` luôn giữ cấu trúc modular (`<Hero />`, `<Solution />`, `<Features />`, `<Cinema />`, `<CommunityPreview />`, `<CTA />`, `<FAQ />`, `<ContactSection id="contact" />`).
+   - **Xử lý:** Ưu tiên giữ cấu trúc modular, chuyển các chỉnh sửa nội dung vào đúng file section tương ứng trong `src/components/sections/`.
 2. **`package.json` & `package-lock.json`:**
-   - **Thực trạng:** Nhánh này đã cài thêm `lucide-react`, `@radix-ui/react-slot`, `class-variance-authority`, `clsx`, `tailwind-merge`.
-   - **Xử lý:** Giữ **CẢ HAI** bên dependencies (không xóa dependencies của nhánh nào). Sau khi merge xong `package.json`, luôn chạy `npm install` để cập nhật lại `package-lock.json`.
+   - **Xử lý:** Giữ cả 2 bên dependencies, sau đó chạy `npm install` để cập nhật lại lockfile.
 3. **`vite.config.ts` & `tsconfig.app.json`:**
-   - **Thực trạng:** Đã thêm alias `@/*` trỏ tới `./src/*`.
-   - **Xử lý:** Giữ lại cấu hình alias `@/*` để tránh lỗi import `Cannot find module '@/...'`.
+   - **Xử lý:** Giữ đồng thời cấu hình server proxy `/api` và alias `@/*` trỏ về `./src/*`.
 
 ### B. Quy trình Merge an toàn từng bước:
 ```bash
-# Bước 1: Đảm bảo nhánh hiện tại đã commit sạch sẽ
+# Bước 1: Đảm bảo working tree sạch sẽ
 git status
 
-# Bước 2: Chuyển sang nhánh của bạn bạn (hoặc nhánh target cần merge)
-git checkout <ten-nhanh-cua-ban>
-git pull origin <ten-nhanh-cua-ban>
+# Bước 2: Chuyển sang nhánh target cần merge và pull mới nhất
+git checkout <ten-nhanh>
+git pull origin <ten-nhanh>
 
-# Bước 3: Tạo 1 nhánh backup đề phòng (khuyên dùng)
+# Bước 3: Tạo nhánh backup đề phòng
 git branch backup-truoc-khi-merge
 
-# Bước 4: Thực hiện merge nhánh feature/thanhhai vào
+# Bước 4: Thực hiện merge
 git merge feature/thanhhai
 
-# Bước 5: Nếu có conflict (CONFLICT in ...):
-# - Mở VS Code / IDE để xem các file bị conflict
-# - Với package.json: Giữ cả 2 danh sách package
-# - Với Home.tsx: Giữ phiên bản import modular các sections
-# - Với các file sections mới trong src/components/sections/: Giữ code mới
-# Sau khi resolve xong:
+# Bước 5: Giải quyết conflict nếu có và commit
 git add .
 git commit -m "Merge feature/thanhhai and resolve conflicts"
 

@@ -1,9 +1,10 @@
 import { motion } from "motion/react"
+import { GlowCard } from "../ui/spotlight-card"
 
 const stats = [
-  { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157" },
-  { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857" },
-  { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF" },
+  { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157", glow: "green" as const },
+  { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857", glow: "orange" as const },
+  { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF", glow: "blue" as const },
 ]
 
 export default function Hero() {
@@ -69,7 +70,7 @@ export default function Hero() {
           </motion.a>
         </div>
 
-        {/* Thống kê nổi bật (Stats Cards) */}
+        {/* Thống kê nổi bật (Stats Cards với Glow Spotlight) */}
         <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
           {stats.map((item, index) => (
             <motion.div
@@ -78,25 +79,32 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className="group relative overflow-hidden rounded-2xl border-2 border-[#D9D9D9] bg-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.06)] hover:border-black hover:shadow-[5px_5px_0px_0px_#3A8157] transition-all"
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className="flex h-8 w-8 items-center justify-center rounded-lg text-white group-hover:scale-110 transition-transform"
-                  style={{ backgroundColor: item.color }}
-                >
-                  <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
-                </span>
-                <span className="rounded-full bg-[#F7FAFF] px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#727272]">
-                  {item.tag}
-                </span>
-              </div>
-              <p className="mt-3 text-3xl font-extrabold text-black group-hover:text-[#3A8157] transition-colors">
-                {item.value}
-              </p>
-              <p className="mt-1 text-xs font-semibold leading-5 text-[#727272]">
-                {item.label}
-              </p>
+              <GlowCard
+                customSize
+                glowColor={item.glow}
+                className="group relative overflow-hidden rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.06)] hover:shadow-[5px_5px_0px_0px_#3A8157] transition-all"
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-white group-hover:scale-110 transition-transform"
+                    style={{ backgroundColor: item.color }}
+                  >
+                    <span className="material-symbols-outlined text-[18px]">
+                      {item.icon}
+                    </span>
+                  </span>
+                  <span className="rounded-full bg-[#F7FAFF] px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#727272]">
+                    {item.tag}
+                  </span>
+                </div>
+                <p className="mt-3 text-3xl font-extrabold text-black group-hover:text-[#3A8157] transition-colors">
+                  {item.value}
+                </p>
+                <p className="mt-1 text-xs font-semibold leading-5 text-[#727272]">
+                  {item.label}
+                </p>
+              </GlowCard>
             </motion.div>
           ))}
         </div>
