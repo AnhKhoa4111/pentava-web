@@ -4,15 +4,14 @@ import { Link, useNavigate } from "react-router-dom"
 import gsap from "gsap"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
-
-const demoEmail = "admin@pentava.vn"
-const demoPassword = "123456"
+import { authService } from "../services/authService"
 
 export default function Login() {
   const navigate = useNavigate()
   const pageRef = useRef<HTMLElement | null>(null)
-  const [email, setEmail] = useState(demoEmail)
-  const [password, setPassword] = useState(demoPassword)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
   useEffect(() => {
@@ -21,9 +20,8 @@ export default function Login() {
     const context = gsap.context(() => {
       gsap.from(".login-reveal", {
         opacity: 0,
-        y: 34,
+        y: 28,
         duration: 0.75,
-        stagger: 0.08,
         ease: "power3.out",
       })
     }, pageRef)
@@ -31,76 +29,55 @@ export default function Login() {
     return () => context.revert()
   }, [])
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError("")
 
-    //test
-    if (email.trim() === demoEmail && password === demoPassword) {
-      localStorage.setItem("pentava-admin-token", "demo-admin-token")
-      navigate("/admin")
+    if (!email.trim() || !password) {
+      setError("Vui lòng nhập đầy đủ tài khoản và mật khẩu.")
       return
     }
 
-    setError("Email hoặc mật khẩu quản trị chưa đúng.")
+    setLoading(true)
+
+    try {
+      await authService.login(email.trim(), password)
+      navigate("/admin")
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Đăng nhập thất bại."
+      setError(msg)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <>
       <Header />
 
-      <main ref={pageRef} className="min-h-screen bg-[#F7FAFF] px-6 pt-32 text-black">
-        <section className="mx-auto grid min-h-[680px] max-w-[1180px] grid-cols-1 items-center gap-12 py-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="login-reveal space-y-7">
-            <span className="inline-flex rounded-full border-2 border-[#FFC857] bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">
-              Admin workspace
-            </span>
-
-            <div className="space-y-4">
-              <h1 className="max-w-[540px] text-[42px] font-extrabold leading-[1.05] md:text-[58px]">
-                Quản lý nội dung PENTAVA.
-              </h1>
-              <p className="max-w-[520px] text-base leading-8 text-[#727272]">
-                Đăng nhập để vào khu vực quản trị, nơi admin có thể chuẩn bị dữ liệu
-                cho Blog, Cinema, tính năng và các nội dung hiển thị trên website.
-              </p>
-            </div>
-
-            <div className="grid max-w-[520px] grid-cols-1 gap-4 sm:grid-cols-3">
-              {["Blog", "Cinema", "Support"].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-[18px] border border-[#D9D9D9] bg-white p-4 shadow-[0_5px_0px_0px_rgba(0,0,0,0.06)]"
-                >
-                  <span className="material-symbols-outlined mb-3 text-[26px] text-[#3A8157]">
-                    dashboard_customize
-                  </span>
-                  <p className="text-sm font-extrabold">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
+      <main ref={pageRef} className="flex min-h-screen items-center justify-center bg-[#F7FAFF] px-4 pt-28 pb-16 text-black">
+        <section className="w-full max-w-[480px]">
           <form
             onSubmit={handleSubmit}
-            className="login-reveal rounded-[28px] border-2 border-[#3A8157] bg-white p-6 shadow-[10px_10px_0px_0px_#FFC857] md:p-8"
+            className="login-reveal rounded-[28px] border-2 border-[#3A8157] bg-white p-7 shadow-[10px_10px_0px_0px_#FFC857] md:p-9"
           >
             <div className="mb-7 flex items-center gap-4">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#3A8157] text-white shadow-[4px_4px_0px_0px_#529CFF]">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#3A8157] text-white shadow-[4px_4px_0px_0px_#529CFF]">
                 <span className="material-symbols-outlined text-[28px]">
                   admin_panel_settings
                 </span>
               </span>
               <div>
-                <h2 className="text-2xl font-extrabold">Đăng nhập admin</h2>
-                <p className="text-sm font-semibold text-[#727272]">
-                  Dùng tài khoản demo để vào dashboard.
+                <h1 className="text-2xl font-extrabold text-black">Đăng nhập</h1>
+                <p className="text-xs font-semibold text-[#727272]">
+                  Khu vực quản trị hệ thống PENTAVA
                 </p>
               </div>
             </div>
 
             <label className="mb-5 block">
               <span className="mb-2 block text-xs font-extrabold uppercase tracking-widest text-[#727272]">
-                Email
+                Tài khoản / Email
               </span>
               <input
                 value={email}
@@ -108,9 +85,10 @@ export default function Login() {
                   setEmail(event.target.value)
                   setError("")
                 }}
+                placeholder="Nhập email hoặc tên tài khoản"
                 className="h-14 w-full rounded-[18px] border-2 border-[#D9D9D9] bg-[#F7FAFF] px-5 text-sm font-bold outline-none transition-all focus:border-[#3A8157] focus:bg-white"
-                type="email"
-                autoComplete="email"
+                type="text"
+                autoComplete="username"
               />
             </label>
 
@@ -124,6 +102,7 @@ export default function Login() {
                   setPassword(event.target.value)
                   setError("")
                 }}
+                placeholder="Nhập mật khẩu"
                 className="h-14 w-full rounded-[18px] border-2 border-[#D9D9D9] bg-[#F7FAFF] px-5 text-sm font-bold outline-none transition-all focus:border-[#3A8157] focus:bg-white"
                 type="password"
                 autoComplete="current-password"
@@ -138,25 +117,31 @@ export default function Login() {
 
             <button
               type="submit"
-              className="mb-5 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#3A8157] px-6 text-sm font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1"
+              disabled={loading}
+              className="mb-5 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#3A8157] px-6 text-sm font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1 disabled:opacity-60"
             >
-              Vào quản trị
-              <span className="material-symbols-outlined text-[20px]">login</span>
+              {loading ? (
+                <>
+                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  Đang xác thực...
+                </>
+              ) : (
+                <>
+                  Đăng nhập
+                  <span className="material-symbols-outlined text-[20px]">login</span>
+                </>
+              )}
             </button>
 
-            <div className="rounded-[18px] border border-[#D9D9D9] bg-[#F7FAFF] p-4 text-sm font-semibold leading-7 text-[#727272]">
-              Demo: <span className="font-extrabold text-black">{demoEmail}</span>
-              <br />
-              Password: <span className="font-extrabold text-black">{demoPassword}</span>
+            <div className="text-center">
+              <Link
+                to="/home"
+                className="inline-flex items-center gap-2 text-sm font-extrabold text-[#3A8157] hover:underline"
+              >
+                <span className="material-symbols-outlined text-[19px]">arrow_back</span>
+                Quay về trang chủ
+              </Link>
             </div>
-
-            <Link
-              to="/home"
-              className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#3A8157]"
-            >
-              <span className="material-symbols-outlined text-[19px]">arrow_back</span>
-              Quay về trang chủ
-            </Link>
           </form>
         </section>
       </main>

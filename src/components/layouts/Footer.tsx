@@ -162,9 +162,19 @@ export default function Footer() {
                 Bảo mật & Điều khoản
               </NavLink>
 
-              <button className="mt-7 rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#1F2621] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  const element = document.getElementById("contact")
+                  if (element) {
+                    e.preventDefault()
+                    element.scrollIntoView({ behavior: "smooth" })
+                  }
+                }}
+                className="mt-7 inline-block rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#1F2621] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1 text-center"
+              >
                 Liên hệ
-              </button>
+              </a>
             </div>
           </div>
         </div>

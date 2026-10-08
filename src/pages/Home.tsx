@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
 import Reveal from "../components/common/Reveal"
+import ContactSection from "../components/sections/ContactSection"
 
 const heroCards = [
   ["Routine 1 chạm", "Bắt đầu nhanh với lộ trình đã được cá nhân hóa.", "#FFC857"],
@@ -92,6 +93,10 @@ export default function Home() {
               </div>
             </div>
           </section>
+        </Reveal>
+
+        <Reveal>
+          <ContactSection id="contact" />
         </Reveal>
       </main>
 

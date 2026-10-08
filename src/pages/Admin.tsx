@@ -2,15 +2,10 @@ import { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
+import ContactManager from "../components/admin/ContactManager"
+import { authService } from "../services/authService"
 
-type ModuleKey =
-  | "users"
-  | "goals"
-  | "tasks"
-  | "moods"
-  | "checkins"
-  | "streaks"
-  | "dailyTasks"
+type ModuleKey = "contacts" | "users"
 
 type AdminRecord = {
   id: number
@@ -43,6 +38,16 @@ const user = (id: number, name: string, email: string, verified: string, onboard
 
 const modules: AdminModule[] = [
   {
+    key: "contacts",
+    label: "Yêu cầu liên hệ",
+    table: "contacts",
+    icon: "contact_mail",
+    color: "#3A8157",
+    description: "Quản lý và cập nhật trạng thái các yêu cầu hỗ trợ từ khách hàng.",
+    columns: ["Người gửi", "Tiêu đề", "Trạng thái", "Ngày gửi", "Ghi chú admin"],
+    records: [],
+  },
+  {
     key: "users",
     label: "Người dùng",
     table: "users",
@@ -55,89 +60,6 @@ const modules: AdminModule[] = [
       user(2, "Trần Gia Hân", "giahan@example.com", "Chưa xác thực", "Đang làm", "Email", "15/09/2026"),
       user(3, "Lê Hoàng Nam", "hoangnam@example.com", "Đã xác thực", "Hoàn tất", "Email", "18/09/2026"),
       user(4, "Phạm Khánh Linh", "khanhlinh@example.com", "Đã xác thực", "Hoàn tất", "Google", "22/09/2026"),
-    ],
-  },
-  {
-    key: "goals",
-    label: "Mục tiêu",
-    table: "user_goals",
-    icon: "flag",
-    color: "#8B63F6",
-    description: "Quản lý mục tiêu người dùng và tiến độ hoàn thành.",
-    columns: ["Mục tiêu", "Người dùng", "Trạng thái", "Bắt đầu", "Kết thúc"],
-    records: [
-      { id: 101, primary: "Ngủ sớm trước 23:00", secondary: "minhanh@example.com", status: "Đang thực hiện", detail: { ID: "101", "Tên mục tiêu": "Ngủ sớm trước 23:00", "Người dùng": "minhanh@example.com", "Trạng thái": "Đang thực hiện", "Bắt đầu": "12/09/2026", "Kết thúc": "12/10/2026" }, searchable: "ngủ sớm minhanh đang thực hiện" },
-      { id: 102, primary: "Tập thể dục 3 buổi/tuần", secondary: "hoangnam@example.com", status: "Hoàn thành", detail: { ID: "102", "Tên mục tiêu": "Tập thể dục 3 buổi/tuần", "Người dùng": "hoangnam@example.com", "Trạng thái": "Hoàn thành", "Bắt đầu": "01/09/2026", "Kết thúc": "21/09/2026" }, searchable: "tập thể dục hoangnam hoàn thành" },
-      { id: 103, primary: "Giảm thời gian dùng điện thoại", secondary: "giahan@example.com", status: "Tạm dừng", detail: { ID: "103", "Tên mục tiêu": "Giảm thời gian dùng điện thoại", "Người dùng": "giahan@example.com", "Trạng thái": "Tạm dừng", "Bắt đầu": "15/09/2026", "Kết thúc": "15/11/2026" }, searchable: "điện thoại giahan tạm dừng" },
-    ],
-  },
-  {
-    key: "tasks",
-    label: "Nhiệm vụ",
-    table: "tasks",
-    icon: "task_alt",
-    color: "#529CFF",
-    description: "Kiểm tra nhiệm vụ AI tạo, mood liên quan và tiến độ.",
-    columns: ["Nhiệm vụ", "Người dùng", "Mood", "Hoàn thành", "Nguồn"],
-    records: [
-      { id: 201, primary: "Đi bộ thư giãn 15 phút", secondary: "minhanh@example.com", status: "Đã hoàn thành", detail: { ID: "201", "Tiêu đề": "Đi bộ thư giãn 15 phút", "Người dùng": "minhanh@example.com", Mood: "Bình tĩnh", "Hoàn thành": "Có", "AI tạo": "Có" }, searchable: "đi bộ minhanh bình tĩnh hoàn thành ai" },
-      { id: 202, primary: "Viết 3 điều tích cực hôm nay", secondary: "giahan@example.com", status: "Chưa hoàn thành", detail: { ID: "202", "Tiêu đề": "Viết 3 điều tích cực hôm nay", "Người dùng": "giahan@example.com", Mood: "Buồn", "Hoàn thành": "Chưa", "AI tạo": "Có" }, searchable: "viết tích cực giahan buồn chưa hoàn thành ai" },
-      { id: 203, primary: "Chuẩn bị lịch tập tuần mới", secondary: "hoangnam@example.com", status: "Đã hoàn thành", detail: { ID: "203", "Tiêu đề": "Chuẩn bị lịch tập tuần mới", "Người dùng": "hoangnam@example.com", Mood: "Năng lượng", "Hoàn thành": "Có", "AI tạo": "Không" }, searchable: "lịch tập hoangnam năng lượng hoàn thành" },
-    ],
-  },
-  {
-    key: "moods",
-    label: "Mood hằng ngày",
-    table: "daily_mood_selection",
-    icon: "mood",
-    color: "#FFC857",
-    description: "Xem lựa chọn cảm xúc và ghi chú của người dùng.",
-    columns: ["Ngày", "Người dùng", "Mood", "Ghi chú", "Goal ID"],
-    records: [
-      { id: 301, primary: "27/09/2026", secondary: "minhanh@example.com", status: "Bình tĩnh", detail: { ID: "301", "Ngày chọn": "27/09/2026", "Người dùng": "minhanh@example.com", Mood: "Bình tĩnh", "Ghi chú": "Hôm nay làm việc hiệu quả", "Goal ID": "101" }, searchable: "27/09 minhanh bình tĩnh hiệu quả" },
-      { id: 302, primary: "27/09/2026", secondary: "giahan@example.com", status: "Buồn", detail: { ID: "302", "Ngày chọn": "27/09/2026", "Người dùng": "giahan@example.com", Mood: "Buồn", "Ghi chú": "Cần nghỉ ngơi thêm", "Goal ID": "103" }, searchable: "27/09 giahan buồn nghỉ ngơi" },
-      { id: 303, primary: "26/09/2026", secondary: "hoangnam@example.com", status: "Năng lượng", detail: { ID: "303", "Ngày chọn": "26/09/2026", "Người dùng": "hoangnam@example.com", Mood: "Năng lượng", "Ghi chú": "Đã hoàn thành buổi tập", "Goal ID": "102" }, searchable: "26/09 hoangnam năng lượng tập" },
-    ],
-  },
-  {
-    key: "checkins",
-    label: "Check-in",
-    table: "checkins",
-    icon: "photo_camera",
-    color: "#F25F5C",
-    description: "Theo dõi check-in theo ngày và ảnh tiến độ.",
-    columns: ["Ngày", "Người dùng", "Task progress ID", "Ảnh", "Tạo lúc"],
-    records: [
-      { id: 401, primary: "27/09/2026", secondary: "minhanh@example.com", status: "Có ảnh", detail: { ID: "401", "Ngày check-in": "27/09/2026", "Người dùng": "minhanh@example.com", "Task progress ID": "201", "Ảnh": "image_url có dữ liệu", "Tạo lúc": "27/09/2026 08:15" }, searchable: "27/09 minhanh ảnh 201" },
-      { id: 402, primary: "26/09/2026", secondary: "hoangnam@example.com", status: "Không ảnh", detail: { ID: "402", "Ngày check-in": "26/09/2026", "Người dùng": "hoangnam@example.com", "Task progress ID": "203", "Ảnh": "Không có", "Tạo lúc": "26/09/2026 20:30" }, searchable: "26/09 hoangnam không ảnh 203" },
-    ],
-  },
-  {
-    key: "streaks",
-    label: "Streak",
-    table: "user_streak",
-    icon: "local_fire_department",
-    color: "#FF8A4C",
-    description: "Xếp hạng chuỗi ngày hiện tại và dài nhất.",
-    columns: ["Người dùng", "Chuỗi hiện tại", "Dài nhất", "Hoàn thành gần nhất"],
-    records: [
-      { id: 501, primary: "minhanh@example.com", secondary: "12 ngày liên tiếp", status: "12", detail: { ID: "501", "Người dùng": "minhanh@example.com", "Chuỗi hiện tại": "12 ngày", "Chuỗi dài nhất": "18 ngày", "Hoàn thành gần nhất": "27/09/2026" }, searchable: "minhanh 12 18 27/09" },
-      { id: 502, primary: "hoangnam@example.com", secondary: "7 ngày liên tiếp", status: "7", detail: { ID: "502", "Người dùng": "hoangnam@example.com", "Chuỗi hiện tại": "7 ngày", "Chuỗi dài nhất": "14 ngày", "Hoàn thành gần nhất": "26/09/2026" }, searchable: "hoangnam 7 14 26/09" },
-      { id: 503, primary: "giahan@example.com", secondary: "2 ngày liên tiếp", status: "2", detail: { ID: "503", "Người dùng": "giahan@example.com", "Chuỗi hiện tại": "2 ngày", "Chuỗi dài nhất": "5 ngày", "Hoàn thành gần nhất": "27/09/2026" }, searchable: "giahan 2 5 27/09" },
-    ],
-  },
-  {
-    key: "dailyTasks",
-    label: "Nhiệm vụ ngày",
-    table: "user_task_daily",
-    icon: "today",
-    color: "#00A896",
-    description: "Kiểm soát số lượng, trạng thái và thứ tự nhiệm vụ mỗi ngày.",
-    columns: ["Ngày", "Người dùng", "Tiến độ", "Trạng thái", "Đã xóa"],
-    records: [
-      { id: 601, primary: "27/09/2026", secondary: "minhanh@example.com", status: "Hoàn thành", detail: { ID: "601", Ngày: "27/09/2026", "Người dùng": "minhanh@example.com", "Tiến độ": "3 / 3", "Trạng thái": "Hoàn thành", "Đã xóa": "Không" }, searchable: "27/09 minhanh 3 3 hoàn thành" },
-      { id: 602, primary: "27/09/2026", secondary: "giahan@example.com", status: "Đang làm", detail: { ID: "602", Ngày: "27/09/2026", "Người dùng": "giahan@example.com", "Tiến độ": "1 / 3", "Trạng thái": "Đang làm", "Đã xóa": "Không" }, searchable: "27/09 giahan 1 3 đang làm" },
-      { id: 603, primary: "26/09/2026", secondary: "hoangnam@example.com", status: "Đã xóa", detail: { ID: "603", Ngày: "26/09/2026", "Người dùng": "hoangnam@example.com", "Tiến độ": "0 / 2", "Trạng thái": "Chưa làm", "Đã xóa": "Có" }, searchable: "26/09 hoangnam 0 2 đã xóa" },
     ],
   },
 ]
@@ -156,7 +78,7 @@ function exportCsv(module: AdminModule, records: AdminRecord[]) {
 
 export default function Admin() {
   const navigate = useNavigate()
-  const [activeKey, setActiveKey] = useState<ModuleKey>("users")
+  const [activeKey, setActiveKey] = useState<ModuleKey>("contacts")
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("Tất cả")
   const [selected, setSelected] = useState<AdminRecord | null>(null)
@@ -179,6 +101,11 @@ export default function Admin() {
     setSelected(null)
   }
 
+  const handleLogout = () => {
+    authService.removeToken()
+    navigate("/login")
+  }
+
   return (
     <>
       <Header />
@@ -187,54 +114,179 @@ export default function Admin() {
           <div className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
             <div>
               <span className="mb-4 inline-flex rounded-full border-2 border-[#FFC857] bg-white px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">PENTAVA admin</span>
-              <h1 className="text-[36px] font-extrabold leading-tight md:text-[52px]">Quản lý dữ liệu</h1>
-              <p className="mt-3 max-w-[700px] text-sm leading-7 text-[#727272]">Danh sách được chia theo các bảng nghiệp vụ trong DB để admin dễ tìm, lọc và kiểm tra dữ liệu người dùng.</p>
+              <h1 className="text-[36px] font-extrabold leading-tight md:text-[52px]">Quản trị hệ thống</h1>
+              <p className="mt-3 max-w-[700px] text-sm leading-7 text-[#727272]">
+                Xem và quản lý các yêu cầu liên hệ từ Landing Page cũng như các bảng dữ liệu người dùng PENTAVA.
+              </p>
             </div>
             <div className="flex gap-3">
-              <button type="button" onClick={() => exportCsv(activeModule, filteredRecords)} className="inline-flex h-12 items-center gap-2 rounded-full border-2 border-[#3A8157] bg-white px-5 text-xs font-extrabold uppercase tracking-widest text-[#3A8157] hover:bg-[#E8F3EC]">
-                <span className="material-symbols-outlined text-[19px]">download</span> Xuất CSV
-              </button>
-              <button type="button" onClick={() => { localStorage.removeItem("pentava-admin-token"); navigate("/login") }} className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-5 text-xs font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] hover:-translate-y-1">
+              {activeKey !== "contacts" && (
+                <button type="button" onClick={() => exportCsv(activeModule, filteredRecords)} className="inline-flex h-12 items-center gap-2 rounded-full border-2 border-[#3A8157] bg-white px-5 text-xs font-extrabold uppercase tracking-widest text-[#3A8157] hover:bg-[#E8F3EC]">
+                  <span className="material-symbols-outlined text-[19px]">download</span> Xuất CSV
+                </button>
+              )}
+              <button type="button" onClick={handleLogout} className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-5 text-xs font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] hover:-translate-y-1">
                 Đăng xuất <span className="material-symbols-outlined text-[19px]">logout</span>
               </button>
             </div>
           </div>
 
-          <div className="mb-7 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {[["Người dùng", String(modules[0].records.length), "group"], ["Mục tiêu", String(modules[1].records.length), "flag"], ["Nhiệm vụ", String(modules[2].records.length), "task_alt"], ["Check-in hôm nay", "2", "photo_camera"]].map(([label, value, icon]) => (
-              <div key={label} className="rounded-[20px] border border-[#D9D9D9] bg-white p-4 shadow-[0_5px_0px_0px_rgba(0,0,0,0.05)]">
-                <span className="material-symbols-outlined mb-2 text-[24px] text-[#3A8157]">{icon}</span>
-                <p className="text-2xl font-extrabold">{value}</p><p className="text-xs font-bold text-[#727272]">{label}</p>
-              </div>
-            ))}
-          </div>
-
           <div className="grid gap-6 lg:grid-cols-[250px_1fr]">
-            <aside className="rounded-[24px] border border-[#D9D9D9] bg-white p-3 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)]">
-              <p className="px-3 pb-3 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-[#727272]">Danh mục DB</p>
+            <aside className="h-fit rounded-[24px] border border-[#D9D9D9] bg-white p-3 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)]">
+              <p className="px-3 pb-3 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-[#727272]">Danh mục quản lý</p>
               <nav className="space-y-1">
-                {modules.map((item) => <button key={item.key} type="button" onClick={() => handleModuleChange(item.key)} className={`flex w-full items-center gap-3 rounded-[14px] px-3 py-3 text-left text-sm font-extrabold transition-colors ${activeKey === item.key ? "bg-[#E8F3EC] text-[#3A8157]" : "text-[#727272] hover:bg-[#F7FAFF]"}`}><span className="material-symbols-outlined text-[21px]" style={{ color: item.color }}>{item.icon}</span><span className="flex-1">{item.label}</span><span className="text-xs">{item.records.length}</span></button>)}
+                {modules.map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => handleModuleChange(item.key)}
+                    className={`flex w-full items-center gap-3 rounded-[14px] px-3 py-3 text-left text-sm font-extrabold transition-colors ${
+                      activeKey === item.key
+                        ? "bg-[#E8F3EC] text-[#3A8157]"
+                        : "text-[#727272] hover:bg-[#F7FAFF]"
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[21px]" style={{ color: item.color }}>
+                      {item.icon}
+                    </span>
+                    <span className="flex-1">{item.label}</span>
+                    {item.key === "contacts" ? (
+                      <span className="rounded-full bg-[#3A8157] px-2 py-0.5 text-[9px] font-extrabold text-white">
+                        LIVE
+                      </span>
+                    ) : (
+                      <span className="text-xs">{item.records.length}</span>
+                    )}
+                  </button>
+                ))}
               </nav>
             </aside>
 
-            <section className="min-w-0 rounded-[24px] border border-[#D9D9D9] bg-white p-4 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)] md:p-6">
-              <div className="mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-start">
-                <div><div className="mb-2 flex items-center gap-2"><span className="material-symbols-outlined" style={{ color: activeModule.color }}>{activeModule.icon}</span><h2 className="text-2xl font-extrabold">{activeModule.label}</h2></div><p className="text-sm font-semibold text-[#727272]">{activeModule.description} <span className="font-mono text-xs">({activeModule.table})</span></p></div>
-                <span className="rounded-full bg-[#F7FAFF] px-3 py-2 text-xs font-extrabold text-[#727272]">{filteredRecords.length} bản ghi</span>
-              </div>
-              <div className="mb-5 flex flex-col gap-3 md:flex-row">
-                <label className="relative flex-1"><span className="material-symbols-outlined absolute left-4 top-3 text-[21px] text-[#727272]">search</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm theo tên, email, trạng thái..." className="h-11 w-full rounded-full border border-[#D9D9D9] bg-[#F7FAFF] pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#3A8157]" /></label>
-                {statuses.length > 0 && <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)} className="h-11 rounded-full border border-[#D9D9D9] bg-white px-4 text-sm font-bold outline-none focus:border-[#3A8157]"><option>Tất cả</option>{statuses.map((status) => <option key={status}>{status}</option>)}</select>}
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[700px] text-left"><thead><tr className="border-b border-[#D9D9D9] text-[10px] uppercase tracking-widest text-[#727272]"><th className="px-3 py-3">Thông tin chính</th>{activeModule.columns.slice(1).map((column) => <th key={column} className="px-3 py-3">{column}</th>)}<th className="px-3 py-3"> </th></tr></thead><tbody>{filteredRecords.map((record) => <tr key={record.id} className="border-b border-[#EEF1F5] text-sm hover:bg-[#F7FAFF]"><td className="px-3 py-4"><p className="font-extrabold">{record.primary}</p><p className="mt-1 text-xs font-semibold text-[#727272]">{record.secondary}</p></td><td className="px-3 py-4">{record.status ? <span className="rounded-full bg-[#E8F3EC] px-3 py-1.5 text-xs font-extrabold text-[#3A8157]">{record.status}</span> : "—"}</td><td className="px-3 py-4 text-xs font-semibold text-[#727272]">{Object.values(record.detail)[3] ?? "—"}</td><td className="px-3 py-4 text-xs font-semibold text-[#727272]">{Object.values(record.detail)[4] ?? "—"}</td><td className="px-3 py-4"><button type="button" onClick={() => setSelected(record)} className="rounded-full border border-[#3A8157] px-3 py-1.5 text-xs font-extrabold text-[#3A8157] hover:bg-[#3A8157] hover:text-white">Chi tiết</button></td></tr>)}</tbody></table>
-                {filteredRecords.length === 0 && <div className="py-14 text-center"><span className="material-symbols-outlined text-[38px] text-[#D9D9D9]">search_off</span><p className="mt-2 font-extrabold">Không tìm thấy dữ liệu phù hợp</p><p className="text-sm text-[#727272]">Thử đổi từ khóa hoặc bộ lọc.</p></div>}
-              </div>
+            <section className="min-w-0">
+              {activeKey === "contacts" ? (
+                <ContactManager />
+              ) : (
+                <div className="rounded-[24px] border border-[#D9D9D9] bg-white p-4 shadow-[0_6px_0px_0px_rgba(0,0,0,0.06)] md:p-6">
+                  <div className="mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-start">
+                    <div>
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="material-symbols-outlined" style={{ color: activeModule.color }}>
+                          {activeModule.icon}
+                        </span>
+                        <h2 className="text-2xl font-extrabold">{activeModule.label}</h2>
+                      </div>
+                      <p className="text-sm font-semibold text-[#727272]">
+                        {activeModule.description} <span className="font-mono text-xs">({activeModule.table})</span>
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-[#F7FAFF] px-3 py-2 text-xs font-extrabold text-[#727272]">
+                      {filteredRecords.length} bản ghi
+                    </span>
+                  </div>
+                  <div className="mb-5 flex flex-col gap-3 md:flex-row">
+                    <label className="relative flex-1">
+                      <span className="material-symbols-outlined absolute left-4 top-3 text-[21px] text-[#727272]">
+                        search
+                      </span>
+                      <input
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                        placeholder="Tìm theo tên, email, trạng thái..."
+                        className="h-11 w-full rounded-full border border-[#D9D9D9] bg-[#F7FAFF] pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#3A8157]"
+                      />
+                    </label>
+                    {statuses.length > 0 && (
+                      <select
+                        value={statusFilter}
+                        onChange={(event) => setStatusFilter(event.target.value)}
+                        className="h-11 rounded-full border border-[#D9D9D9] bg-white px-4 text-sm font-bold outline-none focus:border-[#3A8157]"
+                      >
+                        <option>Tất cả</option>
+                        {statuses.map((status) => (
+                          <option key={status}>{status}</option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[700px] text-left">
+                      <thead>
+                        <tr className="border-b border-[#D9D9D9] text-[10px] uppercase tracking-widest text-[#727272]">
+                          <th className="px-3 py-3">Thông tin chính</th>
+                          {activeModule.columns.slice(1).map((column) => (
+                            <th key={column} className="px-3 py-3">{column}</th>
+                          ))}
+                          <th className="px-3 py-3"> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredRecords.map((record) => (
+                          <tr key={record.id} className="border-b border-[#EEF1F5] text-sm hover:bg-[#F7FAFF]">
+                            <td className="px-3 py-4">
+                              <p className="font-extrabold">{record.primary}</p>
+                              <p className="mt-1 text-xs font-semibold text-[#727272]">{record.secondary}</p>
+                            </td>
+                            <td className="px-3 py-4">
+                              {record.status ? (
+                                <span className="rounded-full bg-[#E8F3EC] px-3 py-1.5 text-xs font-extrabold text-[#3A8157]">
+                                  {record.status}
+                                </span>
+                              ) : "—"}
+                            </td>
+                            <td className="px-3 py-4 text-xs font-semibold text-[#727272]">
+                              {Object.values(record.detail)[3] ?? "—"}
+                            </td>
+                            <td className="px-3 py-4 text-xs font-semibold text-[#727272]">
+                              {Object.values(record.detail)[4] ?? "—"}
+                            </td>
+                            <td className="px-3 py-4">
+                              <button
+                                type="button"
+                                onClick={() => setSelected(record)}
+                                className="rounded-full border border-[#3A8157] px-3 py-1.5 text-xs font-extrabold text-[#3A8157] hover:bg-[#3A8157] hover:text-white"
+                              >
+                                Chi tiết
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    {filteredRecords.length === 0 && (
+                      <div className="py-14 text-center">
+                        <span className="material-symbols-outlined text-[38px] text-[#D9D9D9]">search_off</span>
+                        <p className="mt-2 font-extrabold">Không tìm thấy dữ liệu phù hợp</p>
+                        <p className="text-sm text-[#727272]">Thử đổi từ khóa hoặc bộ lọc.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </section>
           </div>
         </section>
       </main>
-      {selected && <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 md:items-center" onClick={() => setSelected(null)}><div className="w-full max-w-[520px] rounded-[24px] border-2 border-[#3A8157] bg-white p-6 shadow-[8px_8px_0px_0px_#FFC857]" onClick={(event) => event.stopPropagation()}><div className="mb-5 flex items-start justify-between"><div><p className="text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157]">Chi tiết bản ghi #{selected.id}</p><h3 className="mt-2 text-2xl font-extrabold">{selected.primary}</h3></div><button type="button" onClick={() => setSelected(null)} className="material-symbols-outlined text-[#727272]">close</button></div><dl className="divide-y divide-[#EEF1F5]">{Object.entries(selected.detail).map(([key, value]) => <div key={key} className="flex justify-between gap-4 py-3 text-sm"><dt className="font-bold text-[#727272]">{key}</dt><dd className="text-right font-extrabold">{value}</dd></div>)}</dl><p className="mt-5 rounded-[14px] bg-[#FFF4D8] p-3 text-xs font-semibold leading-5 text-[#6B5700]">Đây là màn hình quản lý giao diện. Để thay đổi trực tiếp DB, cần nối các thao tác này với API backend tương ứng.</p></div></div>}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 md:items-center" onClick={() => setSelected(null)}>
+          <div className="w-full max-w-[520px] rounded-[24px] border-2 border-[#3A8157] bg-white p-6 shadow-[8px_8px_0px_0px_#FFC857]" onClick={(event) => event.stopPropagation()}>
+            <div className="mb-5 flex items-start justify-between">
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#3A8157]">Chi tiết bản ghi #{selected.id}</p>
+                <h3 className="mt-2 text-2xl font-extrabold">{selected.primary}</h3>
+              </div>
+              <button type="button" onClick={() => setSelected(null)} className="material-symbols-outlined text-[#727272]">close</button>
+            </div>
+            <dl className="divide-y divide-[#EEF1F5]">
+              {Object.entries(selected.detail).map(([key, value]) => (
+                <div key={key} className="flex justify-between gap-4 py-3 text-sm">
+                  <dt className="font-bold text-[#727272]">{key}</dt>
+                  <dd className="text-right font-extrabold">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      )}
       <Footer />
     </>
   )

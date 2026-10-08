@@ -1,6 +1,7 @@
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
 import Reveal from "../components/common/Reveal"
+import ContactSection from "../components/sections/ContactSection"
 
 const faqs = [
   {
@@ -47,8 +48,6 @@ export default function Support() {
                     <span className="absolute bottom-1 left-1 right-1 z-0 h-3 rounded-full bg-[#529CFF]/30 md:bottom-2 md:h-5" />
                   </span>
                 </span>
-
-
               </h1>
             </div>
 
@@ -77,6 +76,14 @@ export default function Support() {
               ))}
             </div>
           </section>
+        </Reveal>
+
+        <Reveal>
+          <ContactSection
+            id="contact"
+            title="Vẫn cần thêm trợ giúp?"
+            subtitle="Nếu câu hỏi của bạn chưa được giải đáp trong mục FAQ, đừng ngần ngại gửi tin nhắn cho PENTAVA."
+          />
         </Reveal>
       </main>
 
