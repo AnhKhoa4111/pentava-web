@@ -1,16 +1,6 @@
 import { useState } from "react"
 import { motion } from "motion/react"
 import ScrambleText from "../common/ScrambleText"
-import { ActivityTicker } from "../common/Ticker"
-
-const liveActivities = [
-  "🌿 Routine gợi ý: Bắt đầu ngày mới bằng 10 phút vận động nhẹ",
-  "🙌 Gửi một cái đập tay (High-five) tiếp thêm năng lượng cho bạn bè",
-  "📸 Check-in trực quan: Lưu giữ khoảnh khắc nỗ lực hôm nay của bạn",
-  "✨ Mỗi bước tiến dù nhỏ đều xứng đáng được ghi nhận và tự hào",
-  "🎬 Tự động tạo Weekly Capsule - Thước phim nhìn lại sau mỗi tuần",
-  "🧘 Hãy lắng nghe cơ thể và hạ nhịp khi mệt với tính năng Nhịp thở an lành",
-]
 
 interface CommunityCardData {
   tag: string

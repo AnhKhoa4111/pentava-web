@@ -1,9 +1,5 @@
 import { motion } from "motion/react"
 import ScrambleText from "../common/ScrambleText"
-import {
-  ScrollReelTestimonials,
-  type ScrollReelTestimonial,
-} from "../ui/scroll-reel-testimonials"
 
 // const TRANSFORMATION_STORIES: ScrollReelTestimonial[] = [
 //   {
