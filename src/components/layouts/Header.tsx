@@ -11,7 +11,7 @@ export default function Header() {
     <header className="fixed top-0 z-50 w-full border-b border-[#D9D9D9] bg-white/92 backdrop-blur-md">
       <div className="mx-auto flex h-[76px] max-w-[1220px] items-center justify-between gap-4 px-4 md:px-8">
         <a
-          href="#hero"
+          href="home"
           className="flex h-12 w-[150px] shrink-0 items-center overflow-visible"
           aria-label="Về đầu trang PENTAVA"
         >
