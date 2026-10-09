@@ -5,47 +5,47 @@ import {
   type ScrollReelTestimonial,
 } from "../ui/scroll-reel-testimonials"
 
-const TRANSFORMATION_STORIES: ScrollReelTestimonial[] = [
-  {
-    quote:
-      "Trước đây mình dùng 4-5 app rời rạc cho thói quen, cảm xúc và nhật ký. Với PENTAVA, Routine 1 chạm tích hợp trọn vẹn giúp mình bắt đầu ngày mới nhẹ nhàng mà không quá tải.",
-    author: "Thanh Hải • Giải pháp Routine 1 chạm tích hợp",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Thanh Hải",
-  },
-  {
-    quote:
-      "Các ứng dụng khác trừng phạt khi lỡ đứt streak khiến mình rất tội lỗi. PENTAVA có tính năng Nhịp thở an lành tự động hạ cường độ khi mệt, giúp mình phục hồi và gắn bó lâu dài.",
-    author: "Anh Khoa • Chuyển hóa từ áp lực streak sang kỷ luật tử tế",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Anh Khoa",
-  },
-  {
-    quote:
-      "Thay vì những ô checkbox vô hồn, PENTAVA lưu lại ảnh và mood thật, cuối tuần dựng thành thước phim PENTA-CINEMA sinh động. Cảm giác nhìn thấy chính mình tiến bộ mỗi tuần thật tuyệt vời.",
-    author: "Gia Hân • Visual Verification & PENTA-CINEMA Recap",
-    image:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Gia Hân",
-  },
-  {
-    quote:
-      "Nhóm đồng hành 5 người không hề có bảng xếp hạng hay đố kỵ, chỉ có những cái đập tay tiếp sức chân thành. Mình tìm thấy sự kỷ luật tự giác mà không hề cảm thấy cô đơn.",
-    author: "Hải Đăng • Đồng hành nhóm nhỏ văn minh",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
-    alt: "Chân dung Hải Đăng",
-  },
-]
+// const TRANSFORMATION_STORIES: ScrollReelTestimonial[] = [
+//   {
+//     quote:
+//       "Trước đây mình dùng 4-5 app rời rạc cho thói quen, cảm xúc và nhật ký. Với PENTAVA, Routine 1 chạm tích hợp trọn vẹn giúp mình bắt đầu ngày mới nhẹ nhàng mà không quá tải.",
+//     author: "Thanh Hải • Giải pháp Routine 1 chạm tích hợp",
+//     image:
+//       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+//     alt: "Chân dung Thanh Hải",
+//   },
+//   {
+//     quote:
+//       "Các ứng dụng khác trừng phạt khi lỡ đứt streak khiến mình rất tội lỗi. PENTAVA có tính năng Nhịp thở an lành tự động hạ cường độ khi mệt, giúp mình phục hồi và gắn bó lâu dài.",
+//     author: "Anh Khoa • Chuyển hóa từ áp lực streak sang kỷ luật tử tế",
+//     image:
+//       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+//     alt: "Chân dung Anh Khoa",
+//   },
+//   {
+//     quote:
+//       "Thay vì những ô checkbox vô hồn, PENTAVA lưu lại ảnh và mood thật, cuối tuần dựng thành thước phim PENTA-CINEMA sinh động. Cảm giác nhìn thấy chính mình tiến bộ mỗi tuần thật tuyệt vời.",
+//     author: "Gia Hân • Visual Verification & PENTA-CINEMA Recap",
+//     image:
+//       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
+//     alt: "Chân dung Gia Hân",
+//   },
+//   {
+//     quote:
+//       "Nhóm đồng hành 5 người không hề có bảng xếp hạng hay đố kỵ, chỉ có những cái đập tay tiếp sức chân thành. Mình tìm thấy sự kỷ luật tự giác mà không hề cảm thấy cô đơn.",
+//     author: "Hải Đăng • Đồng hành nhóm nhỏ văn minh",
+//     image:
+//       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
+//     alt: "Chân dung Hải Đăng",
+//   },
+// ]
 
 const PILLARS = [
   {
     step: "01",
     tag: "TÍCH HỢP TOÀN DIỆN",
     before: "Phân mảnh 4-5 ứng dụng riêng lẻ",
-    after: "Routine 1 chạm tinh gọn 5 khía cạnh sức khỏe",
+    after: "Routine 1 chạm tinh gọn",
     color: "#FFC857",
     icon: "all_inclusive",
   },
@@ -53,7 +53,7 @@ const PILLARS = [
     step: "02",
     tag: "TRỰC QUAN HÓA",
     before: "Checkbox khô khan, dễ nản lòng",
-    after: "Visual log & Thước phim PENTA-CINEMA",
+    after: "Thước phim PENTA-CINEMA",
     color: "#529CFF",
     icon: "movie_filter",
   },
@@ -61,7 +61,7 @@ const PILLARS = [
     step: "03",
     tag: "KỶ LUẬT TỬ TẾ",
     before: "Áp lực Streak đè nặng, sợ đứt chuỗi",
-    after: "Nhịp thở an lành & Nhóm nhỏ 5 người tiếp sức",
+    after: "Nhịp thở an lành & Cộng đồng tiếp sức",
     color: "#3A8157",
     icon: "spa",
   },
@@ -100,13 +100,13 @@ export default function Solution() {
           </p>
         </div>
 
-        {/* COMPONENT SCROLL REEL TESTIMONIALS */}
+        {/* COMPONENT SCROLL REEL TESTIMONIALS
         <div className="flex justify-center mb-16">
           <ScrollReelTestimonials
             testimonials={TRANSFORMATION_STORIES}
             className="w-full"
           />
-        </div>
+        </div> */}
 
         {/* 3 TRỤ CỘT CHUYỂN HÓA CỐT LÕI (3 PILLARS CARDS) */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

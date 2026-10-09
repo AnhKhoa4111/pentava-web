@@ -48,9 +48,9 @@ const communityCards: CommunityCardData[] = [
     tag: "BALANCE",
     badge: "Đồng hành tử tế",
     title: "Kỷ luật không gượng ép",
-    desc: "Tiến bộ theo nhịp sinh học riêng nhưng luôn được nhóm nhỏ tiếp sức đúng lúc bằng những cái đập tay chân thành.",
+    desc: "Tiến bộ theo nhịp sinh học riêng nhưng luôn được cộng đồng tiếp sức đúng lúc bằng những cái đập tay chân thành.",
     featureIcon: "group",
-    featureTitle: "Nhóm nhỏ tối đa 5 người",
+    featureTitle: "Cộng đồng văn minh",
     featureSub: "Không gian đồng hành văn minh, gắn kết",
     color: "#3A8157",
   },
@@ -88,12 +88,12 @@ export default function CommunityPreview() {
         </h2>
 
         <p className="mt-4 text-base leading-relaxed text-[#727272]">
-          PENTAVA kiến tạo không gian nhóm nhỏ văn minh, nơi mọi người tiếp sức cho nhau bằng high-five, visual log truyền cảm hứng và thử thách nhẹ nhàng thay vì so kè thứ hạng.
+          PENTAVA kiến tạo không gian nhóm nhỏ văn minh, nơi mọi người tiếp sức cho nhau bằng high-five giúp truyền cảm hứng và thử thách nhẹ nhàng thay vì so kè thứ hạng.
         </p>
       </div>
 
       {/* THE TICKER: Gợi ý routine & thông điệp đồng hành tích cực */}
-      <div className="mb-12 rounded-2xl border-2 border-black bg-[#F7FAFF] p-3 shadow-[4px_4px_0px_0px_#3A8157]">
+      {/* <div className="mb-12 rounded-2xl border-2 border-black bg-[#F7FAFF] p-3 shadow-[4px_4px_0px_0px_#3A8157]">
         <div className="flex items-center gap-3 px-3">
           <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#3A8157] shrink-0">
             <span className="material-symbols-outlined text-base animate-pulse">tips_and_updates</span>
@@ -101,7 +101,7 @@ export default function CommunityPreview() {
           </span>
           <ActivityTicker items={liveActivities} speed={28} className="flex-1" />
         </div>
-      </div>
+      </div> */}
 
       {/* Grid 3 Thẻ Cộng Đồng Tương Tác */}
       <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
@@ -164,8 +164,8 @@ export default function CommunityPreview() {
                   whileHover={{ scale: 1.05 }}
                   onClick={() => handleClap(card.tag)}
                   className={`flex items-center gap-1.5 rounded-full border-2 border-black px-4 py-2 text-xs font-black transition-all cursor-pointer ${userClapCount > 0
-                      ? "bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
-                      : "bg-[#FFC857] text-black shadow-[2px_2px_0px_0px_#3A8157] hover:bg-[#ffe082]"
+                    ? "bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
+                    : "bg-[#FFC857] text-black shadow-[2px_2px_0px_0px_#3A8157] hover:bg-[#ffe082]"
                     }`}
                   aria-label="Đập tay tiếp sức"
                 >

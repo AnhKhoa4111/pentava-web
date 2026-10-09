@@ -19,17 +19,11 @@ const faqs: FaqItem[] = [
   {
     id: 2,
     category: "feature",
-    q: "Nếu tôi bận hoặc lỡ đứt chuỗi thì có bị mất tiến trình không?",
-    a: "PENTAVA không trừng phạt người dùng bằng streak độc hại. Tính năng 'Nhịp thở an lành' sẽ tự động hỗ trợ bạn hạ 40% cường độ mục tiêu trong những ngày mệt mỏi và bắt đầu lại một cách nhẹ nhàng nhất.",
-  },
-  {
-    id: 3,
-    category: "feature",
     q: "PENTAVA khác gì so với các ứng dụng Todo hay Habit thông thường?",
     a: "PENTAVA không bắt bạn tự vắt óc lên kế hoạch từ đầu. Chúng tôi cung cấp lộ trình cá nhân hóa 1 chạm, kiểm chứng bằng ảnh/video thật thay vì checkbox vô hồn, và tự động dựng Weekly Capsule thành một thước phim recap điện ảnh cảm xúc.",
   },
   {
-    id: 4,
+    id: 3,
     category: "pricing",
     q: "PENTAVA có hoàn toàn miễn phí khi sử dụng không?",
     a: "Bạn hoàn toàn có thể bắt đầu và trải nghiệm miễn phí các tính năng cốt lõi (Routine 1 chạm, mood log, visual verification cơ bản). Khi cần thước phim recap điện ảnh mở rộng hoặc lưu trữ không giới hạn, bạn có thể cân nhắc gói cao cấp sau.",
@@ -80,11 +74,10 @@ export default function FAQ() {
           <button
             key={cat.key}
             onClick={() => setActiveCategory(cat.key)}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
-              activeCategory === cat.key
-                ? "border-2 border-black bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
-                : "border-2 border-black/15 bg-white text-[#727272] hover:border-black hover:text-black"
-            }`}
+            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${activeCategory === cat.key
+              ? "border-2 border-black bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
+              : "border-2 border-black/15 bg-white text-[#727272] hover:border-black hover:text-black"
+              }`}
           >
             {cat.label}
           </button>
@@ -98,11 +91,10 @@ export default function FAQ() {
           return (
             <div
               key={item.id}
-              className={`rounded-2xl border-2 transition-all duration-200 ${
-                isOpen
-                  ? "border-black bg-white shadow-[6px_6px_0px_0px_#3A8157]"
-                  : "border-black/20 bg-white hover:border-black hover:shadow-[4px_4px_0px_0px_#FFC857]"
-              }`}
+              className={`rounded-2xl border-2 transition-all duration-200 ${isOpen
+                ? "border-black bg-white shadow-[6px_6px_0px_0px_#3A8157]"
+                : "border-black/20 bg-white hover:border-black hover:shadow-[4px_4px_0px_0px_#FFC857]"
+                }`}
             >
               <button
                 type="button"
@@ -110,9 +102,8 @@ export default function FAQ() {
                 className="flex w-full cursor-pointer items-center justify-between p-6 text-left"
               >
                 <span
-                  className={`text-base md:text-lg font-extrabold pr-4 transition-colors ${
-                    isOpen ? "text-[#3A8157]" : "text-black"
-                  }`}
+                  className={`text-base md:text-lg font-extrabold pr-4 transition-colors ${isOpen ? "text-[#3A8157]" : "text-black"
+                    }`}
                 >
                   {item.q}
                 </span>
@@ -120,11 +111,10 @@ export default function FAQ() {
                 <motion.span
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className={`material-symbols-outlined flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl transition-colors ${
-                    isOpen
-                      ? "bg-[#3A8157] text-white"
-                      : "bg-[#F7FAFF] text-[#727272]"
-                  }`}
+                  className={`material-symbols-outlined flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl transition-colors ${isOpen
+                    ? "bg-[#3A8157] text-white"
+                    : "bg-[#F7FAFF] text-[#727272]"
+                    }`}
                 >
                   expand_more
                 </motion.span>

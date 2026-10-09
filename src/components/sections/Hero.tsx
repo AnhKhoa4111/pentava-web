@@ -1,10 +1,10 @@
 import { motion } from "motion/react"
 
-const stats = [
-  { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157", shadow: "#3A8157" },
-  { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857", shadow: "#FFC857" },
-  { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF", shadow: "#529CFF" },
-]
+// const stats = [
+//   { value: "05", label: "Nhiệm vụ gợi ý mỗi ngày", tag: "Cân bằng", icon: "checklist", color: "#3A8157", shadow: "#3A8157" },
+//   { value: "02 phút", label: "Để tạo routine cá nhân đầu tiên", tag: "Nhanh gọn", icon: "timer", color: "#FFC857", shadow: "#FFC857" },
+//   { value: "01 app", label: "Cho habit, mood, journal & cộng đồng", tag: "Tất cả trong 1", icon: "all_inclusive", color: "#529CFF", shadow: "#529CFF" },
+// ]
 
 export default function Hero() {
   return (
@@ -57,7 +57,7 @@ export default function Hero() {
             Tải PENTAVA
           </motion.a>
 
-          <motion.a
+          {/* <motion.a
             whileHover={{ y: -4, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -66,12 +66,12 @@ export default function Hero() {
           >
             <span className="material-symbols-outlined text-[21px]">auto_awesome</span>
             Xem giải pháp
-          </motion.a>
+          </motion.a> */}
         </div>
 
         {/* Thống kê nổi bật (Neo-brutalist Stats Cards) */}
         <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
-          {stats.map((item, index) => (
+          {/* {stats.map((item, index) => (
             <motion.div
               key={item.value}
               initial={{ opacity: 0, y: 20 }}
@@ -100,7 +100,7 @@ export default function Hero() {
                 {item.label}
               </p>
             </motion.div>
-          ))}
+          ))} */}
         </div>
       </motion.div>
 

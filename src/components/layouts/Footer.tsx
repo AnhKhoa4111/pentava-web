@@ -13,7 +13,12 @@ const companyLinks = [
   { label: "Blog", to: "/blog" },
 ]
 
-const socialLinks = ["Facebook", "Instagram", "LinkedIn"]
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61595034024501",
+  },
+]
 
 export default function Footer() {
   return (
@@ -187,11 +192,13 @@ export default function Footer() {
           <div className="flex flex-wrap gap-4">
             {socialLinks.map((item) => (
               <a
-                key={item}
+                key={item.label}
                 className="rounded-full border border-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-white/55 transition-all hover:-translate-y-1 hover:border-[#FFC857] hover:bg-[#FFC857] hover:text-black"
-                href="#"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>

@@ -25,7 +25,7 @@ export default function Cinema() {
               <span className="material-symbols-outlined text-[18px] text-[#8B63F6]">
                 smart_display
               </span>
-              Recap tự động hằng tuần
+              Recap hằng tuần
             </div>
             <div className="flex items-center gap-2 rounded-2xl border-2 border-black bg-[#F7FAFF] px-4 py-3 text-xs font-black text-black shadow-[3px_3px_0px_0px_#FFC857]">
               <span className="material-symbols-outlined text-[18px] text-[#FFC857]">
