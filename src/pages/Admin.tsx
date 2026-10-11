@@ -6,9 +6,10 @@ import ContactManager from "../components/admin/ContactManager"
 import SubscriptionManager from "../components/admin/SubscriptionManager"
 import UserManager from "../components/admin/UserManager"
 import CashFlowManager from "../components/admin/CashFlowManager"
+import AdminDashboard from "../components/admin/AdminDashboard"
 import { authService } from "../services/authService"
 
-type ModuleKey = "cashflow" | "users" | "subscriptions" | "contacts"
+type ModuleKey = "dashboard" | "cashflow" | "users" | "subscriptions" | "contacts"
 
 type AdminRecord = {
   id: number
@@ -32,6 +33,16 @@ type AdminModule = {
 
 
 const modules: AdminModule[] = [
+  {
+    key: "dashboard",
+    label: "Bảng điều khiển",
+    table: "dashboard",
+    icon: "dashboard",
+    color: "#3A8157",
+    description: "Tổng quan điều hành hệ sinh thái PENTAVA: Chỉ số tăng trưởng, tài chính và hạ tầng.",
+    columns: ["Chỉ số", "Giá trị", "Tăng trưởng", "Trạng thái", "Cập nhật"],
+    records: [],
+  },
   {
     key: "cashflow",
     label: "Dòng tiền & Sổ quỹ",
@@ -88,7 +99,7 @@ function exportCsv(module: AdminModule, records: AdminRecord[]) {
 
 export default function Admin() {
   const navigate = useNavigate()
-  const [activeKey, setActiveKey] = useState<ModuleKey>("users")
+  const [activeKey, setActiveKey] = useState<ModuleKey>("dashboard")
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("Tất cả")
   const [selected, setSelected] = useState<AdminRecord | null>(null)
@@ -132,7 +143,7 @@ export default function Admin() {
               </p>
             </div>
             <div className="flex gap-3">
-              {activeKey !== "contacts" && activeKey !== "subscriptions" && activeKey !== "users" && activeKey !== "cashflow" && (
+              {activeKey !== "dashboard" && activeKey !== "contacts" && activeKey !== "subscriptions" && activeKey !== "users" && activeKey !== "cashflow" && (
                 <button
                   type="button"
                   onClick={() => exportCsv(activeModule, filteredRecords)}
@@ -171,7 +182,7 @@ export default function Admin() {
                       {item.icon}
                     </span>
                     <span className="flex-1">{item.label}</span>
-                    {item.key === "contacts" || item.key === "subscriptions" || item.key === "users" || item.key === "cashflow" ? (
+                    {item.key === "dashboard" || item.key === "contacts" || item.key === "subscriptions" || item.key === "users" || item.key === "cashflow" ? (
                       <span className="rounded-full bg-[#3A8157] px-2 py-0.5 text-[9px] font-extrabold text-white">
                         LIVE
                       </span>
@@ -184,7 +195,9 @@ export default function Admin() {
             </aside>
 
             <section className="min-w-0">
-              {activeKey === "cashflow" ? (
+              {activeKey === "dashboard" ? (
+                <AdminDashboard onNavigate={handleModuleChange} />
+              ) : activeKey === "cashflow" ? (
                 <CashFlowManager />
               ) : activeKey === "contacts" ? (
                 <ContactManager />

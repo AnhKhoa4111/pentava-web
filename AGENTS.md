@@ -67,6 +67,7 @@ src/
 ├── assets/                  # Ảnh, logo, favicon, tài nguyên tĩnh
 ├── components/
 │   ├── admin/               # Quản trị viên:
+│   │   ├── AdminDashboard.tsx  # Trung tâm điều hành: Biểu đồ doanh thu tương tác, Activity Stream, Health monitor
 │   │   ├── CashFlowManager.tsx # Quản lý dòng tiền vào/ra, đối soát SePay VietQR, tiêu thụ Ruby
 │   │   ├── UserManager.tsx  # Quản lý tài khoản, trạng thái verify & onboarding
 │   │   ├── SubscriptionManager.tsx # Quản lý gói cước, cấu hình modular tính năng
@@ -101,7 +102,7 @@ src/
 ├── pages/
 │   ├── Home.tsx             # Trang chủ rút gọn (~30 dòng, ghép các section độc lập)
 │   ├── About.tsx, Cinema.tsx, Community.tsx, Privacy.tsx, Support.tsx
-│   ├── Login.tsx, Admin.tsx (Quản trị hệ thống: Dòng tiền, Người dùng, Gói cước, Liên hệ)
+│   ├── Login.tsx, Admin.tsx (Quản trị hệ thống: Bảng điều khiển, Dòng tiền, Người dùng, Gói cước, Liên hệ)
 ├── App.tsx                  # BrowserRouter routing + ProtectedAdminRoute
 ├── index.css                # Token CSS, Tailwind v4, Scroll Reel keyframes
 └── main.tsx
@@ -123,6 +124,7 @@ src/
    - `feature-carousel.tsx`: Carousel 3D perspective lướt tính năng siêu mượt.
    - `button.tsx`: Button nguyên bản shadcn chuẩn hoá biến thể.
 10. **Quản trị hệ thống [Admin.tsx](file:///d:/FPT7/EXE101/pentava-web/src/pages/Admin.tsx) & Các Module Admin LIVE:**
+    - **Trung tâm điều hành ([AdminDashboard.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/AdminDashboard.tsx)):** Lấy cảm hứng từ kiến trúc dashboard trực quan Metis; tích hợp 4 thẻ KPI động kèm tỷ lệ tăng trưởng % (Stats Counter), Biểu đồ dòng tiền tương tác Area Chart đa mốc thời gian (7D, 30D, 90D, 1Y) với hover tooltip mượt mà, Dòng hoạt động thời gian thực (Real-time Activity Timeline), Phân bổ cơ cấu hội viên (Segmented Distribution Meter), Bảng giám sát hạ tầng & Cổng SePay (Health & Latency Monitor) và Sổ giao dịch mới nhất.
     - **Quản trị Dòng tiền & Sổ quỹ ([CashFlowManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/CashFlowManager.tsx)):** Quản lý dòng tiền vào (Nạp Ruby, Gói cước SePay VietQR), dòng tiêu thụ Ruby trong Shop, 4 thẻ chỉ số KPI tài chính, phân bổ doanh thu, đối soát QR SePay ngân hàng MBBank, duyệt thủ công giao dịch và xuất file CSV sổ quỹ.
     - **Quản trị Người dùng ([UserManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/UserManager.tsx)):** Theo dõi tài khoản người dùng, trạng thái xác thực email, hoàn thành onboarding và đồng bộ tên gRPC.
     - **Quản trị Gói cước ([SubscriptionManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/SubscriptionManager.tsx)):** Cấu hình modular giá gói cước, bật/tắt quyền lợi tính năng và theo dõi hội viên đăng ký.
@@ -172,3 +174,34 @@ npx oxlint
 1. **Không ghi đè mù quáng (Never blindly overwrite):** Luôn so sánh cả 2 bên (Current Change vs Incoming Change) trước khi chấp nhận thay đổi.
 2. **Bảo toàn cấu trúc modular:** Không hoàn tác việc chia tách component section về lại file nguyên khối.
 3. **Kiểm tra build ngay sau merge:** Luôn chạy `npm run build` (tsc + vite) và `npx oxlint` để xác nhận 0 lỗi trước khi bàn giao cho người dùng.
+
+---
+
+## 8. LƯU Ý VỀ DỮ LIỆU DASHBOARD & KẾ HOẠCH GỌI API THẬT (BACKEND ROADMAP)
+
+> ⚠️ **QUAN TRỌNG DÀNH CHO CÁC LƯỢT PROMPT / AI AGENT TIẾP THEO:**  
+> Toàn bộ chỉ số biến động dòng tiền, tỷ lệ tăng trưởng và biểu đồ đa kỳ trên **Trung tâm Điều hành (`src/components/admin/AdminDashboard.tsx`)** hiện đang sử dụng **dữ liệu mô phỏng có cấu trúc (mockup / fallback series data)** dựa theo kiến trúc Metis để hoàn thiện trải nghiệm thị giác và tương tác hover.  
+> Các dữ liệu này **CHƯA ĐƯỢC KẾT NỐI VỚI API THẬT CỦA BACKEND**.
+
+### A. Danh mục các điểm đang dùng Mockup / Fallback:
+1. **Biểu đồ đa kỳ Doanh thu & Ruby (`chartData` theo `7D`, `30D`, `90D`, `1Y`):**
+   - Vị trí: `AdminDashboard.tsx` (`useMemo(() => ... [period])`).
+   - Đang sinh số liệu mẫu để vẽ đường cong 2 lớp (Doanh thu VNĐ + Ruby nạp).
+2. **Dòng hoạt động thời gian thực (`activityEvents`):**
+   - Vị trí: `AdminDashboard.tsx` (`activityEvents`).
+   - Đang dùng danh sách 5 sự kiện mẫu mô phỏng lệnh nạp VietQR, mua vật phẩm Shop, onboarding.
+3. **Cơ cấu phân bổ Hội viên & Tỷ lệ hoàn thành Routine:**
+   - Đang fix cứng tỷ lệ (60% Free, 20% Basic, 12% Gold, 8% Premium, 78.4% Routine).
+
+### B. Lộ trình tích hợp Backend API thật (Kêu AI làm ở lượt sau):
+Khi backend triển khai các endpoint phân tích tổng hợp (analytics), cần thực hiện các bước sau:
+1. **Tạo service hoặc mở rộng `src/services/adminCashflowService.ts`:**
+   - `GET /api/shop/admin/analytics/revenue?period={7D|30D|90D|1Y}`: Lấy danh sách điểm dữ liệu thực tế gồm `{ label: string, revenue: number, ruby: number }` từ database PostgreSQL của `shop-service`.
+   - `GET /api/shop/admin/analytics/kpi`: Lấy 4 chỉ số KPI tài chính thời gian thực (Tổng doanh thu, Tổng giao dịch SePay, Ruby tồn ví, Ruby đã tiêu thụ).
+   - `GET /api/manage/admin/activities/stream`: Lấy danh sách audit log / sự kiện gần nhất từ hệ thống gRPC backend.
+   - `GET /api/membership/admin/distribution`: Lấy tỷ lệ hội viên theo từng gói từ `subscription-service`.
+2. **Nối API vào `AdminDashboard.tsx`:**
+   - Thay thế `chartData` mẫu bằng `useEffect` gọi `adminCashflowService.getRevenueAnalytics(period)`.
+   - Cập nhật state `activityEvents` với dữ liệu trả về từ API.
+   - Thêm trạng thái loading skeleton khi người dùng chuyển tab thời gian `7D` → `30D` → `90D` → `1Y`.
+
