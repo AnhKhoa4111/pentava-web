@@ -66,6 +66,11 @@ PENTAVA sử dụng phong cách **Playful Neo-Brutalist & Artisanal Clean** (vui
 src/
 ├── assets/                  # Ảnh, logo, favicon, tài nguyên tĩnh
 ├── components/
+│   ├── admin/               # Quản trị viên:
+│   │   ├── CashFlowManager.tsx # Quản lý dòng tiền vào/ra, đối soát SePay VietQR, tiêu thụ Ruby
+│   │   ├── UserManager.tsx  # Quản lý tài khoản, trạng thái verify & onboarding
+│   │   ├── SubscriptionManager.tsx # Quản lý gói cước, cấu hình modular tính năng
+│   │   └── ContactManager.tsx # Tiếp nhận và xử lý yêu cầu liên hệ
 │   ├── common/              # UI dùng chung:
 │   │   ├── ScrambleText.tsx # Hiệu ứng chữ giải mã ngẫu nhiên
 │   │   ├── Ticker.tsx       # NumberTicker & ActivityTicker (tin tức chạy)
@@ -87,10 +92,16 @@ src/
 │       └── scroll-reel-testimonials.tsx # 3D counter-rotating reel + per-char text rise
 ├── lib/
 │   └── utils.ts             # Helper cn() (clsx + tailwind-merge)
+├── services/                # API Services kết nối backend:
+│   ├── adminCashflowService.ts # Service dòng tiền, sổ quỹ, SePay, duyệt giao dịch & xuất CSV
+│   ├── adminSubscriptionService.ts # Service quản trị gói cước & tính năng
+│   ├── adminUserService.ts  # Service quản lý người dùng
+│   ├── authService.ts       # Service xác thực JWT
+│   └── contactService.ts    # Service gửi và quản lý liên hệ
 ├── pages/
 │   ├── Home.tsx             # Trang chủ rút gọn (~30 dòng, ghép các section độc lập)
 │   ├── About.tsx, Cinema.tsx, Community.tsx, Privacy.tsx, Support.tsx
-│   ├── Login.tsx, Admin.tsx (Quản trị danh bạ, liên hệ, người dùng)
+│   ├── Login.tsx, Admin.tsx (Quản trị hệ thống: Dòng tiền, Người dùng, Gói cước, Liên hệ)
 ├── App.tsx                  # BrowserRouter routing + ProtectedAdminRoute
 ├── index.css                # Token CSS, Tailwind v4, Scroll Reel keyframes
 └── main.tsx
@@ -111,15 +122,20 @@ src/
    - `scroll-reel-testimonials.tsx`: Guồng cuộn ảnh 3 cột đối xứng, vệt sáng chéo và hiệu ứng chữ động trồi từng ký tự.
    - `feature-carousel.tsx`: Carousel 3D perspective lướt tính năng siêu mượt.
    - `button.tsx`: Button nguyên bản shadcn chuẩn hoá biến thể.
+10. **Quản trị hệ thống [Admin.tsx](file:///d:/FPT7/EXE101/pentava-web/src/pages/Admin.tsx) & Các Module Admin LIVE:**
+    - **Quản trị Dòng tiền & Sổ quỹ ([CashFlowManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/CashFlowManager.tsx)):** Quản lý dòng tiền vào (Nạp Ruby, Gói cước SePay VietQR), dòng tiêu thụ Ruby trong Shop, 4 thẻ chỉ số KPI tài chính, phân bổ doanh thu, đối soát QR SePay ngân hàng MBBank, duyệt thủ công giao dịch và xuất file CSV sổ quỹ.
+    - **Quản trị Người dùng ([UserManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/UserManager.tsx)):** Theo dõi tài khoản người dùng, trạng thái xác thực email, hoàn thành onboarding và đồng bộ tên gRPC.
+    - **Quản trị Gói cước ([SubscriptionManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/SubscriptionManager.tsx)):** Cấu hình modular giá gói cước, bật/tắt quyền lợi tính năng và theo dõi hội viên đăng ký.
+    - **Quản lý Yêu cầu liên hệ ([ContactManager.tsx](file:///d:/FPT7/EXE101/pentava-web/src/components/admin/ContactManager.tsx)):** Tiếp nhận và cập nhật tiến độ xử lý phản hồi từ khách hàng.
 
 ---
 
 ## 6. HƯỚNG DẪN PHÒNG NGỪA & XỬ LÝ CONFLICT KHI MERGE CODE (QUAN TRỌNG)
 
 ### A. Những vị trí DỄ XẢY RA CONFLICT nhất:
-1. **`src/pages/Home.tsx`:**
-   - **Thực trạng:** `Home.tsx` luôn giữ cấu trúc modular (`<Hero />`, `<Solution />`, `<Features />`, `<Cinema />`, `<CommunityPreview />`, `<CTA />`, `<FAQ />`, `<ContactSection id="contact" />`).
-   - **Xử lý:** Ưu tiên giữ cấu trúc modular, chuyển các chỉnh sửa nội dung vào đúng file section tương ứng trong `src/components/sections/`.
+1. **`src/pages/Home.tsx` & `src/pages/Admin.tsx`:**
+   - **Thực trạng:** Cả `Home.tsx` và `Admin.tsx` đều giữ kiến trúc modular (`<CashFlowManager />`, `<UserManager />`, `<SubscriptionManager />`, `<ContactManager />`).
+   - **Xử lý:** Ưu tiên giữ cấu trúc modular, chuyển các chỉnh sửa nội dung/logic vào đúng file component tương ứng trong `src/components/sections/` hoặc `src/components/admin/`.
 2. **`package.json` & `package-lock.json`:**
    - **Xử lý:** Giữ cả 2 bên dependencies, sau đó chạy `npm install` để cập nhật lại lockfile.
 3. **`vite.config.ts` & `tsconfig.app.json`:**

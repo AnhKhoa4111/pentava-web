@@ -5,9 +5,10 @@ import Footer from "../components/layouts/Footer"
 import ContactManager from "../components/admin/ContactManager"
 import SubscriptionManager from "../components/admin/SubscriptionManager"
 import UserManager from "../components/admin/UserManager"
+import CashFlowManager from "../components/admin/CashFlowManager"
 import { authService } from "../services/authService"
 
-type ModuleKey = "contacts" | "subscriptions" | "users"
+type ModuleKey = "cashflow" | "users" | "subscriptions" | "contacts"
 
 type AdminRecord = {
   id: number
@@ -31,6 +32,16 @@ type AdminModule = {
 
 
 const modules: AdminModule[] = [
+  {
+    key: "cashflow",
+    label: "Dòng tiền & Sổ quỹ",
+    table: "cash_flow",
+    icon: "payments",
+    color: "#3A8157",
+    description: "Giám sát dòng tiền vào (Nạp Ruby, Gói cước), dòng tiêu thụ Ruby và đối soát cổng thanh toán SePay.",
+    columns: ["Mã GD", "Loại", "Người dùng", "Số tiền (VNĐ/Ruby)", "Trạng thái", "Ngày tạo"],
+    records: [],
+  },
   {
     key: "users",
     label: "Người dùng",
@@ -117,11 +128,11 @@ export default function Admin() {
               </span>
               <h1 className="text-[36px] font-extrabold leading-tight md:text-[52px]">Quản trị hệ thống</h1>
               <p className="mt-3 max-w-[700px] text-sm leading-7 text-[#727272]">
-                Xem và quản lý các yêu cầu liên hệ, cấu hình các gói cước dịch vụ và dữ liệu người dùng PENTAVA.
+                Xem và quản lý dòng tiền vào ra, tài khoản người dùng, cấu hình các gói cước dịch vụ và yêu cầu hỗ trợ PENTAVA.
               </p>
             </div>
             <div className="flex gap-3">
-              {activeKey !== "contacts" && activeKey !== "subscriptions" && activeKey !== "users" && (
+              {activeKey !== "contacts" && activeKey !== "subscriptions" && activeKey !== "users" && activeKey !== "cashflow" && (
                 <button
                   type="button"
                   onClick={() => exportCsv(activeModule, filteredRecords)}
@@ -160,7 +171,7 @@ export default function Admin() {
                       {item.icon}
                     </span>
                     <span className="flex-1">{item.label}</span>
-                    {item.key === "contacts" || item.key === "subscriptions" || item.key === "users" ? (
+                    {item.key === "contacts" || item.key === "subscriptions" || item.key === "users" || item.key === "cashflow" ? (
                       <span className="rounded-full bg-[#3A8157] px-2 py-0.5 text-[9px] font-extrabold text-white">
                         LIVE
                       </span>
@@ -173,7 +184,9 @@ export default function Admin() {
             </aside>
 
             <section className="min-w-0">
-              {activeKey === "contacts" ? (
+              {activeKey === "cashflow" ? (
+                <CashFlowManager />
+              ) : activeKey === "contacts" ? (
                 <ContactManager />
               ) : activeKey === "subscriptions" ? (
                 <SubscriptionManager />
