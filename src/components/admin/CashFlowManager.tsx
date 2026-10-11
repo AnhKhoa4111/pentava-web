@@ -166,11 +166,10 @@ export default function CashFlowManager() {
       {/* Toast Alert */}
       {toast && (
         <div
-          className={`fixed right-6 top-24 z-50 flex items-center gap-3 rounded-2xl border px-5 py-4 shadow-xl transition-all ${
-            toast.type === "success"
-              ? "border-[#3A8157] bg-white text-[#3A8157]"
-              : "border-red-500 bg-white text-red-600"
-          }`}
+          className={`fixed right-6 top-24 z-50 flex items-center gap-3 rounded-2xl border px-5 py-4 shadow-xl transition-all ${toast.type === "success"
+            ? "border-[#3A8157] bg-white text-[#3A8157]"
+            : "border-red-500 bg-white text-red-600"
+            }`}
         >
           <span className="material-symbols-outlined text-[22px]">
             {toast.type === "success" ? "check_circle" : "error"}
@@ -218,11 +217,10 @@ export default function CashFlowManager() {
           <button
             type="button"
             onClick={() => setActiveTab("overview")}
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${
-              activeTab === "overview"
-                ? "bg-[#3A8157] text-white shadow-sm"
-                : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
-            }`}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${activeTab === "overview"
+              ? "bg-[#3A8157] text-white shadow-sm"
+              : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
+              }`}
           >
             <span className="material-symbols-outlined text-[18px]">dashboard</span>
             Tổng quan & KPI
@@ -230,18 +228,16 @@ export default function CashFlowManager() {
           <button
             type="button"
             onClick={() => setActiveTab("inflow")}
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${
-              activeTab === "inflow"
-                ? "bg-[#3A8157] text-white shadow-sm"
-                : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
-            }`}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${activeTab === "inflow"
+              ? "bg-[#3A8157] text-white shadow-sm"
+              : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
+              }`}
           >
             <span className="material-symbols-outlined text-[18px]">trending_up</span>
             Tiền vào VNĐ
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                activeTab === "inflow" ? "bg-white/25 text-white" : "bg-[#EEF1F5] text-[#727272]"
-              }`}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${activeTab === "inflow" ? "bg-white/25 text-white" : "bg-[#EEF1F5] text-[#727272]"
+                }`}
             >
               {transactions.filter((t) => t.direction === "IN").length}
             </span>
@@ -249,18 +245,16 @@ export default function CashFlowManager() {
           <button
             type="button"
             onClick={() => setActiveTab("outflow")}
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${
-              activeTab === "outflow"
-                ? "bg-[#3A8157] text-white shadow-sm"
-                : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
-            }`}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${activeTab === "outflow"
+              ? "bg-[#3A8157] text-white shadow-sm"
+              : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
+              }`}
           >
             <span className="material-symbols-outlined text-[18px]">shopping_bag</span>
             Tiêu thụ Ruby
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                activeTab === "outflow" ? "bg-white/25 text-white" : "bg-[#EEF1F5] text-[#727272]"
-              }`}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${activeTab === "outflow" ? "bg-white/25 text-white" : "bg-[#EEF1F5] text-[#727272]"
+                }`}
             >
               {transactions.filter((t) => t.direction === "OUT").length}
             </span>
@@ -268,11 +262,10 @@ export default function CashFlowManager() {
           <button
             type="button"
             onClick={() => setActiveTab("gateway")}
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${
-              activeTab === "gateway"
-                ? "bg-[#3A8157] text-white shadow-sm"
-                : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
-            }`}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold transition-all ${activeTab === "gateway"
+              ? "bg-[#3A8157] text-white shadow-sm"
+              : "bg-[#F7FAFF] text-[#727272] hover:bg-[#E8F3EC] hover:text-[#3A8157]"
+              }`}
           >
             <span className="material-symbols-outlined text-[18px]">account_balance</span>
             Cổng SePay & Tỷ giá
@@ -363,11 +356,10 @@ export default function CashFlowManager() {
                     <div
                       className="h-full bg-[#3A8157] transition-all"
                       style={{
-                        width: `${
-                          summary.totalRevenueVnd > 0
-                            ? Math.round((summary.revenueBySource.rubyTopupVnd / summary.totalRevenueVnd) * 100)
-                            : 50
-                        }%`,
+                        width: `${summary.totalRevenueVnd > 0
+                          ? Math.round((summary.revenueBySource.rubyTopupVnd / summary.totalRevenueVnd) * 100)
+                          : 50
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -385,11 +377,10 @@ export default function CashFlowManager() {
                     <div
                       className="h-full bg-[#FFC857] transition-all"
                       style={{
-                        width: `${
-                          summary.totalRevenueVnd > 0
-                            ? Math.round((summary.revenueBySource.subscriptionVnd / summary.totalRevenueVnd) * 100)
-                            : 50
-                        }%`,
+                        width: `${summary.totalRevenueVnd > 0
+                          ? Math.round((summary.revenueBySource.subscriptionVnd / summary.totalRevenueVnd) * 100)
+                          : 50
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -425,9 +416,8 @@ export default function CashFlowManager() {
                   <div key={tx.id} className="flex items-center justify-between py-3 text-xs">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-9 w-9 items-center justify-center rounded-full ${
-                          tx.direction === "IN" ? "bg-[#E8F3EC] text-[#3A8157]" : "bg-[#F3E8FF] text-[#8B63F6]"
-                        }`}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full ${tx.direction === "IN" ? "bg-[#E8F3EC] text-[#3A8157]" : "bg-[#F3E8FF] text-[#8B63F6]"
+                          }`}
                       >
                         <span className="material-symbols-outlined text-[18px]">
                           {tx.direction === "IN" ? "arrow_downward" : "arrow_upward"}
@@ -442,22 +432,25 @@ export default function CashFlowManager() {
                     </div>
                     <div className="text-right">
                       <p
-                        className={`font-black ${
-                          tx.direction === "IN" ? "text-[#3A8157]" : "text-[#8B63F6]"
-                        }`}
+                        className={`font-black ${tx.direction === "IN" ? "text-[#3A8157]" : "text-[#8B63F6]"
+                          }`}
                       >
                         {tx.direction === "IN" ? `+${formatVnd(tx.amountVnd)}` : `-${formatRuby(tx.rubyAmount)}`}
                       </p>
                       <span
-                        className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
-                          tx.status === "SUCCESS"
-                            ? "bg-[#E8F3EC] text-[#3A8157]"
-                            : tx.status === "PENDING"
-                            ? "bg-[#FFFBEB] text-[#D97706]"
-                            : "bg-[#FEF2F2] text-[#DC2626]"
-                        }`}
+                        className={`inline-flex items-center gap-1.5 text-xs font-bold ${tx.status === "SUCCESS"
+                          ? "text-[#3A8157]"
+                          : tx.status === "PENDING"
+                            ? "text-[#D97706]"
+                            : "text-[#DC2626]"
+                          }`}
                       >
-                        {tx.status}
+                        <span className="h-1.5 w-1.5 rounded-full bg-current"></span>
+                        {tx.status === "SUCCESS"
+                          ? "Thành công"
+                          : tx.status === "PENDING"
+                            ? "Chờ quét mã"
+                            : "Thất bại"}
                       </span>
                     </div>
                   </div>
@@ -486,37 +479,52 @@ export default function CashFlowManager() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              <select
-                value={inflowSourceFilter}
-                onChange={(e) => setInflowSourceFilter(e.target.value as any)}
-                className="h-11 rounded-full border border-[#D9D9D9] bg-white px-4 text-xs font-bold outline-none focus:border-[#3A8157]"
-              >
-                <option value="ALL">Nguồn: Tất cả</option>
-                <option value="TOPUP_RUBY">Nạp Ruby</option>
-                <option value="SUBSCRIPTION_PLAN">Gói cước</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={inflowSourceFilter}
+                  onChange={(e) => setInflowSourceFilter(e.target.value as any)}
+                  className="h-11 cursor-pointer appearance-none rounded-full border border-[#D9D9D9] bg-white pl-4 pr-9 text-xs font-bold outline-none transition-colors hover:border-[#3A8157] focus:border-[#3A8157]"
+                >
+                  <option value="ALL">Nguồn: Tất cả</option>
+                  <option value="TOPUP_RUBY">Nạp Ruby</option>
+                  <option value="SUBSCRIPTION_PLAN">Gói cước</option>
+                </select>
+                <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-[#727272]">
+                  keyboard_arrow_down
+                </span>
+              </div>
 
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="h-11 rounded-full border border-[#D9D9D9] bg-white px-4 text-xs font-bold outline-none focus:border-[#3A8157]"
-              >
-                <option value="ALL">Trạng thái: Tất cả</option>
-                <option value="SUCCESS">Thành công (SUCCESS)</option>
-                <option value="PENDING">Chờ quét mã (PENDING)</option>
-                <option value="FAILED">Thất bại (FAILED)</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value as any)}
+                  className="h-11 cursor-pointer appearance-none rounded-full border border-[#D9D9D9] bg-white pl-4 pr-9 text-xs font-bold outline-none transition-colors hover:border-[#3A8157] focus:border-[#3A8157]"
+                >
+                  <option value="ALL">Trạng thái: Tất cả</option>
+                  <option value="SUCCESS">Thành công (SUCCESS)</option>
+                  <option value="PENDING">Chờ quét mã (PENDING)</option>
+                  <option value="FAILED">Thất bại (FAILED)</option>
+                </select>
+                <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-[#727272]">
+                  keyboard_arrow_down
+                </span>
+              </div>
 
-              <select
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value as any)}
-                className="h-11 rounded-full border border-[#D9D9D9] bg-white px-4 text-xs font-bold outline-none focus:border-[#3A8157]"
-              >
-                <option value="ALL">Thời gian: Tất cả</option>
-                <option value="TODAY">Hôm nay</option>
-                <option value="7DAYS">7 ngày qua</option>
-                <option value="30DAYS">30 ngày qua</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value as any)}
+                  className="h-11 cursor-pointer appearance-none rounded-full border border-[#D9D9D9] bg-white pl-4 pr-9 text-xs font-bold outline-none transition-colors hover:border-[#3A8157] focus:border-[#3A8157]"
+                >
+                  <option value="ALL">Thời gian: Tất cả</option>
+                  <option value="TODAY">Hôm nay</option>
+                  <option value="7DAYS">7 ngày qua</option>
+                  <option value="30DAYS">30 ngày qua</option>
+                </select>
+                <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-[#727272]">
+                  keyboard_arrow_down
+                </span>
+              </div>
             </div>
           </div>
 
@@ -554,15 +562,12 @@ export default function CashFlowManager() {
                       </td>
                       <td className="px-3 py-4">
                         <span
-                          className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
-                            tx.type === "TOPUP_RUBY"
-                              ? "bg-[#E8F3EC] text-[#3A8157]"
-                              : "bg-[#FFFBEB] text-[#D97706]"
-                          }`}
+                          className={`text-xs font-bold ${tx.type === "TOPUP_RUBY" ? "text-[#3A8157]" : "text-[#D97706]"
+                            }`}
                         >
                           {tx.type === "TOPUP_RUBY" ? "Nạp Ruby" : "Gói cước"}
                         </span>
-                        <p className="mt-1 font-semibold text-[#111827]">{tx.description}</p>
+                        <p className="mt-0.5 text-xs font-medium text-[#111827]">{tx.description}</p>
                       </td>
                       <td className="px-3 py-4">
                         <p className="font-extrabold text-[#3A8157]">{formatVnd(tx.amountVnd)}</p>
@@ -571,7 +576,7 @@ export default function CashFlowManager() {
                         )}
                       </td>
                       <td className="px-3 py-4">
-                        <div className="flex items-center gap-1 font-bold text-[#111827]">
+                        <div className="flex items-center gap-1.5 font-bold text-[#111827]">
                           <span className="material-symbols-outlined text-[16px] text-[#3A8157]">qr_code_2</span>
                           <span>{tx.paymentMethod}</span>
                         </div>
@@ -581,38 +586,37 @@ export default function CashFlowManager() {
                       </td>
                       <td className="px-3 py-4">
                         <span
-                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-extrabold ${
-                            tx.status === "SUCCESS"
-                              ? "bg-[#E8F3EC] text-[#3A8157]"
-                              : tx.status === "PENDING"
-                              ? "bg-[#FFFBEB] text-[#D97706]"
-                              : "bg-[#FEF2F2] text-[#DC2626]"
-                          }`}
+                          className={`inline-flex items-center gap-1.5 text-xs font-bold ${tx.status === "SUCCESS"
+                            ? "text-[#3A8157]"
+                            : tx.status === "PENDING"
+                              ? "text-[#D97706]"
+                              : "text-[#DC2626]"
+                            }`}
                         >
                           <span className="h-1.5 w-1.5 rounded-full bg-current"></span>
                           {tx.status === "SUCCESS"
                             ? "Thành công"
                             : tx.status === "PENDING"
-                            ? "Chờ quét QR"
-                            : "Thất bại"}
+                              ? "Chờ quét QR"
+                              : "Thất bại"}
                         </span>
                       </td>
                       <td className="px-3 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-2.5">
                           {tx.status === "PENDING" && (
                             <button
                               type="button"
                               onClick={() => handleApprove(tx.transactionCode)}
                               disabled={isApproving}
-                              className="rounded-full bg-[#FFC857] px-3 py-1 text-[11px] font-extrabold text-black shadow-sm hover:bg-[#ffbe33]"
+                              className="text-xs font-bold text-[#D97706] hover:underline"
                             >
-                              Duyệt ngay
+                              Duyệt
                             </button>
                           )}
                           <button
                             type="button"
                             onClick={() => setSelectedTx(tx)}
-                            className="rounded-full border border-[#D9D9D9] bg-white px-3 py-1 text-[11px] font-bold text-[#111827] hover:border-[#3A8157] hover:text-[#3A8157]"
+                            className="rounded-lg border border-[#D9D9D9] bg-white px-3 py-1.5 text-xs font-bold text-[#111827] transition-colors hover:border-[#3A8157] hover:text-[#3A8157]"
                           >
                             Chi tiết
                           </button>
@@ -673,31 +677,32 @@ export default function CashFlowManager() {
                   filteredOutflowTransactions.map((tx) => (
                     <tr key={tx.id} className="text-xs hover:bg-[#F7FAFF]">
                       <td className="px-3 py-4">
-                        <span className="font-mono font-extrabold text-[#111827]">{tx.transactionCode}</span>
-                        <p className="text-[11px] font-semibold text-[#727272]">{formatDate(tx.createdAt)}</p>
+                        <span className="font-mono font-bold text-[#111827]">{tx.transactionCode}</span>
+                        <p className="mt-0.5 text-[11px] text-[#727272]">{formatDate(tx.createdAt)}</p>
                       </td>
                       <td className="px-3 py-4">
-                        <p className="font-extrabold text-[#111827]">{tx.userName || `User #${tx.userId}`}</p>
-                        <p className="text-[11px] font-semibold text-[#727272]">ID: {tx.userId}</p>
+                        <p className="font-bold text-[#111827]">{tx.userName || `User #${tx.userId}`}</p>
+                        <p className="text-[11px] text-[#727272]">ID: {tx.userId}</p>
                       </td>
                       <td className="px-3 py-4">
-                        <span className="font-extrabold text-[#8B63F6]">
+                        <p className="font-bold text-[#111827]">
                           {tx.itemDetails?.itemName || tx.description}
-                        </span>
+                        </p>
                         {tx.itemDetails?.itemCode && (
                           <p className="font-mono text-[10px] text-[#727272]">{tx.itemDetails.itemCode}</p>
                         )}
                       </td>
                       <td className="px-3 py-4">
-                        <span className="rounded-full bg-[#F3E8FF] px-2.5 py-0.5 text-[10px] font-extrabold text-[#8B63F6]">
+                        <span className="text-xs font-bold text-[#8B63F6]">
                           {tx.itemDetails?.slot || "EQUIPMENT"}
                         </span>
                       </td>
                       <td className="px-3 py-4">
-                        <span className="font-extrabold text-[#DC2626]">-{tx.rubyAmount} 💎</span>
+                        <span className="font-bold text-[#DC2626]">-{tx.rubyAmount} 💎</span>
                       </td>
                       <td className="px-3 py-4">
-                        <span className="rounded-full bg-[#E8F3EC] px-2.5 py-1 text-[10px] font-extrabold text-[#3A8157]">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#3A8157]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#3A8157]"></span>
                           Đã trừ ví
                         </span>
                       </td>
@@ -771,13 +776,12 @@ export default function CashFlowManager() {
               {gatewayConfig.packages.map((pkg) => (
                 <div
                   key={pkg.code}
-                  className={`relative rounded-2xl border p-5 transition-all ${
-                    pkg.isPopular
-                      ? "border-amber-300 bg-[#FFFBEB] shadow-sm"
-                      : pkg.isBestValue
+                  className={`relative rounded-2xl border p-5 transition-all ${pkg.isPopular
+                    ? "border-amber-300 bg-[#FFFBEB] shadow-sm"
+                    : pkg.isBestValue
                       ? "border-emerald-300 bg-[#ECFDF5] shadow-sm"
                       : "border-[#EEF1F5] bg-white"
-                  }`}
+                    }`}
                 >
                   {pkg.isPopular && (
                     <span className="absolute -top-3 right-4 rounded-full bg-[#FFC857] px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black shadow-sm">
@@ -844,13 +848,12 @@ export default function CashFlowManager() {
                 <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
                   <span className="text-[10px] font-extrabold text-[#727272]">TRẠNG THÁI</span>
                   <p
-                    className={`text-sm font-extrabold ${
-                      selectedTx.status === "SUCCESS"
-                        ? "text-[#3A8157]"
-                        : selectedTx.status === "PENDING"
+                    className={`text-sm font-extrabold ${selectedTx.status === "SUCCESS"
+                      ? "text-[#3A8157]"
+                      : selectedTx.status === "PENDING"
                         ? "text-[#D97706]"
                         : "text-[#DC2626]"
-                    }`}
+                      }`}
                   >
                     {selectedTx.status}
                   </p>
