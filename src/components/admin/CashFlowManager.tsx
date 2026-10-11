@@ -279,53 +279,52 @@ export default function CashFlowManager() {
           {/* 4 KPI Cards */}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {/* Card 1: Tổng doanh thu */}
-            <div className="rounded-[20px] border border-emerald-200 bg-[#ECFDF5] p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)]">
+            <div className="rounded-[20px] border border-[#D9D9D9] bg-white p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-emerald-800">Doanh thu thực nhận</span>
-                <span className="material-symbols-outlined text-[22px] text-emerald-600">
+                <span className="text-xs font-bold text-[#727272]">Doanh thu thực nhận</span>
+                <span className="material-symbols-outlined text-[24px] text-[#3A8157]">
                   account_balance_wallet
                 </span>
               </div>
-              <p className="mt-2 text-2xl font-extrabold text-emerald-950">{formatVnd(summary.totalRevenueVnd)}</p>
-              <div className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700">
-                <span className="rounded-full bg-emerald-200/70 px-2 py-0.5 font-bold text-emerald-900">
-                  +{formatVnd(summary.todayRevenueVnd)} hôm nay
-                </span>
+              <p className="mt-2 text-2xl font-black text-[#111827]">{formatVnd(summary.totalRevenueVnd)}</p>
+              <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-[#3A8157]">
+                <span className="material-symbols-outlined text-[16px]">trending_up</span>
+                <span>+{formatVnd(summary.todayRevenueVnd)} hôm nay</span>
               </div>
             </div>
 
             {/* Card 2: Chờ đối soát */}
-            <div className="rounded-[20px] border border-amber-200 bg-[#FFFBEB] p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)]">
+            <div className="rounded-[20px] border border-[#D9D9D9] bg-white p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-800">Chờ quét mã / Đối soát</span>
-                <span className="material-symbols-outlined text-[22px] text-amber-600">hourglass_top</span>
+                <span className="text-xs font-bold text-[#727272]">Chờ quét mã / Đối soát</span>
+                <span className="material-symbols-outlined text-[24px] text-[#D97706]">hourglass_top</span>
               </div>
-              <p className="mt-2 text-2xl font-extrabold text-amber-950">{formatVnd(summary.pendingRevenueVnd)}</p>
-              <div className="mt-2 text-[11px] font-semibold text-amber-700">
+              <p className="mt-2 text-2xl font-black text-[#111827]">{formatVnd(summary.pendingRevenueVnd)}</p>
+              <div className="mt-2 text-xs font-bold text-[#D97706]">
                 <span>{summary.pendingCount} đơn PENDING</span>
               </div>
             </div>
 
             {/* Card 3: Kinh tế Ruby */}
-            <div className="rounded-[20px] border border-blue-200 bg-[#EFF6FF] p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)]">
+            <div className="rounded-[20px] border border-[#D9D9D9] bg-white p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-blue-800">Kinh tế Ruby (Nạp / Tiêu)</span>
-                <span className="material-symbols-outlined text-[22px] text-blue-600">diamond</span>
+                <span className="text-xs font-bold text-[#727272]">Kinh tế Ruby (Nạp / Tiêu)</span>
+                <span className="material-symbols-outlined text-[24px] text-[#529CFF]">diamond</span>
               </div>
-              <p className="mt-2 text-2xl font-extrabold text-blue-950">{formatRuby(summary.rubyMinted)}</p>
-              <div className="mt-2 text-[11px] font-semibold text-blue-700">
+              <p className="mt-2 text-2xl font-black text-[#111827]">{formatRuby(summary.rubyMinted)}</p>
+              <div className="mt-2 text-[11px] font-semibold text-[#529CFF]">
                 <span>Đã tiêu: {summary.rubySpent} 💎 • Tồn: {summary.rubyCirculating} 💎</span>
               </div>
             </div>
 
             {/* Card 4: Tỷ lệ chuyển đổi */}
-            <div className="rounded-[20px] border border-purple-200 bg-[#FAF5FF] p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)]">
+            <div className="rounded-[20px] border border-[#D9D9D9] bg-white p-4 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-purple-800">Tỷ lệ khớp lệnh SePay</span>
-                <span className="material-symbols-outlined text-[22px] text-purple-600">verified</span>
+                <span className="text-xs font-bold text-[#727272]">Tỷ lệ khớp lệnh SePay</span>
+                <span className="material-symbols-outlined text-[24px] text-[#8B63F6]">verified</span>
               </div>
-              <p className="mt-2 text-2xl font-extrabold text-purple-950">{summary.conversionRate}%</p>
-              <div className="mt-2 text-[11px] font-semibold text-purple-700">
+              <p className="mt-2 text-2xl font-black text-[#111827]">{summary.conversionRate}%</p>
+              <div className="mt-2 text-xs font-bold text-[#8B63F6]">
                 <span>{summary.successCount} đơn thành công</span>
               </div>
             </div>
@@ -416,7 +415,7 @@ export default function CashFlowManager() {
                   <div key={tx.id} className="flex items-center justify-between py-3 text-xs">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-9 w-9 items-center justify-center rounded-full ${tx.direction === "IN" ? "bg-[#E8F3EC] text-[#3A8157]" : "bg-[#F3E8FF] text-[#8B63F6]"
+                        className={`flex h-8 w-8 items-center justify-center rounded-full border border-[#EEF1F5] bg-white ${tx.direction === "IN" ? "text-[#3A8157]" : "text-[#8B63F6]"
                           }`}
                       >
                         <span className="material-symbols-outlined text-[18px]">

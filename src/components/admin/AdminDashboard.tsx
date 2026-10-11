@@ -288,28 +288,26 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
         </div>
       </div>
 
-      {/* 2. Top Stats Row (4 Metric Cards with Metis Style) */}
+      {/* 2. Top Stats Row (4 Metric Cards: Clean White background with Brand Accents) */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Card 1: Tổng người dùng */}
-        <div className="rounded-[22px] border border-blue-200 bg-[#EFF6FF] p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
+        <div className="rounded-[22px] border border-[#D9D9D9] bg-white p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-blue-800">Cộng đồng PENTAVA</span>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/10 text-blue-600">
-              <span className="material-symbols-outlined text-[22px]">group</span>
-            </div>
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#727272]">Cộng đồng PENTAVA</span>
+            <span className="material-symbols-outlined text-[24px] text-[#529CFF]">group</span>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-blue-950">{userStats.total}</span>
+            <span className="text-3xl font-black text-[#111827]">{userStats.total}</span>
             <span className="inline-flex items-center text-xs font-extrabold text-emerald-600">
               <span className="material-symbols-outlined text-[16px]">trending_up</span> +14.2%
             </span>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-blue-200/60 pt-2 text-[11px] font-semibold text-blue-800">
+          <div className="mt-3 flex items-center justify-between border-t border-[#EEF1F5] pt-2 text-[11px] font-semibold text-[#727272]">
             <span>Onboarding: {userStats.onboardingRate}%</span>
             <button
               type="button"
               onClick={() => onNavigate?.("users")}
-              className="font-extrabold text-blue-700 hover:underline"
+              className="font-extrabold text-[#529CFF] hover:underline"
             >
               Xem User →
             </button>
@@ -317,27 +315,25 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
         </div>
 
         {/* Card 2: Doanh thu thực nhận */}
-        <div className="rounded-[22px] border border-emerald-200 bg-[#ECFDF5] p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
+        <div className="rounded-[22px] border border-[#D9D9D9] bg-white p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-800">Doanh thu thực nhận</span>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
-              <span className="material-symbols-outlined text-[22px]">account_balance_wallet</span>
-            </div>
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#727272]">Doanh thu thực nhận</span>
+            <span className="material-symbols-outlined text-[24px] text-[#3A8157]">account_balance_wallet</span>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-emerald-950">
+            <span className="text-2xl font-black text-[#111827]">
               {formatVnd(summary?.totalRevenueVnd ?? 1168000)}
             </span>
             <span className="inline-flex items-center text-xs font-extrabold text-emerald-600">
               <span className="material-symbols-outlined text-[16px]">trending_up</span> +18.5%
             </span>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-emerald-200/60 pt-2 text-[11px] font-semibold text-emerald-800">
+          <div className="mt-3 flex items-center justify-between border-t border-[#EEF1F5] pt-2 text-[11px] font-semibold text-[#727272]">
             <span>Hôm nay: +{formatVnd(summary?.todayRevenueVnd ?? 220000)}</span>
             <button
               type="button"
               onClick={() => onNavigate?.("cashflow")}
-              className="font-extrabold text-emerald-700 hover:underline"
+              className="font-extrabold text-[#3A8157] hover:underline"
             >
               Sổ quỹ →
             </button>
@@ -345,27 +341,25 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
         </div>
 
         {/* Card 3: Đơn hàng & SePay VietQR */}
-        <div className="rounded-[22px] border border-amber-200 bg-[#FFFBEB] p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
+        <div className="rounded-[22px] border border-[#D9D9D9] bg-white p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-amber-800">Giao dịch SePay</span>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/10 text-amber-600">
-              <span className="material-symbols-outlined text-[22px]">qr_code_scanner</span>
-            </div>
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#727272]">Giao dịch SePay</span>
+            <span className="material-symbols-outlined text-[24px] text-[#D97706]">qr_code_scanner</span>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-amber-950">
+            <span className="text-3xl font-black text-[#111827]">
               {summary?.totalTransactions ?? transactions.length}
             </span>
             <span className="inline-flex items-center text-xs font-extrabold text-emerald-600">
               <span className="material-symbols-outlined text-[16px]">verified</span> {summary?.conversionRate ?? 98}%
             </span>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-amber-200/60 pt-2 text-[11px] font-semibold text-amber-800">
+          <div className="mt-3 flex items-center justify-between border-t border-[#EEF1F5] pt-2 text-[11px] font-semibold text-[#727272]">
             <span>{summary?.pendingCount ?? 2} đơn chờ quét mã</span>
             <button
               type="button"
               onClick={() => onNavigate?.("cashflow")}
-              className="font-extrabold text-amber-800 hover:underline"
+              className="font-extrabold text-[#D97706] hover:underline"
             >
               Đối soát →
             </button>
@@ -373,25 +367,23 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
         </div>
 
         {/* Card 4: Nền kinh tế Ruby */}
-        <div className="rounded-[22px] border border-purple-200 bg-[#FAF5FF] p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
+        <div className="rounded-[22px] border border-[#D9D9D9] bg-white p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-purple-800">Kinh tế Ruby</span>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10 text-purple-600">
-              <span className="material-symbols-outlined text-[22px]">diamond</span>
-            </div>
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#727272]">Kinh tế Ruby</span>
+            <span className="material-symbols-outlined text-[24px] text-[#8B63F6]">diamond</span>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-purple-950">
+            <span className="text-2xl font-black text-[#111827]">
               {formatRuby(summary?.rubyCirculating ?? 380)}
             </span>
-            <span className="text-[11px] font-bold text-purple-700">tồn ví</span>
+            <span className="text-[11px] font-bold text-[#727272]">tồn ví</span>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-purple-200/60 pt-2 text-[11px] font-semibold text-purple-800">
+          <div className="mt-3 flex items-center justify-between border-t border-[#EEF1F5] pt-2 text-[11px] font-semibold text-[#727272]">
             <span>Đã tiêu thụ: {summary?.rubySpent ?? 110} 💎</span>
             <button
               type="button"
               onClick={() => onNavigate?.("cashflow")}
-              className="font-extrabold text-purple-700 hover:underline"
+              className="font-extrabold text-[#8B63F6] hover:underline"
             >
               Chi tiết →
             </button>
@@ -687,7 +679,7 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
               <span className="material-symbols-outlined text-[22px] text-[#D97706]">history</span>
               <h3 className="text-lg font-extrabold text-[#111827]">Dòng hoạt động Live</h3>
             </div>
-            <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-800">
+            <span className="flex items-center gap-1.5 text-xs font-bold text-[#3A8157]">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
               Real-time
             </span>
@@ -704,8 +696,8 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
 
                 {/* Circle Icon Badge */}
                 <div
-                  className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
-                  style={{ backgroundColor: `${act.color}15`, color: act.color }}
+                  className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#EEF1F5] bg-white"
+                  style={{ color: act.color }}
                 >
                   <span className="material-symbols-outlined text-[17px]">{act.icon}</span>
                 </div>
