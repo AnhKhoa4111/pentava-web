@@ -43,32 +43,53 @@ export default function CTA() {
 
           {/* Nút tải App */}
           <div className="flex flex-col gap-4 pt-2 sm:flex-row">
+            {/* App Store: Hiển thị thông báo */}
             <motion.a
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.96 }}
               href="#download"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("Ứng dụng PENTAVA trên App Store hiện đang được phát triển thêm. Vui lòng quay lại sau nhé!");
+              }}
               className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-white px-8 py-4 font-extrabold text-[#3A8157] shadow-[4px_4px_0px_0px_#FFC857] transition-all"
             >
-              <span className="material-symbols-outlined text-[24px]">phone_iphone</span>
+              <span className="material-symbols-outlined text-[24px]">
+                phone_iphone
+              </span>
               <div className="text-left">
-                <p className="text-[10px] font-bold uppercase leading-none text-[#727272]">Tải trên</p>
-                <p className="text-base font-black leading-tight text-black">App Store</p>
+                <p className="text-[10px] font-bold uppercase leading-none text-[#727272]">
+                  Tải trên
+                </p>
+                <p className="text-base font-black leading-tight text-black">
+                  App Store
+                </p>
               </div>
             </motion.a>
 
+            {/* Google Play: Chuyển đến trang ứng dụng */}
             <motion.a
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.96 }}
-              href="#download"
+              href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-[#529CFF] px-8 py-4 font-extrabold text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all"
             >
-              <span className="material-symbols-outlined text-[24px]">android</span>
+              <span className="material-symbols-outlined text-[24px]">
+                android
+              </span>
               <div className="text-left">
-                <p className="text-[10px] font-bold uppercase leading-none text-white/80">Tải trên</p>
-                <p className="text-base font-black leading-tight text-white">Google Play</p>
+                <p className="text-[10px] font-bold uppercase leading-none text-white/80">
+                  Tải trên
+                </p>
+                <p className="text-base font-black leading-tight text-white">
+                  Google Play
+                </p>
               </div>
             </motion.a>
           </div>
+          
         </div>
 
         {/* CỘT PHẢI: Thẻ QR Code Neo-Brutalist */}
@@ -84,24 +105,11 @@ export default function CTA() {
           </div>
 
           <div className="aspect-square rounded-2xl border-2 border-black bg-[#F7FAFF] p-6 shadow-inner">
-            <div className="grid h-full grid-cols-5 grid-rows-5 gap-2.5">
-              {Array.from({ length: 25 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="rounded-sm transition-transform hover:scale-110"
-                  style={{
-                    backgroundColor:
-                      index % 5 === 0
-                        ? "#3A8157"
-                        : index % 4 === 0
-                          ? "#529CFF"
-                          : index % 3 === 0
-                            ? "#FFC857"
-                            : "#000000",
-                  }}
-                />
-              ))}
-            </div>
+            <img
+              src="\image\pentava_google_play_qr.png"
+              alt="Quét mã QR để tải ứng dụng PENTAVA trên Google Play"
+              className="h-full w-full rounded-xl object-contain"
+            />
           </div>
 
           <div className="mt-5 text-center">
@@ -109,7 +117,7 @@ export default function CTA() {
               Quét mã để tải nhanh PENTAVA
             </p>
             <p className="mt-1 text-xs text-[#727272]">
-              Tương thích hoàn toàn với iOS 16+ & Android 12+
+              Tương thích với Android 12+
             </p>
           </div>
         </div>

@@ -35,7 +35,7 @@ export default function Header() {
         </nav>
 
         <a
-          href="#download"
+          href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
           className="inline-flex items-center gap-2 rounded-full bg-[#3A8157] px-5 py-3 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1"
         >
           <span className="material-symbols-outlined text-[18px]">download</span>

@@ -1,6 +1,7 @@
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
 import Reveal from "../components/common/Reveal"
+import { motion } from "motion/react"
 
 export default function Download() {
   return (
@@ -46,36 +47,59 @@ export default function Download() {
               </p>
 
               <div className="flex flex-col gap-4 sm:flex-row">
-                <button className="rounded-full bg-[#3A8157] px-8 py-4 font-bold text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1">
-                  App Store
-                </button>
+                <motion.a
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  href="#download"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert("Ứng dụng PENTAVA trên App Store hiện đang được phát triển thêm. Vui lòng quay lại sau nhé!");
+                  }}
+                  className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-white px-8 py-4 font-extrabold text-[#3A8157] shadow-[4px_4px_0px_0px_#FFC857] transition-all"
+                >
+                  <span className="material-symbols-outlined text-[24px]">
+                    phone_iphone
+                  </span>
+                  <div className="text-left">
+                    <p className="text-[10px] font-bold uppercase leading-none text-[#727272]">
+                      Tải trên
+                    </p>
+                    <p className="text-base font-black leading-tight text-black">
+                      App Store
+                    </p>
+                  </div>
+                </motion.a>
 
-                <button className="rounded-full bg-[#529CFF] px-8 py-4 font-bold text-white shadow-[4px_4px_0px_0px_#8B63F6] transition-all hover:-translate-y-1">
-                  Google Play
-                </button>
+                <motion.a
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-[#529CFF] px-8 py-4 font-extrabold text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all"
+                >
+                  <span className="material-symbols-outlined text-[24px]">
+                    android
+                  </span>
+                  <div className="text-left">
+                    <p className="text-[10px] font-bold uppercase leading-none text-white/80">
+                      Tải trên
+                    </p>
+                    <p className="text-base font-black leading-tight text-white">
+                      Google Play
+                    </p>
+                  </div>
+                </motion.a>
               </div>
             </div>
 
             <div className="mx-auto w-full max-w-[420px] rounded-[32px] border border-[#D9D9D9] bg-white p-8 shadow-[12px_12px_0px_0px_#FFC857]">
-              <div className="aspect-square rounded-[28px] border-4 border-[#3A8157] bg-[#F7FAFF] p-8">
-                <div className="grid h-full grid-cols-5 grid-rows-5 gap-3">
-                  {Array.from({ length: 25 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className="rounded-md"
-                      style={{
-                        backgroundColor:
-                          index % 5 === 0
-                            ? "#3A8157"
-                            : index % 4 === 0
-                              ? "#529CFF"
-                              : index % 3 === 0
-                                ? "#FFC857"
-                                : "#FFFFFF",
-                      }}
-                    />
-                  ))}
-                </div>
+              <div className="aspect-square rounded-2xl border-2 border-black bg-[#F7FAFF] p-6 shadow-inner">
+                <img
+                  src="\image\pentava_google_play_qr.png"
+                  alt="Quét mã QR để tải ứng dụng PENTAVA trên Google Play"
+                  className="h-full w-full rounded-xl object-contain"
+                />
               </div>
 
               <p className="mt-6 text-center text-sm font-bold text-[#727272]">
