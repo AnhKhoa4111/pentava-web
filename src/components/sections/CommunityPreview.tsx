@@ -1,177 +1,145 @@
 import { useState } from "react"
-import { motion } from "motion/react"
-import ScrambleText from "../common/ScrambleText"
-
-interface CommunityCardData {
-  tag: string
-  badge: string
-  title: string
-  desc: string
-  featureIcon: string
-  featureTitle: string
-  featureSub: string
-  color: string
-}
-
-const communityCards: CommunityCardData[] = [
-  {
-    tag: "#ENERGY30",
-    badge: "Thử thách nổi bật",
-    title: "Thử thách năng lượng 30 ngày",
-    desc: "Mỗi ngày một hành động nhỏ để tăng mood, giữ vững routine và nhìn thấy sự tiến bộ rõ nét của bản thân.",
-    featureIcon: "bolt",
-    featureTitle: "Lộ trình 30 ngày",
-    featureSub: "Tạo thói quen bền bỉ, không áp lực",
-    color: "#FFC857",
-  },
-  {
-    tag: "VISUAL LOG",
-    badge: "Check-in sáng tạo",
-    title: "Nhật ký hành trình bằng ảnh & video",
-    desc: "Ảnh thật và mood log giúp bạn nhìn thấy sự kiên trì của chính mình theo thời gian thay vì các con số vô cảm.",
-    featureIcon: "photo_camera",
-    featureTitle: "Nhật ký thị giác & Mood",
-    featureSub: "Lưu giữ khoảnh khắc nỗ lực chân thật",
-    color: "#529CFF",
-  },
-  {
-    tag: "BALANCE",
-    badge: "Đồng hành tử tế",
-    title: "Kỷ luật không gượng ép",
-    desc: "Tiến bộ theo nhịp sinh học riêng nhưng luôn được cộng đồng tiếp sức đúng lúc bằng những cái đập tay chân thành.",
-    featureIcon: "group",
-    featureTitle: "Cộng đồng văn minh",
-    featureSub: "Không gian đồng hành văn minh, gắn kết",
-    color: "#3A8157",
-  },
-]
+import { Heart, MessageCircle, ArrowRight, Sparkles } from "lucide-react"
 
 export default function CommunityPreview() {
-  const [claps, setClaps] = useState<{ [key: string]: number }>({
-    "#ENERGY30": 0,
-    "VISUAL LOG": 0,
-    BALANCE: 0,
-  })
+  const [likes, setLikes] = useState(124)
+  const [hasLiked, setHasLiked] = useState(false)
 
-  const handleClap = (tag: string) => {
-    setClaps((prev) => ({
-      ...prev,
-      [tag]: prev[tag] + 1,
-    }))
+  const handleLike = () => {
+    if (!hasLiked) {
+      setLikes((prev) => prev + 1)
+      setHasLiked(true)
+    } else {
+      setLikes((prev) => prev - 1)
+      setHasLiked(false)
+    }
   }
 
   return (
-    <section id="community" className="mx-auto max-w-[1240px] px-6 py-24 md:py-32 md:px-8 scroll-mt-24">
-      {/* Header section với ScrambleText */}
-      <div className="mb-10 max-w-3xl">
-        <div className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#E8F3EC] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-widest text-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857]">
-          <span className="h-2 w-2 rounded-full bg-[#3A8157] animate-pulse" />
-          <ScrambleText text="PENTAVA COMMUNITY" scrambleSpeed={30} />
-        </div>
+    <section id="community" className="relative bg-[#F7FAFF] py-20 md:py-28 scroll-mt-20 overflow-hidden">
+      <div className="mx-auto max-w-[1240px] px-6 md:px-8">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          
+          {/* CỘT TRÁI: Tiêu đề & Thông điệp cộng đồng */}
+          <div className="space-y-6">
+            <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#1E7444]">
+              CỘNG ĐỒNG
+            </p>
 
-        <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-black md:text-5xl">
-          Kỷ luật tự giác nhưng{" "}
-          <span className="relative inline-block text-[#3A8157]">
-            không bao giờ cô độc.
-            <span className="absolute -bottom-1 left-0 right-0 h-3 rounded-full bg-[#FFC857]/50 -z-10" />
-          </span>
-        </h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-black leading-tight tracking-tight text-gray-900">
+              Cùng nhau lan tỏa{" "}
+              <span className="text-[#1E7444]">phiên bản tốt hơn.</span>
+            </h2>
 
-        <p className="mt-4 text-base leading-relaxed text-[#727272]">
-          PENTAVA kiến tạo không gian nhóm nhỏ văn minh, nơi mọi người tiếp sức cho nhau bằng high-five giúp truyền cảm hứng và thử thách nhẹ nhàng thay vì so kè thứ hạng.
-        </p>
-      </div>
+            <p className="text-base sm:text-lg leading-relaxed text-gray-600">
+              Chia sẻ hành trình, truyền cảm hứng và nhận động lực từ những người bạn cùng chí hướng. Bởi vì phát triển bản thân sẽ ý nghĩa hơn rất nhiều khi có cộng đồng đồng hành.
+            </p>
 
-      {/* THE TICKER: Gợi ý routine & thông điệp đồng hành tích cực */}
-      {/* <div className="mb-12 rounded-2xl border-2 border-black bg-[#F7FAFF] p-3 shadow-[4px_4px_0px_0px_#3A8157]">
-        <div className="flex items-center gap-3 px-3">
-          <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#3A8157] shrink-0">
-            <span className="material-symbols-outlined text-base animate-pulse">tips_and_updates</span>
-            Gợi ý hôm nay:
-          </span>
-          <ActivityTicker items={liveActivities} speed={28} className="flex-1" />
-        </div>
-      </div> */}
+            <div className="pt-2">
+              <a
+                href="#download"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1E7444] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#165a34] hover:scale-105 active:scale-95 shadow-md"
+              >
+                <span>Khám phá cộng đồng</span>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
 
-      {/* Grid 3 Thẻ Cộng Đồng Tương Tác */}
-      <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
-        {communityCards.map((card) => {
-          const userClapCount = claps[card.tag]
-          return (
-            <article
-              key={card.tag}
-              className="group relative flex flex-col justify-between rounded-3xl border-2 border-black bg-white p-7 md:p-8 shadow-[6px_6px_0px_0px_#3A8157] transition-all hover:-translate-y-1"
-            >
-              <div>
-                {/* Header thẻ: ScrambleText Tag + Category Badge */}
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="rounded-full bg-[#8B63F6]/10 border border-[#8B63F6]/30 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-[#8B63F6]">
-                    <ScrambleText text={card.tag} scrambleSpeed={40} />
-                  </span>
-                  <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-2.5 py-0.5 text-[10px] font-bold text-[#727272]">
-                    {card.badge}
+          {/* CỘT PHẢI: Card bài viết cộng đồng & Chú mèo mascot */}
+          <div className="relative flex items-center justify-center lg:justify-end">
+            <div className="relative w-full max-w-[420px]">
+              
+              {/* Thẻ bài viết check-in cộng đồng (Social Feed Card) */}
+              <div className="relative z-10 rounded-3xl border border-gray-100 bg-white p-5 shadow-xl transition-all duration-300">
+                {/* Người đăng */}
+                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+                      alt="Kelly Avatar"
+                      className="h-10 w-10 rounded-full object-cover ring-2 ring-emerald-500/20"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-sm font-bold text-gray-900">Kelly</p>
+                        <span className="text-xs">✨</span>
+                      </div>
+                      <p className="text-[11px] text-gray-400">2 giờ trước</p>
+                    </div>
+                  </div>
+
+                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-[#1E7444]">
+                    #Energy30
                   </span>
                 </div>
 
-                {/* Tiêu đề & mô tả */}
-                <h3 className="text-xl md:text-2xl font-black text-black group-hover:text-[#3A8157] transition-colors">
-                  {card.title}
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-[#727272]">
-                  {card.desc}
+                {/* Nội dung status */}
+                <p className="mt-3 text-xs sm:text-sm font-medium text-gray-800 leading-relaxed">
+                  Buổi sáng hôm nay thật tuyệt! 🌱 5 km run, big changes 💚
                 </p>
 
-                {/* Điểm nhấn giá trị thực tế của tính năng */}
-                <div className="mt-6 flex items-center gap-3.5 rounded-2xl border border-black/10 bg-[#F7FAFF] p-4">
-                  <div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/10 text-black shadow-sm"
-                    style={{ backgroundColor: card.color }}
-                  >
-                    <span className="material-symbols-outlined text-2xl">
-                      {card.featureIcon}
-                    </span>
+                {/* Ảnh bài viết thiên nhiên */}
+                <div className="mt-3 overflow-hidden rounded-2xl aspect-[16/10] bg-gray-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
+                    alt="Morning Run"
+                    className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                {/* Tương tác thả tim & bình luận */}
+                <div className="mt-4 flex items-center justify-between pt-2">
+                  <div className="flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={handleLike}
+                      className="flex items-center gap-1.5 text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      <Heart
+                        className={`h-4 w-4 transition-all ${
+                          hasLiked
+                            ? "fill-rose-500 text-rose-500 scale-110"
+                            : "text-gray-400 hover:text-rose-500"
+                        }`}
+                      />
+                      <span className={hasLiked ? "text-rose-600" : "text-gray-600"}>
+                        {likes}
+                      </span>
+                    </button>
+
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-gray-600">
+                      <MessageCircle className="h-4 w-4 text-gray-400" />
+                      <span>32</span>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-extrabold text-black">
-                      {card.featureTitle}
-                    </p>
-                    <p className="text-xs text-[#727272]">
-                      {card.featureSub}
-                    </p>
+
+                  <div className="flex items-center -space-x-1.5">
+                    <span className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-amber-200 text-[10px] font-bold flex items-center justify-center">
+                      🌿
+                    </span>
+                    <span className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-purple-200 text-[10px] font-bold flex items-center justify-center">
+                      💪
+                    </span>
+                    <span className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-rose-200 text-[10px] font-bold flex items-center justify-center">
+                      🔥
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Footer thẻ: Nút High-five tương tác trực tiếp */}
-              <div className="mt-7 flex items-center justify-between border-t border-black/10 pt-5">
-                <span className="text-xs font-bold text-[#727272]">
-                  Đồng hành tích cực
-                </span>
-
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  whileHover={{ scale: 1.05 }}
-                  onClick={() => handleClap(card.tag)}
-                  className={`flex items-center gap-1.5 rounded-full border-2 border-black px-4 py-2 text-xs font-black transition-all cursor-pointer ${userClapCount > 0
-                    ? "bg-[#3A8157] text-white shadow-[2px_2px_0px_0px_#FFC857]"
-                    : "bg-[#FFC857] text-black shadow-[2px_2px_0px_0px_#3A8157] hover:bg-[#ffe082]"
-                    }`}
-                  aria-label="Đập tay tiếp sức"
-                >
-                  <span className="material-symbols-outlined text-[16px]">
-                    {userClapCount > 0 ? "volunteer_activism" : "pan_tool"}
-                  </span>
-                  <span>
-                    {userClapCount > 0
-                      ? `+${userClapCount}`
-                      : ""}
-                  </span>
-                </motion.button>
+              {/* Huy hiệu tiếp sức */}
+              <div className="absolute -bottom-4 right-4 z-20 hidden sm:flex items-center">
+                <div className="rounded-full border border-emerald-200/80 bg-white px-3.5 py-1.5 text-[11px] font-bold text-[#1E7444] shadow-md backdrop-blur-md flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Cùng tiến bộ mỗi ngày! 🌿</span>
+                </div>
               </div>
-            </article>
-          )
-        })}
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   )

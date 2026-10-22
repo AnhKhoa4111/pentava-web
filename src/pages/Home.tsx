@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="bg-[#F7FAFF] pt-[76px] text-black">
+      <main className="bg-[#F7FAFF] text-black">
         <Hero />
         <Solution />
         <Features />

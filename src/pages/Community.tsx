@@ -1,223 +1,284 @@
+import { useState } from "react"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
-import Reveal from "../components/common/Reveal"
+import { Users, Heart, MessageCircle, Sparkles, Zap, Flame, Shield, ArrowRight } from "lucide-react"
 
 const visualLogs = [
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuD-rdb_hDVe8ojoYhdCaijTdAF7WOCITEsXTfAdMl-WjD0wPZwsyLteuTqlYYqeCuLBsIZR3ap5dP7MmuvQMN5DiBxbshTKexx7N2EubOXN4ETCWAUwOI_0S3zgPVwG4Xy04oSTtOBVk65F3XVHJlVpvFcC_YasRfsIFzH7Ly1LGVHCEe9C3fbgpiPQxvOjqxa8Lg46UA6MLfBTseboJXIM4xXG9WbytX80L2KfKLuogvODKOHlndCCfBvZD9xqjECDyJAylQrI86Y",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuA8l19eyDYP1oioTwabQ5bjRN_4zPjzoXnS99O7TnNobCgc5PXm33JedzjU-okQv_4m2i0iTMhg0jAjlDiJZMn4lg_-CssVKx70mXflCo8w0fUPl9_hCL7FfZqpKZGvr2jsRrPKNtQqzUwHAkCO0yO8T-aVGg_nM085UYBE9w-mN45ij_SMwU0u7eeURXk3kZ1Rukv1CdCIl6vOHlsZpE6678HynHWjYQ1k1hk7eVuER6becgSrImbbxZqnohFTubP4eNoLeozkIl0",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBEgyod6xBCIw3N3RRyUpLkx6EdEm8Nns-ROtJBW4B-jxf8GwSVMFsMZQOXUkacX65eoy5aBKBBK4GM6AZTSeyXbU1zrk2jsN_A3tKQ1MLZ7rrQgz32UZLl9_-WwKrWrAhwys9XZa7pZdUXS4AlXly7iQW_WzgnlIz3HfvB7LgGLgxUT06dHDb3WRyRbRKGMjEq52YxUiKhsu4CoxLxL1DM2ZBTwAfgdDWP2nTRFVqM0oXZ2Gm5VJKAzY9Db_yAwWA-ztNUfHWl2_Q",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDO2wMyddCHejWxIbyzTlfGIWVS07ycCStVfgFoUeL59MQClJNS0FxJ8ZQlqrc1iGyjG6zSXuxmMXGMjXHYb1WjRHdJfM3O3axvEzNz8GmfRbdNjwUX8T36-TduCJXT3xsVkvPRvPy-IgAng9W8OuL-4jYOmE_XVSw-Ev9Sj_VTrovi0cUnPPYeTQJRtit4UWNTyJJQFFakfDgnJxCdZvsX9sBBjd3_i0kyeFMhr-_VBTDpaEUUVvpVTkKNxICoy1kqucTFFjG5oI4",
+  {
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+    author: "Kelly",
+    time: "2 giờ trước",
+    caption: "Buổi sáng hôm nay thật tuyệt! 🌱 5km run hoàn thành, nạp đầy năng lượng.",
+    tag: "#Energy30",
+    likes: 128,
+  },
+  {
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
+    author: "Minh Quân",
+    time: "4 giờ trước",
+    caption: "Ngày thứ 21 liên tục đọc sách 30 phút trước khi ngủ. Cảm giác tâm trí nhẹ nhàng hẳn.",
+    tag: "#Mindful",
+    likes: 95,
+  },
+  {
+    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80",
+    author: "Thảo Vy",
+    time: "Hôm qua",
+    caption: "Bữa sáng dinh dưỡng tự chuẩn bị. Nhỏ thôi nhưng giữ routine này 2 tuần rồi nè!",
+    tag: "#HealthyEat",
+    likes: 142,
+  },
+  {
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
+    author: "Hoàng Long",
+    time: "Hôm qua",
+    caption: "Tập trung làm việc sâu 90 phút buổi sáng không điện thoại. Hiệu suất tăng gấp đôi.",
+    tag: "#DeepWork",
+    likes: 86,
+  },
 ]
 
 export default function Community() {
+  const [likesState, setLikesState] = useState<Record<number, { count: number; liked: boolean }>>({
+    0: { count: visualLogs[0].likes, liked: false },
+    1: { count: visualLogs[1].likes, liked: false },
+    2: { count: visualLogs[2].likes, liked: false },
+    3: { count: visualLogs[3].likes, liked: false },
+  })
+
+  const toggleLike = (index: number) => {
+    setLikesState((prev) => {
+      const current = prev[index]
+      if (current.liked) {
+        return {
+          ...prev,
+          [index]: { count: current.count - 1, liked: false },
+        }
+      } else {
+        return {
+          ...prev,
+          [index]: { count: current.count + 1, liked: true },
+        }
+      }
+    })
+  }
+
+  const values = [
+    {
+      icon: Zap,
+      color: "bg-amber-100 text-amber-600",
+      tag: "#ENERGY30",
+      title: "Thử thách năng lượng 30 ngày",
+      desc: "Mỗi ngày một hành động nhỏ để tăng mood, duy trì thói quen và cảm nhận sự tiến bộ rõ rệt.",
+    },
+    {
+      icon: Sparkles,
+      color: "bg-purple-100 text-[#8B63F6]",
+      tag: "#MINDFULNESS",
+      title: "Chuyển stress thành cảm hứng",
+      desc: "Những visual logs chia sẻ hành trình phục hồi tinh thần, giúp bạn tìm lại điểm tựa bình yên.",
+    },
+    {
+      icon: Flame,
+      color: "bg-rose-100 text-rose-600",
+      tag: "#VISUALCHECKIN",
+      title: "Check-in sáng tạo mỗi ngày",
+      desc: "Hình ảnh và mood log thực tế biến thói quen hằng ngày thành những cột mốc giàu cảm xúc.",
+    },
+    {
+      icon: Shield,
+      color: "bg-emerald-100 text-[#1E7444]",
+      tag: "#KỶLUẬTTÍCHCỰC",
+      title: "Kỷ luật thông minh, không gượng ép",
+      desc: "Không ép chạy đua leaderboard. Bạn tiến bộ theo nhịp riêng nhưng luôn có cộng đồng tiếp sức.",
+    },
+  ]
+
   return (
     <>
       <Header />
 
-      <main className="bg-white pb-20 pt-32 text-black">
-        <Reveal>
-          <section className="mx-auto mb-16 max-w-[1200px] px-6">
-            <div className="relative flex min-h-[420px] flex-col justify-center overflow-hidden rounded-[28px] border border-[#D9D9D9] bg-[#FFC857] p-12 shadow-[12px_12px_0px_0px_#3A8157]">
-              <div className="absolute -right-12 -top-12 opacity-20">
-                <svg
-                  height="400"
-                  viewBox="0 0 200 200"
-                  width="400"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M40,60 C40,60 80,20 120,60 C160,100 120,140 80,100 C40,60 80,100 40,140"
-                    fill="transparent"
-                    stroke="#3A8157"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                  />
-                </svg>
+      <main className="bg-[#F7FAFF] pt-28 text-gray-900">
+        {/* HERO BANNER */}
+        <section className="relative overflow-hidden py-16 md:py-24">
+          <div className="mx-auto max-w-[1240px] px-6 md:px-8">
+            <div className="rounded-[36px] bg-gradient-to-br from-emerald-800 via-[#1E7444] to-[#165a34] p-8 md:p-14 text-white shadow-xl relative overflow-hidden">
+              {/* Trang trí background */}
+              <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-white/5 blur-2xl pointer-events-none" />
+              <div className="absolute right-10 top-10 opacity-20 hidden md:block">
+                <Users className="h-64 w-64 text-white" />
               </div>
 
-              <div className="mb-6 inline-flex w-fit max-w-fit items-center gap-2 rounded-full bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(58,129,87,0.25)]">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#3A8157] text-white">
-                  <span className="material-symbols-outlined text-[18px]">
-                    diversity_3
-                  </span>
-                </span>
-
-                <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
-                  PENTAVA COMMUNITY
-                </span>
-              </div>
-
-              <h1 className="mb-6 max-w-3xl font-extrabold tracking-tight text-black">
-                <span className="mb-4 block text-[36px] leading-none text-[#3A8157] md:text-[52px]">
-                  Cùng nhau
-                </span>
-
-                <span className="inline-flex rotate-[-1deg] items-center gap-3 rounded-[24px] bg-white px-5 py-3 text-[44px] leading-none shadow-[5px_5px_0px_0px_#529CFF] md:text-[64px]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFC857] md:h-12 md:w-12">
-                    <span className="material-symbols-outlined text-[24px] text-black md:text-[30px]">
-                      favorite
-                    </span>
-                  </span>
-
-                  giữ nhịp
-                </span>
-
-                <span className="relative mt-5 block w-fit text-[48px] leading-none tracking-[-0.05em] md:text-[72px]">
-                  <span className="relative z-10">thay đổi</span>
-                  <span className="absolute bottom-1 left-1 right-1 z-0 h-4 rounded-full bg-[#8B63F6]/25 md:bottom-2 md:h-6" />
-                </span>
-              </h1>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
-          <section className="mx-auto max-w-[1200px] px-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <div className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[22px] border border-[#D9D9D9] bg-white p-8 shadow-[0_4px_0px_0px_rgba(255,200,87,0.7)] transition-all duration-300 hover:-translate-y-1">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFC857]">
-                  <span className="material-symbols-outlined text-4xl text-black">bolt</span>
-                </div>
-
-                <div>
-                  <h3 className="mb-3 text-[18px] font-bold leading-tight text-black md:whitespace-nowrap">
-                    Thử thách năng lượng 30 ngày
-                  </h3>
-                  <p className="text-base leading-relaxed text-[#727272]">
-                    Mỗi ngày một hành động nhỏ để tăng mood, giữ routine và tạo cảm giác tiến bộ rõ ràng.
-                  </p>
-                </div>
-
-                <div className="mt-6 flex items-center justify-between border-t border-[#D9D9D9] pt-6">
-                  <span className="text-xs font-bold text-[#FFC857]">#ENERGY30</span>
-                </div>
-              </div>
-
-              <div className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-[22px] border border-[#D9D9D9] bg-[#F7FAFF] shadow-[0_4px_0px_0px_rgba(82,156,255,0.35)] transition-all duration-300 md:col-span-1 md:flex-row lg:col-span-2">
-                <div className="flex flex-1 flex-col justify-center p-8">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#529CFF]">
-                    <span className="material-symbols-outlined text-4xl text-white">eco</span>
-                  </div>
-
-                  <h3 className="mb-3 text-xl font-bold text-black">
-                    Chuyển stress thành cảm hứng
-                  </h3>
-
-                  <p className="mb-6 text-base leading-relaxed text-[#727272]">
-                    Những câu chuyện visual giúp người dùng nhìn thấy sự ổn định tinh thần và thể chất theo thời gian.
-                  </p>
-                </div>
-
-                {/* Đã bỏ class `grayscale` và `contrast-125` để ảnh hiển thị màu sắc tươi sáng */}
-                <div className="relative hidden w-1/3 border-l border-[#D9D9D9] md:block">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                      backgroundImage:
-                        "url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80')",
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[22px] border border-[#D9D9D9] bg-white p-8 shadow-[0_4px_0px_0px_rgba(58,129,87,0.25)] transition-all duration-300 hover:-translate-y-1">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3A8157]">
-                  <span className="material-symbols-outlined text-4xl text-white">edit_note</span>
-                </div>
-
-                <div>
-                  <h3 className="mb-3 text-xl font-bold text-black">
-                    Check-in sáng tạo mỗi ngày
-                  </h3>
-                  <p className="text-base leading-relaxed text-[#727272]">
-                    Video, ảnh và mood log giúp người dùng biến routine thành hành trình có cảm xúc.
-                  </p>
-                </div>
-
-                <div className="mt-6 border-t border-[#D9D9D9] pt-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="h-2 w-2 rounded-full bg-[#3A8157]" />
-                    <span className="text-xs text-[#727272]">42 người đang thực hiện</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative flex min-h-[320px] flex-col justify-center overflow-hidden rounded-[22px] bg-[#3A8157] p-8 text-white shadow-[8px_8px_0px_0px_#FFC857] transition-all duration-300 lg:col-span-2">
-                <div className="relative z-10 max-w-lg">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFC857]">
-                    <span className="material-symbols-outlined text-4xl text-black">history_edu</span>
-                  </div>
-
-                  <h3 className="mb-3 text-xl font-bold">Kỷ luật thông minh, không gượng ép</h3>
-
-                  <p className="text-base leading-relaxed text-white/85">
-                    Không ép người dùng chạy theo leaderboard. PENTAVA tạo không gian để mọi người
-                    tiến bộ theo nhịp riêng nhưng vẫn được cộng đồng tiếp sức.
-                  </p>
-
-                  <div className="mt-8 flex flex-wrap gap-4">
-                    <span className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs">Tự do</span>
-                    <span className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs">Kỷ luật</span>
-                    <span className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs">Cân bằng</span>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-8 -right-8 opacity-25">
-                  <span className="material-symbols-outlined text-[150px] text-[#FFC857]">groups</span>
-                </div>
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
-          <section className="mx-auto mt-24 max-w-[1200px] px-6">
-            <div className="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row">
-              <div>
-                <span className="mb-3 inline-block rounded-full bg-[#8B63F6] px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">
-                  Visual Community Feed
-                </span>
-                <h2 className="mb-2 text-3xl font-extrabold text-black">Khoảnh khắc thực tế</h2>
-                <p className="text-base text-[#727272]">
-                  Visual logs được chia sẻ từ người dùng đang thay đổi từng ngày.
+              <div className="relative z-10 max-w-2xl space-y-6">
+                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#FFC857]">
+                  CỘNG ĐỒNG PENTAVA
                 </p>
-              </div>
 
-              <button className="group flex items-center rounded-full bg-[#3A8157] px-6 py-3 font-bold text-white shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1">
-                Xem tất cả feed
-                <span className="material-symbols-outlined ml-2 transition-transform group-hover:translate-x-1">
-                  chevron_right
-                </span>
-              </button>
+                <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                  Cùng nhau giữ nhịp,{" "}
+                  <span className="text-[#FFC857]">lan tỏa năng lượng</span> tích cực.
+                </h1>
+
+                <p className="text-base sm:text-lg leading-relaxed text-white/90">
+                  Phát triển bản thân không nhất thiết phải là hành trình cô độc. Tại PENTAVA, bạn tìm thấy những người bạn đồng hành chân thành, cùng chia sẻ từng bước chuyển hóa nhỏ nhất.
+                </p>
+
+                <div className="pt-2 flex flex-wrap gap-4">
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#FFC857] px-7 py-3.5 text-sm font-bold text-gray-900 transition-all hover:bg-amber-400 hover:scale-105 active:scale-95 shadow-md"
+                  >
+                    <span>Tham gia cộng đồng</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="#feed"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/20 backdrop-blur-sm"
+                  >
+                    Xem Visual Feed
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CÁC TRỤ CỘT CỘNG ĐỒNG */}
+        <section className="py-16 md:py-24">
+          <div className="mx-auto max-w-[1240px] px-6 md:px-8">
+            <div className="mx-auto mb-14 max-w-2xl text-center">
+              <span className="mb-3 inline-block text-xs font-bold uppercase tracking-wider text-[#1E7444]">
+                VĂN HÓA KẾT NỐI
+              </span>
+              <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+                Không gian kỷ luật an lành &amp; truyền cảm hứng
+              </h2>
+              <p className="mt-3 text-base text-gray-600">
+                PENTAVA hướng tới một môi trường văn minh, tôn trọng nhịp điệu riêng của từng thành viên.
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-              {visualLogs.map((src, index) => {
-                const shadows = ["#FFC857", "#529CFF", "#8B63F6", "#F25F5C"]
-
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+              {values.map((item, index) => {
+                const IconComponent = item.icon
                 return (
                   <div
-                    key={src}
-                    className="group relative aspect-square overflow-hidden rounded-[22px] border border-[#D9D9D9] bg-slate-100 transition-transform hover:-translate-y-1"
-                    style={{
-                      boxShadow: `0 6px 0px 0px ${shadows[index]}`,
-                    }}
+                    key={index}
+                    className="flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                   >
-                    <img
-                      className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                      src={src}
-                      alt="Visual log"
-                    />
-
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#3A8157]/70 opacity-0 transition-opacity group-hover:opacity-100">
-                      <span className="material-symbols-outlined text-4xl text-white">favorite</span>
+                    <div>
+                      <div className="flex items-center justify-between mb-6">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.color}`}>
+                          <IconComponent className="h-6 w-6" />
+                        </div>
+                        <span className="text-[11px] font-bold text-gray-400">{item.tag}</span>
+                      </div>
+                      <h3 className="mb-2 text-lg font-bold text-gray-900">{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-gray-600">{item.desc}</p>
                     </div>
                   </div>
                 )
               })}
             </div>
-          </section>
-        </Reveal>
+          </div>
+        </section>
+
+        {/* VISUAL COMMUNITY FEED */}
+        <section id="feed" className="border-t border-gray-200/60 bg-white py-20 md:py-28">
+          <div className="mx-auto max-w-[1240px] px-6 md:px-8">
+            <div className="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+              <div>
+                <p className="mb-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#8B63F6]">
+                  Visual Community Feed
+                </p>
+                <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+                  Khoảnh khắc nỗ lực thực tế
+                </h2>
+                <p className="mt-2 text-base text-gray-600">
+                  Visual logs được chia sẻ trực tiếp từ những người dùng đang thay đổi từng ngày.
+                </p>
+              </div>
+
+              <a
+                href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1E7444] px-6 py-3 text-sm font-bold text-white transition-all hover:bg-[#165a34] hover:scale-105 shadow-sm"
+              >
+                <span>Xem trên App PENTAVA</span>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* Grid 4 bài feed */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {visualLogs.map((post, index) => {
+                const currentLikes = likesState[index] || { count: post.likes, liked: false }
+
+                return (
+                  <div
+                    key={index}
+                    className="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-[#F7FAFF] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  >
+                    {/* Header tác giả */}
+                    <div className="p-4 flex items-center justify-between border-b border-gray-100/80 bg-white">
+                      <div>
+                        <p className="text-xs font-bold text-gray-900">{post.author}</p>
+                        <p className="text-[10px] text-gray-400">{post.time}</p>
+                      </div>
+                      <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-[#1E7444]">
+                        {post.tag}
+                      </span>
+                    </div>
+
+                    {/* Ảnh bài viết */}
+                    <div className="aspect-[4/3] overflow-hidden bg-gray-200">
+                      <img
+                        src={post.image}
+                        alt={post.caption}
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Nội dung caption */}
+                    <div className="flex-1 p-4 flex flex-col justify-between space-y-3 bg-white">
+                      <p className="text-xs font-medium text-gray-700 leading-relaxed line-clamp-3">
+                        {post.caption}
+                      </p>
+
+                      {/* Nút Like & Comment */}
+                      <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                        <button
+                          type="button"
+                          onClick={() => toggleLike(index)}
+                          className="flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+                        >
+                          <Heart
+                            className={`h-4 w-4 transition-colors ${
+                              currentLikes.liked
+                                ? "fill-rose-500 text-rose-500"
+                                : "text-gray-400 hover:text-rose-500"
+                            }`}
+                          />
+                          <span className={currentLikes.liked ? "text-rose-600" : "text-gray-600"}>
+                            {currentLikes.count}
+                          </span>
+                        </button>
+
+                        <div className="flex items-center gap-1 text-xs text-gray-400">
+                          <MessageCircle className="h-3.5 w-3.5" />
+                          <span>Chia sẻ</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

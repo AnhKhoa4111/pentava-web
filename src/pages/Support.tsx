@@ -23,14 +23,14 @@ export default function Support() {
         <Reveal>
           <section className="mx-auto max-w-[960px] px-6 py-20 md:px-8">
             <div className="mb-14 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(82,156,255,0.25)]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#529CFF] text-white">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 shadow-[3px_3px_0px_0px_#FFC857]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#3A8157] text-white">
                   <span className="material-symbols-outlined text-[18px]">
                     support_agent
                   </span>
                 </span>
 
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#529CFF]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
                   FAQ
                 </span>
               </div>
@@ -45,7 +45,7 @@ export default function Support() {
 
                   <span className="relative inline-block text-[44px] leading-none tracking-[-0.05em] text-black md:text-[68px]">
                     <span className="relative z-10">PENTAVA</span>
-                    <span className="absolute bottom-1 left-1 right-1 z-0 h-3 rounded-full bg-[#529CFF]/30 md:bottom-2 md:h-5" />
+                    <span className="absolute bottom-1 left-1 right-1 z-0 h-3 rounded-full bg-[#FFC857]/50 md:bottom-2 md:h-5" />
                   </span>
                 </span>
               </h1>

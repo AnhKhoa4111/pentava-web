@@ -42,9 +42,8 @@ export default function Features() {
   const title = (
     <>
       Trải nghiệm{" "}
-      <span className="relative inline-block text-[#3A8157]">
+      <span className="text-[#1E7444]">
         Đa góc nhìn
-        <span className="absolute -bottom-1 left-0 right-0 h-3 rounded-full bg-[#FFC857]/60 -z-10" />
       </span>{" "}
       cùng PENTAVA
     </>

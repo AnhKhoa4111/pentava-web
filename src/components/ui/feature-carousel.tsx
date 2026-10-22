@@ -61,21 +61,20 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
           {/* Header Section */}
           <div className="space-y-4 max-w-3xl">
             {eyebrow && (
-              <span className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#FFC857] px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-black shadow-[3px_3px_0px_0px_#3A8157]">
-                <span className="h-2 w-2 rounded-full bg-[#3A8157] animate-pulse" />
+              <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#1E7444]">
                 {eyebrow}
-              </span>
+              </p>
             )}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-black">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-gray-900">
               {title}
             </h2>
-            <p className="max-w-2xl mx-auto text-[#727272] text-sm md:text-base leading-relaxed">
+            <p className="max-w-2xl mx-auto text-gray-600 text-sm md:text-base leading-relaxed">
               {subtitle}
             </p>
           </div>
 
           {/* Main 3D Showcase Section */}
-          <div className="relative w-full h-[380px] sm:h-[420px] md:h-[480px] flex items-center justify-center">
+          <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center">
             {/* Carousel 3D Perspective Wrapper */}
             <div className="relative w-full h-full flex items-center justify-center [perspective:1000px]">
               {images.map((image, index) => {
@@ -94,7 +93,7 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={cn(
-                      "absolute w-56 h-[340px] sm:w-64 sm:h-[390px] md:w-72 md:h-[440px] transition-all duration-500 ease-in-out cursor-pointer",
+                      "absolute w-60 h-[360px] sm:w-68 sm:h-[410px] md:w-76 md:h-[460px] transition-all duration-500 ease-in-out cursor-pointer",
                       "flex flex-col items-center justify-center select-none"
                     )}
                     style={{
@@ -109,7 +108,7 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
                       visibility: Math.abs(pos) > 2 ? "hidden" : "visible",
                     }}
                   >
-                    <div className="relative w-full h-full rounded-3xl border-2 border-black overflow-hidden bg-white shadow-[8px_8px_0px_0px_#3A8157]">
+                    <div className="relative w-full h-full rounded-[36px] border-[6px] border-gray-900 overflow-hidden bg-white shadow-2xl">
                       <img
                         src={image.src}
                         alt={image.alt}
@@ -117,9 +116,9 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
                       />
                       {/* Overlay card details */}
                       {(image.title || image.tag) && (
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 text-left text-white">
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-5 text-left text-white">
                           {image.tag && (
-                            <span className="inline-block rounded-full bg-[#FFC857] text-black px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider mb-1">
+                            <span className="inline-block rounded-full bg-emerald-500 text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider mb-1">
                               {image.tag}
                             </span>
                           )}
@@ -145,16 +144,16 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-2 sm:left-6 md:left-12 top-1/2 -translate-y-1/2 rounded-full h-11 w-11 z-20 border-2 border-black bg-white shadow-[3px_3px_0px_0px_#3A8157] hover:bg-[#FFC857] transition-all cursor-pointer"
+              className="absolute left-2 sm:left-6 md:left-12 top-1/2 -translate-y-1/2 rounded-full h-11 w-11 z-20 border border-gray-200 bg-white/95 text-gray-800 shadow-md hover:bg-emerald-50 hover:text-[#1E7444] transition-all cursor-pointer"
               onClick={handlePrev}
               aria-label="Previous feature"
             >
-              <ChevronLeft className="h-5 w-5 text-black" />
+              <ChevronLeft className="h-5 w-5 text-gray-800" />
             </Button>
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-2 sm:right-6 md:right-12 top-1/2 -translate-y-1/2 rounded-full h-11 w-11 z-20 border-2 border-black bg-[#3A8157] shadow-[3px_3px_0px_0px_#FFC857] hover:bg-[#2e6845] text-white transition-all cursor-pointer"
+              className="absolute right-2 sm:right-6 md:right-12 top-1/2 -translate-y-1/2 rounded-full h-11 w-11 z-20 border border-emerald-600 bg-[#1E7444] text-white shadow-md hover:bg-[#165a34] transition-all cursor-pointer"
               onClick={handleNext}
               aria-label="Next feature"
             >
@@ -171,7 +170,7 @@ export const HeroSection = React.forwardRef<HTMLDivElement, FeatureCarouselProps
                 aria-label={`Go to slide ${idx + 1}`}
                 className={cn(
                   "h-2.5 rounded-full transition-all duration-300 cursor-pointer focus:outline-none",
-                  idx === currentIndex ? "w-8 bg-[#3A8157]" : "w-2.5 bg-black/20 hover:bg-black/40"
+                  idx === currentIndex ? "w-8 bg-[#1E7444]" : "w-2.5 bg-gray-300 hover:bg-gray-400"
                 )}
               />
             ))}
