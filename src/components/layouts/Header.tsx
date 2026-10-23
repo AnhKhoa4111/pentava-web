@@ -1,3 +1,5 @@
+import { Link, useLocation } from "react-router-dom"
+
 const navItems = [
   { label: "Giải pháp", href: "#solution" },
   { label: "Tính năng", href: "#features" },
@@ -7,12 +9,15 @@ const navItems = [
 ]
 
 export default function Header() {
+  const location = useLocation()
+  const isHome = location.pathname === "/" || location.pathname === "/home"
+
   return (
     <header className="fixed top-0 z-50 w-full transition-all">
       <div className="mx-auto mt-3 max-w-[1220px] px-4 md:px-8">
         <div className="flex h-[68px] items-center justify-between rounded-full border border-emerald-100/70 bg-white/90 px-6 shadow-sm backdrop-blur-md">
-          <a
-            href="/"
+          <Link
+            to="/home"
             className="flex h-10 w-[140px] shrink-0 items-center overflow-visible"
             aria-label="Về đầu trang PENTAVA"
           >
@@ -21,18 +26,28 @@ export default function Header() {
               alt="PENTAVA Logo"
               className="h-9 w-auto origin-left scale-[2] object-contain"
             />
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-emerald-50 hover:text-[#1E7444]"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) =>
+              isHome ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-emerald-50 hover:text-[#1E7444]"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={`/home${item.href}`}
+                  className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-emerald-50 hover:text-[#1E7444]"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <a

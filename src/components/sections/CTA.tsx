@@ -3,7 +3,7 @@ export default function CTA() {
     <section id="download" className="relative bg-[#EFF6F0] py-16 md:py-24 scroll-mt-20 overflow-hidden">
       <div className="mx-auto max-w-[1240px] px-6 md:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          
+
           {/* CỘT TRÁI: Nội dung giới thiệu & Nút tải */}
           <div className="space-y-6">
             {/* Tag / Badge */}
@@ -68,15 +68,15 @@ export default function CTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 rounded-xl border border-black bg-white px-4 py-2 text-black shadow-sm transition-all hover:bg-gray-50 hover:shadow"
-                aria-label="Get it on Google Play"
+                aria-label="Download on the Google Play"
               >
                 {/* Google Play Logo SVG */}
                 <svg className="h-5 w-5 fill-current text-black shrink-0" viewBox="0 0 24 24">
                   <path d="M3.609 1.814L13.792 12 3.61 22.186a1.597 1.597 0 0 1-.61-.917c-.074-.356-.074-.75-.074-1.18V3.911c0-.43.001-.824.075-1.18.1-.475.32-.82.608-.917zM15.207 13.414l2.874 2.874-12.78 7.375 9.906-10.25zM15.207 10.586L5.301.337l12.78 7.375-2.874 2.874zM16.621 12l3.49-2.015c.983-.568 1.58-.225 1.58.91v2.21c0 1.135-.597 1.478-1.58.91L16.621 12z" />
                 </svg>
                 <div className="text-left leading-none">
-                  <p className="text-[10px] font-medium tracking-tight text-gray-800 uppercase">
-                    Get it on
+                  <p className="text-[10px] font-medium tracking-tight text-gray-800">
+                    Download on the
                   </p>
                   <p className="text-[15px] font-bold tracking-tight text-black mt-0.5">
                     Google Play

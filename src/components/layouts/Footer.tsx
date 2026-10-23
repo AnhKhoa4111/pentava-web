@@ -1,9 +1,16 @@
+import { Link, useLocation } from "react-router-dom"
+
 export default function Footer() {
-  const scrollToContact = (e: React.MouseEvent) => {
-    const el = document.getElementById("contact")
-    if (el) {
-      e.preventDefault()
-      el.scrollIntoView({ behavior: "smooth" })
+  const location = useLocation()
+  const isHome = location.pathname === "/" || location.pathname === "/home"
+
+  const scrollToSection = (e: React.MouseEvent, targetId: string) => {
+    if (isHome) {
+      const el = document.getElementById(targetId)
+      if (el) {
+        e.preventDefault()
+        el.scrollIntoView({ behavior: "smooth" })
+      }
     }
   }
 
@@ -13,8 +20,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           {/* CỘT 1: Logo & Slogan */}
           <div className="space-y-4">
-            <a
-              href="/"
+            <Link
+              to="/home"
               className="flex h-10 w-[140px] shrink-0 items-center overflow-visible"
               aria-label="Về đầu trang PENTAVA"
             >
@@ -23,7 +30,7 @@ export default function Footer() {
                 alt="PENTAVA Logo"
                 className="h-9 w-auto origin-left scale-[1.9] object-contain"
               />
-            </a>
+            </Link>
 
             <p className="max-w-[280px] text-sm leading-relaxed text-[#55635A]">
               Nâng tầm phong cách sống thông qua những thói quen nhỏ nhất.
@@ -41,24 +48,64 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#4E5B53]">
               <li>
-                <a href="#features" className="transition-colors hover:text-[#1E7444]">
-                  Tính năng
-                </a>
+                {isHome ? (
+                  <a
+                    href="#features"
+                    onClick={(e) => scrollToSection(e, "features")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Tính năng
+                  </a>
+                ) : (
+                  <Link to="/home#features" className="transition-colors hover:text-[#1E7444]">
+                    Tính năng
+                  </Link>
+                )}
               </li>
               <li>
-                <a href="#cinema" className="transition-colors hover:text-[#1E7444]">
-                  PENTA-CINEMA
-                </a>
+                {isHome ? (
+                  <a
+                    href="#cinema"
+                    onClick={(e) => scrollToSection(e, "cinema")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    PENTA-CINEMA
+                  </a>
+                ) : (
+                  <Link to="/home#cinema" className="transition-colors hover:text-[#1E7444]">
+                    PENTA-CINEMA
+                  </Link>
+                )}
               </li>
               <li>
-                <a href="#download" className="transition-colors hover:text-[#1E7444]">
-                  Tải App
-                </a>
+                {isHome ? (
+                  <a
+                    href="#download"
+                    onClick={(e) => scrollToSection(e, "download")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Tải App
+                  </a>
+                ) : (
+                  <Link to="/home#download" className="transition-colors hover:text-[#1E7444]">
+                    Tải App
+                  </Link>
+                )}
               </li>
               <li>
-                <a href="#contact" onClick={scrollToContact} className="transition-colors hover:text-[#1E7444]">
-                  Hỗ trợ
-                </a>
+                {isHome ? (
+                  <a
+                    href="#contact"
+                    onClick={(e) => scrollToSection(e, "contact")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Hỗ trợ
+                  </a>
+                ) : (
+                  <Link to="/home#contact" className="transition-colors hover:text-[#1E7444]">
+                    Hỗ trợ
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
@@ -70,19 +117,39 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#4E5B53]">
               <li>
-                <a href="#solution" className="transition-colors hover:text-[#1E7444]">
-                  Về PENTAVA
-                </a>
+                {isHome ? (
+                  <a
+                    href="#solution"
+                    onClick={(e) => scrollToSection(e, "solution")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Về PENTAVA
+                  </a>
+                ) : (
+                  <Link to="/home#solution" className="transition-colors hover:text-[#1E7444]">
+                    Về PENTAVA
+                  </Link>
+                )}
               </li>
               <li>
-                <a href="#community" className="transition-colors hover:text-[#1E7444]">
-                  Cộng đồng
-                </a>
+                {isHome ? (
+                  <a
+                    href="#community"
+                    onClick={(e) => scrollToSection(e, "community")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Cộng đồng
+                  </a>
+                ) : (
+                  <Link to="/home#community" className="transition-colors hover:text-[#1E7444]">
+                    Cộng đồng
+                  </Link>
+                )}
               </li>
               <li>
-                <a href="/blog" className="transition-colors hover:text-[#1E7444]">
+                <Link to="/blog" className="transition-colors hover:text-[#1E7444]">
                   Blog
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,14 +161,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#4E5B53]">
               <li>
-                <a href="/privacy" className="transition-colors hover:text-[#1E7444]">
-                  Bảo mật & Điều khoản
-                </a>
+                <Link to="/privacy" className="transition-colors hover:text-[#1E7444]">
+                  Bảo mật &amp; Điều khoản
+                </Link>
               </li>
               <li>
-                <a href="#contact" onClick={scrollToContact} className="transition-colors hover:text-[#1E7444]">
-                  Liên hệ
-                </a>
+                {isHome ? (
+                  <a
+                    href="#contact"
+                    onClick={(e) => scrollToSection(e, "contact")}
+                    className="transition-colors hover:text-[#1E7444]"
+                  >
+                    Liên hệ
+                  </a>
+                ) : (
+                  <Link to="/home#contact" className="transition-colors hover:text-[#1E7444]">
+                    Liên hệ
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

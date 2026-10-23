@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
 import Reveal from "../components/common/Reveal"
@@ -255,12 +256,12 @@ export default function Privacy() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
-                  <a
-                    href="/support"
+                  <Link
+                    to="/support"
                     className="w-fit rounded-full bg-white px-7 py-3 text-sm font-extrabold text-[#3A8157] shadow-[4px_4px_0px_0px_#FFC857] transition-all hover:-translate-y-1"
                   >
                     Liên hệ hỗ trợ
-                  </a>
+                  </Link>
 
                   <a
                     href="https://drive.google.com/drive/folders/1Y_QUnHTtUT8YFWHxWz9zch2Ie-ffSxlj?usp=sharing"

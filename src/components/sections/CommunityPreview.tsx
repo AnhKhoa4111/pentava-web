@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { Heart, MessageCircle, ArrowRight, Sparkles } from "lucide-react"
 
 export default function CommunityPreview() {
@@ -19,7 +20,7 @@ export default function CommunityPreview() {
     <section id="community" className="relative bg-[#F7FAFF] py-20 md:py-28 scroll-mt-20 overflow-hidden">
       <div className="mx-auto max-w-[1240px] px-6 md:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          
+
           {/* CỘT TRÁI: Tiêu đề & Thông điệp cộng đồng */}
           <div className="space-y-6">
             <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#1E7444]">
@@ -36,20 +37,20 @@ export default function CommunityPreview() {
             </p>
 
             <div className="pt-2">
-              <a
-                href="#download"
+              <Link
+                to="/feature/solution"
                 className="inline-flex items-center gap-2 rounded-full bg-[#1E7444] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#165a34] hover:scale-105 active:scale-95 shadow-md"
               >
                 <span>Khám phá cộng đồng</span>
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* CỘT PHẢI: Card bài viết cộng đồng & Chú mèo mascot */}
           <div className="relative flex items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-[420px]">
-              
+
               {/* Thẻ bài viết check-in cộng đồng (Social Feed Card) */}
               <div className="relative z-10 rounded-3xl border border-gray-100 bg-white p-5 shadow-xl transition-all duration-300">
                 {/* Người đăng */}
@@ -97,11 +98,10 @@ export default function CommunityPreview() {
                       className="flex items-center gap-1.5 text-xs font-bold transition-colors cursor-pointer"
                     >
                       <Heart
-                        className={`h-4 w-4 transition-all ${
-                          hasLiked
-                            ? "fill-rose-500 text-rose-500 scale-110"
-                            : "text-gray-400 hover:text-rose-500"
-                        }`}
+                        className={`h-4 w-4 transition-all ${hasLiked
+                          ? "fill-rose-500 text-rose-500 scale-110"
+                          : "text-gray-400 hover:text-rose-500"
+                          }`}
                       />
                       <span className={hasLiked ? "text-rose-600" : "text-gray-600"}>
                         {likes}
