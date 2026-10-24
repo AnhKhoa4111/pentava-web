@@ -1,7 +1,8 @@
 import { useState } from "react"
 import Header from "../components/layouts/Header"
 import Footer from "../components/layouts/Footer"
-import { Users, Heart, MessageCircle, Sparkles, Zap, Flame, Shield, ArrowRight } from "lucide-react"
+import CommunityPreview from "../components/sections/CommunityPreview"
+import { Heart, MessageCircle, Sparkles, Zap, Flame, Shield, ArrowRight } from "lucide-react"
 
 const visualLogs = [
   {
@@ -98,52 +99,8 @@ export default function Community() {
     <>
       <Header />
 
-      <main className="bg-[#F7FAFF] pt-28 text-gray-900">
-        {/* HERO BANNER */}
-        <section className="relative overflow-hidden py-16 md:py-24">
-          <div className="mx-auto max-w-[1240px] px-6 md:px-8">
-            <div className="rounded-[36px] bg-gradient-to-br from-emerald-800 via-[#1E7444] to-[#165a34] p-8 md:p-14 text-white shadow-xl relative overflow-hidden">
-              {/* Trang trí background */}
-              <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-              <div className="absolute right-10 top-10 opacity-20 hidden md:block">
-                <Users className="h-64 w-64 text-white" />
-              </div>
-
-              <div className="relative z-10 max-w-2xl space-y-6">
-                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#FFC857]">
-                  CỘNG ĐỒNG PENTAVA
-                </p>
-
-                <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                  Cùng nhau giữ nhịp,{" "}
-                  <span className="text-[#FFC857]">lan tỏa năng lượng</span> tích cực.
-                </h1>
-
-                <p className="text-base sm:text-lg leading-relaxed text-white/90">
-                  Phát triển bản thân không nhất thiết phải là hành trình cô độc. Tại PENTAVA, bạn tìm thấy những người bạn đồng hành chân thành, cùng chia sẻ từng bước chuyển hóa nhỏ nhất.
-                </p>
-
-                <div className="pt-2 flex flex-wrap gap-4">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.pentava&hl=vi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-[#FFC857] px-7 py-3.5 text-sm font-bold text-gray-900 transition-all hover:bg-amber-400 hover:scale-105 active:scale-95 shadow-md"
-                  >
-                    <span>Tham gia cộng đồng</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="#feed"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/20 backdrop-blur-sm"
-                  >
-                    Xem Visual Feed
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+      <main className="bg-white pt-28 text-gray-900">
+        <CommunityPreview />
 
         {/* CÁC TRỤ CỘT CỘNG ĐỒNG */}
         <section className="py-16 md:py-24">

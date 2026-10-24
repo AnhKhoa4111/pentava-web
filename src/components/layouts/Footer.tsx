@@ -50,7 +50,7 @@ export default function Footer() {
               <li>
                 {isHome ? (
                   <a
-                    href="#features"
+                    href="/features"
                     onClick={(e) => scrollToSection(e, "features")}
                     className="transition-colors hover:text-[#1E7444]"
                   >
@@ -65,14 +65,13 @@ export default function Footer() {
               <li>
                 {isHome ? (
                   <a
-                    href="#cinema"
-                    onClick={(e) => scrollToSection(e, "cinema")}
+                    href="/cinema"
                     className="transition-colors hover:text-[#1E7444]"
                   >
                     PENTA-CINEMA
                   </a>
                 ) : (
-                  <Link to="/home#cinema" className="transition-colors hover:text-[#1E7444]">
+                  <Link to="/cinema" className="transition-colors hover:text-[#1E7444]">
                     PENTA-CINEMA
                   </Link>
                 )}
@@ -134,14 +133,13 @@ export default function Footer() {
               <li>
                 {isHome ? (
                   <a
-                    href="#community"
-                    onClick={(e) => scrollToSection(e, "community")}
+                    href="/community"
                     className="transition-colors hover:text-[#1E7444]"
                   >
                     Cộng đồng
                   </a>
                 ) : (
-                  <Link to="/home#community" className="transition-colors hover:text-[#1E7444]">
+                  <Link to="/community" className="transition-colors hover:text-[#1E7444]">
                     Cộng đồng
                   </Link>
                 )}

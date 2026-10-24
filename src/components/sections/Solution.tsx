@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import { Heart } from "lucide-react"
+import ScrambleText from "../common/ScrambleText"
 
 export default function Solution() {
   return (
@@ -13,7 +14,7 @@ export default function Solution() {
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="h-px w-8 bg-[#8B63F6]/50" />
             <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.18em] text-[#8B63F6]">
-              GIẢI PHÁP & CHUYỂN HÓA
+              <ScrambleText text="GIẢI PHÁP & CHUYỂN HÓA" scrambleSpeed={30} />
             </p>
             <span className="h-px w-8 bg-[#8B63F6]/50" />
           </div>
@@ -30,17 +31,23 @@ export default function Solution() {
         {/* 3 Thẻ Chuyển Hóa Cốt Lõi */}
         <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
           {/* Card 1: Routine 1 chạm tinh gọn */}
-          <motion.div
+          <motion.article
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
+            className="group relative flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
           >
             <div>
-              <p className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.16em] text-[#10B981] mb-2">
-                01 • THÓI QUEN
-              </p>
+              {/* Header thẻ: ScrambleText Tag + Category Badge */}
+              <div className="mb-5 flex items-center justify-between">
+                <span className="rounded-full bg-[#10B981]/10 border border-[#10B981]/30 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-[#10B981]">
+                  <ScrambleText text="01 • THÓI QUEN" scrambleSpeed={40} />
+                </span>
+                <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-2.5 py-0.5 text-[10px] font-bold text-[#727272]">
+                  ROUTINE
+                </span>
+              </div>
 
-              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight">
+              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight group-hover:text-[#10B981] transition-colors">
                 Routine 1 chạm tinh gọn
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 font-normal">
@@ -51,7 +58,7 @@ export default function Solution() {
             {/* Visual Minh Họa Card 1 */}
             <div className="relative mt-8 rounded-2xl bg-[#F0FDF4] p-5 flex items-center gap-4 min-h-[110px]">
               {/* Checklist Card trắng */}
-              <div className="relative shrink-0">
+              <div className="relative shrink-0 group-hover:scale-105 transition-transform duration-300">
                 <div className="w-[72px] h-[72px] rounded-2xl bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] p-3 flex flex-col justify-between">
                   {/* Row 1: Vàng cam */}
                   <div className="flex items-center gap-2">
@@ -74,8 +81,6 @@ export default function Solution() {
                     <span className="h-2 w-8 rounded-full bg-[#E0F2FE]" />
                   </div>
                 </div>
-
-
               </div>
 
               {/* Text & Badge */}
@@ -89,20 +94,26 @@ export default function Solution() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
 
           {/* Card 2: Thước phim PENTA-CINEMA */}
-          <motion.div
+          <motion.article
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
+            className="group relative flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
           >
             <div>
-              <p className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.16em] text-[#8B63F6] mb-2">
-                02 • ĐIỆN ẢNH
-              </p>
+              {/* Header thẻ: ScrambleText Tag + Category Badge */}
+              <div className="mb-5 flex items-center justify-between">
+                <span className="rounded-full bg-[#8B63F6]/10 border border-[#8B63F6]/30 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-[#8B63F6]">
+                  <ScrambleText text="02 • ĐIỆN ẢNH" scrambleSpeed={40} />
+                </span>
+                <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-2.5 py-0.5 text-[10px] font-bold text-[#727272]">
+                  CINEMA
+                </span>
+              </div>
 
-              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight">
+              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight group-hover:text-[#8B63F6] transition-colors">
                 Thước phim PENTA-CINEMA
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 font-normal">
@@ -113,7 +124,7 @@ export default function Solution() {
             {/* Visual Minh Họa Card 2 */}
             <div className="relative mt-8 rounded-2xl bg-[#F8F5FE] p-5 flex items-center gap-4 min-h-[110px]">
               {/* Film Clapper/Reel Card trắng */}
-              <div className="relative shrink-0">
+              <div className="relative shrink-0 group-hover:scale-105 transition-transform duration-300">
                 <div className="w-[72px] h-[72px] rounded-2xl bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] flex items-center justify-center p-2">
                   <svg
                     width="44"
@@ -135,8 +146,6 @@ export default function Solution() {
                     <path d="M19 13.5L29 19L19 24.5V13.5Z" fill="white" />
                   </svg>
                 </div>
-
-                
               </div>
 
               {/* Text & Badges */}
@@ -155,20 +164,26 @@ export default function Solution() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
 
           {/* Card 3: Nhịp thở an lành & Cộng đồng tiếp sức */}
-          <motion.div
+          <motion.article
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
+            className="group relative flex flex-col justify-between rounded-3xl border border-gray-100 bg-white p-7 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300"
           >
             <div>
-              <p className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.16em] text-[#E11D48] mb-2">
-                03 • CỘNG ĐỒNG
-              </p>
+              {/* Header thẻ: ScrambleText Tag + Category Badge */}
+              <div className="mb-5 flex items-center justify-between">
+                <span className="rounded-full bg-[#E11D48]/10 border border-[#E11D48]/30 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-[#E11D48]">
+                  <ScrambleText text="03 • CỘNG ĐỒNG" scrambleSpeed={40} />
+                </span>
+                <span className="rounded-full border border-black/10 bg-[#F7FAFF] px-2.5 py-0.5 text-[10px] font-bold text-[#727272]">
+                  COMMUNITY
+                </span>
+              </div>
 
-              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight">
+              <h3 className="text-xl sm:text-[22px] font-black text-gray-900 tracking-tight group-hover:text-[#E11D48] transition-colors">
                 Nhịp thở an lành &amp; Cộng đồng <br className="hidden sm:inline" />
                 tiếp sức
               </h3>
@@ -180,7 +195,7 @@ export default function Solution() {
             {/* Visual Minh Họa Card 3 */}
             <div className="relative mt-8 rounded-2xl bg-[#FFF5F5] p-5 flex items-center gap-4 min-h-[110px]">
               {/* Hai vòng tròn Tim & Tiếp sức */}
-              <div className="relative flex items-center shrink-0">
+              <div className="relative flex items-center shrink-0 group-hover:scale-105 transition-transform duration-300">
                 {/* Decorative accents */}
                 <svg
                   className="absolute -top-2.5 -left-1.5 w-3 h-3 text-[#FF2D55]"
@@ -192,8 +207,6 @@ export default function Solution() {
                 >
                   <path d="M2 9C2 5 5 3 8 2" />
                 </svg>
-
-                
 
                 {/* Circle 1: Red Heart */}
                 <div className="w-11 h-11 rounded-full bg-[#FF2D55] flex items-center justify-center text-white shadow-xs z-10">
@@ -223,7 +236,7 @@ export default function Solution() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         </div>
       </div>
     </section>
