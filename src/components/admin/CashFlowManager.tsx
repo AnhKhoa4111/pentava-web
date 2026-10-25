@@ -48,6 +48,10 @@ export default function CashFlowManager() {
   const [dateFilter, setDateFilter] = useState<"ALL" | "TODAY" | "7DAYS" | "30DAYS">("ALL")
   const [inflowSourceFilter, setInflowSourceFilter] = useState<"ALL" | "TOPUP_RUBY" | "SUBSCRIPTION_PLAN">("ALL")
 
+  // Realtime Status & Live Notification
+  const [realtimeStatus, setRealtimeStatus] = useState<"CONNECTING" | "CONNECTED" | "ERROR">("CONNECTING")
+  const [newArrivalTxCode, setNewArrivalTxCode] = useState<string | null>(null)
+
   // Modal Detail & Reconciliation
   const [selectedTx, setSelectedTx] = useState<CashFlowTransaction | null>(null)
   const [isApproving, setIsApproving] = useState(false)
@@ -57,7 +61,7 @@ export default function CashFlowManager() {
 
   const showToast = (type: "success" | "error", text: string) => {
     setToast({ type, text })
-    setTimeout(() => setToast(null), 4000)
+    setTimeout(() => setToast(null), 5000)
   }
 
   // Load Initial Data
@@ -82,6 +86,51 @@ export default function CashFlowManager() {
 
   useEffect(() => {
     loadData()
+
+    // Lắng nghe luồng sự kiện thanh toán thời gian thực Server-Sent Events (SSE)
+    const unsubscribe = adminCashflowService.subscribeCashflowStream(
+      (newTx) => {
+        setTransactions((prev) => {
+          const index = prev.findIndex((t) => t.transactionCode === newTx.transactionCode)
+          if (index >= 0) {
+            const next = [...prev]
+            next[index] = newTx
+            return next
+          }
+          return [newTx, ...prev]
+        })
+
+        // Kích hoạt hiệu ứng nổi bật tức thì cho dòng giao dịch mới
+        setNewArrivalTxCode(newTx.transactionCode)
+        setTimeout(() => {
+          setNewArrivalTxCode((curr) => (curr === newTx.transactionCode ? null : curr))
+        }, 7000)
+
+        // Cập nhật lại các thẻ KPI tổng quan
+        adminCashflowService.getCashFlowSummary().then((sum) => setSummary(sum))
+
+        // Hiển thị thông báo Toast realtime
+        const typeLabel =
+          newTx.type === "TOPUP_RUBY"
+            ? "Nạp Ruby VietQR"
+            : newTx.type === "SUBSCRIPTION_PLAN"
+              ? "Gói cước VietQR"
+              : "Mua đồ Shop"
+        const amountLabel =
+          newTx.direction === "IN" ? formatVnd(newTx.amountVnd) : `${newTx.rubyAmount} 💎`
+        const userLabel = newTx.userName || `User #${newTx.userId}`
+
+        showToast(
+          "success",
+          `⚡ [REALTIME] ${newTx.status === "SUCCESS" ? "Thanh toán thành công" : "Khởi tạo thanh toán"}: ${typeLabel} (${amountLabel}) - ${userLabel}`
+        )
+      },
+      (status) => setRealtimeStatus(status)
+    )
+
+    return () => {
+      unsubscribe()
+    }
   }, [])
 
   // Filtered Inflow Transactions
@@ -186,13 +235,50 @@ export default function CashFlowManager() {
               <span className="material-symbols-outlined text-[28px] text-[#3A8157]">payments</span>
               <h2 className="text-2xl font-extrabold text-[#111827]">Quản trị Dòng tiền & Sổ quỹ</h2>
             </div>
-            <p className="mt-1 text-xs font-semibold text-[#727272]">
+            {/* <p className="mt-1 text-xs font-semibold text-[#727272]">
               Giám sát dòng tiền vào (Nạp Ruby, Gói cước), dòng tiêu thụ Ruby và đối soát cổng thanh toán SePay VietQR.
-            </p>
+            </p> */}
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2.5">
+          {/* Action Buttons & Live Indicator */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div
+              className="flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-[#F7FAFF] px-3.5 py-2 shadow-sm"
+              title={
+                realtimeStatus === "CONNECTED"
+                  ? "Đang kết nối Server-Sent Events (SSE). Bất kỳ thanh toán nào cũng sẽ xuất hiện tức thì!"
+                  : realtimeStatus === "CONNECTING"
+                    ? "Đang kết nối luồng sự kiện realtime..."
+                    : "Mất kết nối realtime, hệ thống tự động đồng bộ lại."
+              }
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span
+                  className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${realtimeStatus === "CONNECTED"
+                      ? "animate-ping bg-[#3A8157]"
+                      : realtimeStatus === "CONNECTING"
+                        ? "animate-ping bg-[#FFC857]"
+                        : "bg-red-400"
+                    }`}
+                ></span>
+                <span
+                  className={`relative inline-flex h-2.5 w-2.5 rounded-full ${realtimeStatus === "CONNECTED"
+                      ? "bg-[#3A8157]"
+                      : realtimeStatus === "CONNECTING"
+                        ? "bg-[#FFC857]"
+                        : "bg-red-500"
+                    }`}
+                ></span>
+              </span>
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#111827]">
+                {realtimeStatus === "CONNECTED"
+                  ? "Realtime Live"
+                  : realtimeStatus === "CONNECTING"
+                    ? "Đang kết nối..."
+                    : "Offline"}
+              </span>
+            </div>
+
             <button
               type="button"
               onClick={() => handleExportCsv(transactions)}
@@ -412,7 +498,13 @@ export default function CashFlowManager() {
 
               <div className="mt-4 divide-y divide-[#EEF1F5]">
                 {transactions.slice(0, 5).map((tx) => (
-                  <div key={tx.id} className="flex items-center justify-between py-3 text-xs">
+                  <div
+                    key={tx.id}
+                    className={`flex items-center justify-between rounded-xl px-2 py-3 text-xs transition-all duration-700 ${tx.transactionCode === newArrivalTxCode
+                        ? "bg-emerald-50/90 ring-2 ring-[#3A8157]"
+                        : "hover:bg-[#F7FAFF]"
+                      }`}
+                  >
                     <div className="flex items-center gap-3">
                       <div
                         className={`flex h-8 w-8 items-center justify-center rounded-full border border-[#EEF1F5] bg-white ${tx.direction === "IN" ? "text-[#3A8157]" : "text-[#8B63F6]"
@@ -423,7 +515,14 @@ export default function CashFlowManager() {
                         </span>
                       </div>
                       <div>
-                        <p className="font-extrabold text-[#111827]">{tx.description}</p>
+                        <div className="flex items-center gap-1.5">
+                          <p className="font-extrabold text-[#111827]">{tx.description}</p>
+                          {tx.transactionCode === newArrivalTxCode && (
+                            <span className="animate-bounce rounded-full bg-[#3A8157] px-1.5 py-0.2 text-[9px] font-black uppercase text-white shadow-sm">
+                              ⚡ Mới
+                            </span>
+                          )}
+                        </div>
                         <p className="text-[11px] font-semibold text-[#727272]">
                           {tx.transactionCode} • {formatDate(tx.createdAt)}
                         </p>
@@ -550,9 +649,22 @@ export default function CashFlowManager() {
                   </tr>
                 ) : (
                   filteredInflowTransactions.map((tx) => (
-                    <tr key={tx.id} className="text-xs hover:bg-[#F7FAFF]">
+                    <tr
+                      key={tx.id}
+                      className={`text-xs transition-all duration-700 ${tx.transactionCode === newArrivalTxCode
+                          ? "bg-emerald-50/90 ring-2 ring-[#3A8157]"
+                          : "hover:bg-[#F7FAFF]"
+                        }`}
+                    >
                       <td className="px-3 py-4">
-                        <span className="font-mono font-extrabold text-[#111827]">{tx.transactionCode}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-mono font-extrabold text-[#111827]">{tx.transactionCode}</span>
+                          {tx.transactionCode === newArrivalTxCode && (
+                            <span className="animate-bounce rounded-full bg-[#3A8157] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-sm">
+                              ⚡ Mới
+                            </span>
+                          )}
+                        </div>
                         <p className="mt-0.5 text-[11px] font-semibold text-[#727272]">{formatDate(tx.createdAt)}</p>
                       </td>
                       <td className="px-3 py-4">
@@ -560,13 +672,27 @@ export default function CashFlowManager() {
                         <p className="text-[11px] font-semibold text-[#727272]">{tx.userEmail || `ID: ${tx.userId}`}</p>
                       </td>
                       <td className="px-3 py-4">
-                        <span
-                          className={`text-xs font-bold ${tx.type === "TOPUP_RUBY" ? "text-[#3A8157]" : "text-[#D97706]"
-                            }`}
-                        >
-                          {tx.type === "TOPUP_RUBY" ? "Nạp Ruby" : "Gói cước"}
-                        </span>
-                        <p className="mt-0.5 text-xs font-medium text-[#111827]">{tx.description}</p>
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span
+                            className={`rounded-md px-2 py-0.5 text-[10px] font-black uppercase tracking-wider ${tx.type === "TOPUP_RUBY"
+                                ? "bg-[#E8F3EC] text-[#3A8157]"
+                                : "bg-amber-100 text-amber-800"
+                              }`}
+                          >
+                            {tx.type === "TOPUP_RUBY" ? "Nạp Ruby" : "Gói cước"}
+                          </span>
+                          {tx.itemDetails?.planCode && (
+                            <span className="rounded-md bg-purple-100 px-1.5 py-0.5 text-[10px] font-extrabold text-purple-700">
+                              Gói {tx.itemDetails.planCode} ({tx.itemDetails.durationDays || 30} ngày)
+                            </span>
+                          )}
+                          {tx.itemDetails?.bonusRuby && tx.itemDetails.bonusRuby > 0 && (
+                            <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[10px] font-extrabold text-emerald-800">
+                              +{tx.itemDetails.bonusRuby} Ruby thưởng
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-1 text-xs font-semibold text-[#111827]">{tx.description}</p>
                       </td>
                       <td className="px-3 py-4">
                         <p className="font-extrabold text-[#3A8157]">{formatVnd(tx.amountVnd)}</p>
@@ -674,9 +800,22 @@ export default function CashFlowManager() {
                   </tr>
                 ) : (
                   filteredOutflowTransactions.map((tx) => (
-                    <tr key={tx.id} className="text-xs hover:bg-[#F7FAFF]">
+                    <tr
+                      key={tx.id}
+                      className={`text-xs transition-all duration-700 ${tx.transactionCode === newArrivalTxCode
+                          ? "bg-purple-50/90 ring-2 ring-[#8B63F6]"
+                          : "hover:bg-[#F7FAFF]"
+                        }`}
+                    >
                       <td className="px-3 py-4">
-                        <span className="font-mono font-bold text-[#111827]">{tx.transactionCode}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-mono font-bold text-[#111827]">{tx.transactionCode}</span>
+                          {tx.transactionCode === newArrivalTxCode && (
+                            <span className="animate-bounce rounded-full bg-[#8B63F6] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-sm">
+                              ⚡ Mới
+                            </span>
+                          )}
+                        </div>
                         <p className="mt-0.5 text-[11px] text-[#727272]">{formatDate(tx.createdAt)}</p>
                       </td>
                       <td className="px-3 py-4">
@@ -864,6 +1003,39 @@ export default function CashFlowManager() {
                 <p className="text-sm font-extrabold text-[#111827]">{selectedTx.userName || `User #${selectedTx.userId}`}</p>
                 <p className="text-[11px] font-semibold text-[#727272]">{selectedTx.userEmail || `User ID: ${selectedTx.userId}`}</p>
               </div>
+
+              {selectedTx.itemDetails && (
+                <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
+                  <span className="text-[10px] font-extrabold text-[#727272]">CHI TIẾT THANH TOÁN (MẶT HÀNG / GÓI DỊCH VỤ)</span>
+                  <div className="mt-2 flex flex-wrap gap-2 text-xs font-bold text-[#111827]">
+                    {selectedTx.itemDetails.itemName && (
+                      <span className="rounded-lg border border-[#D9D9D9] bg-white px-2.5 py-1">
+                        Sản phẩm: {selectedTx.itemDetails.itemName}
+                      </span>
+                    )}
+                    {selectedTx.itemDetails.planCode && (
+                      <span className="rounded-lg bg-purple-100 px-2.5 py-1 text-purple-800">
+                        Gói cước: {selectedTx.itemDetails.planCode} ({selectedTx.itemDetails.durationDays || 30} ngày)
+                      </span>
+                    )}
+                    {selectedTx.itemDetails.slot && (
+                      <span className="rounded-lg bg-blue-100 px-2.5 py-1 text-blue-800">
+                        Vị trí: {selectedTx.itemDetails.slot}
+                      </span>
+                    )}
+                    {selectedTx.itemDetails.itemCode && (
+                      <span className="rounded-lg bg-gray-100 px-2.5 py-1 font-mono text-gray-700">
+                        Mã code: {selectedTx.itemDetails.itemCode}
+                      </span>
+                    )}
+                    {selectedTx.itemDetails.bonusRuby && selectedTx.itemDetails.bonusRuby > 0 && (
+                      <span className="rounded-lg bg-emerald-100 px-2.5 py-1 text-emerald-800">
+                        +{selectedTx.itemDetails.bonusRuby} Ruby thưởng
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">

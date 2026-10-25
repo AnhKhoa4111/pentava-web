@@ -28,6 +28,7 @@ export interface CashFlowTransaction {
     slot?: string
     planCode?: string
     durationDays?: number
+    bonusRuby?: number
   }
   createdAt: string
   completedAt?: string | null
@@ -387,9 +388,33 @@ export const adminCashflowService = {
   },
 
   /**
-   * Lấy danh sách giao dịch có hỗ trợ bộ lọc và tìm kiếm
+   * Lấy danh sách giao dịch có hỗ trợ bộ lọc và tìm kiếm từ Backend API
    */
   async getTransactions(filters?: CashFlowFilters): Promise<CashFlowTransaction[]> {
+    try {
+      const params = new URLSearchParams()
+      if (filters?.direction && filters.direction !== "ALL") params.append("direction", filters.direction)
+      if (filters?.type && filters.type !== "ALL") params.append("type", filters.type)
+      if (filters?.status && filters.status !== "ALL") params.append("status", filters.status)
+      if (filters?.searchTerm && filters.searchTerm.trim()) params.append("searchTerm", filters.searchTerm.trim())
+      if (filters?.dateRange && filters.dateRange !== "ALL") params.append("dateRange", filters.dateRange)
+
+      const url = `/api/shop/admin/cashflow/transactions${params.toString() ? `?${params.toString()}` : ""}`
+      const response = await fetch(url, {
+        headers: getAuthHeaders(),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (Array.isArray(data)) {
+          transactionsStore = data
+          return data
+        }
+      }
+    } catch {
+      // Fallback khi backend chưa khởi động
+    }
+
     let list = [...transactionsStore]
 
     if (!filters) {
@@ -440,9 +465,21 @@ export const adminCashflowService = {
   },
 
   /**
-   * Tính toán các chỉ số tổng quan sổ quỹ & KPI dòng tiền
+   * Tính toán các chỉ số tổng quan sổ quỹ & KPI dòng tiền từ Backend API
    */
   async getCashFlowSummary(): Promise<CashFlowSummary> {
+    try {
+      const response = await fetch("/api/shop/admin/cashflow/summary", {
+        headers: getAuthHeaders(),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        return data as CashFlowSummary
+      }
+    } catch {
+      // Fallback tính toán từ local store
+    }
+
     const list = transactionsStore
 
     let totalRevenueVnd = 0
@@ -517,6 +554,22 @@ export const adminCashflowService = {
    * Duyệt thủ công hoặc kích hoạt mock-confirm một giao dịch đang PENDING
    */
   async approveTransaction(transactionCode: string): Promise<CashFlowTransaction> {
+    try {
+      const response = await fetch(`/api/shop/admin/cashflow/approve/${encodeURIComponent(transactionCode)}`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+      })
+      if (response.ok) {
+        const updated = await response.json()
+        transactionsStore = transactionsStore.map((t) =>
+          t.transactionCode === updated.transactionCode ? updated : t
+        )
+        return updated as CashFlowTransaction
+      }
+    } catch {
+      // Fallback local approve
+    }
+
     const tx = transactionsStore.find(
       (item) => item.transactionCode.toUpperCase() === transactionCode.trim().toUpperCase()
     )
@@ -552,6 +605,53 @@ export const adminCashflowService = {
     tx.sepayReferenceCode = `MBB.MANUAL.${Math.floor(100000 + Math.random() * 900000)}`
 
     return { ...tx }
+  },
+
+  /**
+   * Lắng nghe luồng dữ liệu thanh toán thời gian thực Server-Sent Events (SSE)
+   * Trả về hàm cleanup () => void để ngắt kết nối khi rời trang
+   */
+  subscribeCashflowStream(
+    onTransaction: (tx: CashFlowTransaction) => void,
+    onStatusChange?: (status: "CONNECTING" | "CONNECTED" | "ERROR") => void
+  ): () => void {
+    const token = authService.getToken()
+    const streamUrl = `/api/shop/admin/cashflow/stream${token ? `?token=${encodeURIComponent(token)}` : ""}`
+
+    onStatusChange?.("CONNECTING")
+    const eventSource = new EventSource(streamUrl)
+
+    eventSource.onopen = () => {
+      onStatusChange?.("CONNECTED")
+    }
+
+    eventSource.addEventListener("CASHFLOW_UPDATE", (event: MessageEvent) => {
+      try {
+        const tx = JSON.parse(event.data) as CashFlowTransaction
+        const index = transactionsStore.findIndex((t) => t.transactionCode === tx.transactionCode)
+        if (index >= 0) {
+          transactionsStore[index] = tx
+        } else {
+          transactionsStore.unshift(tx)
+        }
+        onTransaction(tx)
+      } catch (err) {
+        console.error("Lỗi parse dữ liệu SSE Cashflow:", err)
+      }
+    })
+
+    eventSource.addEventListener("INIT", () => {
+      onStatusChange?.("CONNECTED")
+    })
+
+    eventSource.onerror = (err) => {
+      console.warn("SSE Cashflow Stream ngắt kết nối:", err)
+      onStatusChange?.("ERROR")
+    }
+
+    return () => {
+      eventSource.close()
+    }
   },
 
   /**
