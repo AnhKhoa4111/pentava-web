@@ -19,7 +19,7 @@ export default function About() {
       <main className="bg-[#F7FAFF] pt-32 text-black lg:pt-28">
         <Reveal>
           <section className="mx-auto max-w-[1200px] px-6 py-20 text-center md:px-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 shadow-[3px_3px_0px_0px_rgba(255,200,87,0.75)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-4 py-2 ">
               <span className="h-2.5 w-2.5 rounded-full bg-[#FFC857]" />
               <span className="text-[10px] font-bold uppercase tracking-widest text-[#3A8157]">
                 Về PENTAVA
@@ -89,7 +89,7 @@ export default function About() {
               </div>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                <div className="rounded-[26px] bg-[#F7FAFF] p-10 shadow-[0_5px_0px_0px_rgba(255,200,87,0.6)]">
+                <div className="rounded-[26px] bg-[#F7FAFF] p-10 ">
                   <h3 className="mb-4 text-2xl font-extrabold text-[#3A8157]">
                     Big Three Health Behaviors
                   </h3>
@@ -105,13 +105,13 @@ export default function About() {
                     href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0329689"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex rounded-full bg-[#FFC857] px-6 py-3 text-sm font-bold text-black shadow-[3px_3px_0px_0px_#3A8157] transition-all hover:-translate-y-1"
+                    className="inline-flex rounded-full bg-[#FFC857] px-6 py-3 text-sm font-bold text-black transition-all hover:-translate-y-1"
                   >
                     Xem nghiên cứu nền tảng
                   </a>
                 </div>
 
-                <div className="rounded-[26px] bg-[#3A8157] p-10 text-white shadow-[0_5px_0px_0px_rgba(82,156,255,0.6)]">
+                <div className="rounded-[26px] bg-[#3A8157] p-10 text-white ">
                   <h3 className="mb-4 text-2xl font-extrabold">
                     Tâm lý học hành vi
                   </h3>

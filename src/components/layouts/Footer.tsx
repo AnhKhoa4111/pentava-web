@@ -1,19 +1,6 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export default function Footer() {
-  const location = useLocation()
-  const isHome = location.pathname === "/" || location.pathname === "/home"
-
-  const scrollToSection = (e: React.MouseEvent, targetId: string) => {
-    if (isHome) {
-      const el = document.getElementById(targetId)
-      if (el) {
-        e.preventDefault()
-        el.scrollIntoView({ behavior: "smooth" })
-      }
-    }
-  }
-
   return (
     <footer className="w-full bg-[#EFF6F0] border-t border-[#DCE8DF] text-gray-800">
       <div className="mx-auto max-w-[1240px] px-6 md:px-8 pt-14 pb-10">
@@ -48,63 +35,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#4E5B53]">
               <li>
-                {isHome ? (
-                  <a
-                    href="/features"
-                    onClick={(e) => scrollToSection(e, "features")}
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Tính năng
-                  </a>
-                ) : (
-                  <Link to="/home#features" className="transition-colors hover:text-[#1E7444]">
-                    Tính năng
-                  </Link>
-                )}
+                <Link to="/feature" className="transition-colors hover:text-[#1E7444]">
+                  Tính năng
+                </Link>
               </li>
               <li>
-                {isHome ? (
-                  <a
-                    href="/cinema"
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    PENTA-CINEMA
-                  </a>
-                ) : (
-                  <Link to="/cinema" className="transition-colors hover:text-[#1E7444]">
-                    PENTA-CINEMA
-                  </Link>
-                )}
+                <Link to="/cinema" className="transition-colors hover:text-[#1E7444]">
+                  PENTA-CINEMA
+                </Link>
               </li>
               <li>
-                {isHome ? (
-                  <a
-                    href="#download"
-                    onClick={(e) => scrollToSection(e, "download")}
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Tải App
-                  </a>
-                ) : (
-                  <Link to="/home#download" className="transition-colors hover:text-[#1E7444]">
-                    Tải App
-                  </Link>
-                )}
+                <Link to="/download" className="transition-colors hover:text-[#1E7444]">
+                  Tải App
+                </Link>
               </li>
               <li>
-                {isHome ? (
-                  <a
-                    href="#contact"
-                    onClick={(e) => scrollToSection(e, "contact")}
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Hỗ trợ
-                  </a>
-                ) : (
-                  <Link to="/home#contact" className="transition-colors hover:text-[#1E7444]">
-                    Hỗ trợ
-                  </Link>
-                )}
+                <Link to="/support" className="transition-colors hover:text-[#1E7444]">
+                  Hỗ trợ
+                </Link>
               </li>
             </ul>
           </div>
@@ -116,33 +64,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#4E5B53]">
               <li>
-                {isHome ? (
-                  <a
-                    href="#solution"
-                    onClick={(e) => scrollToSection(e, "solution")}
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Về PENTAVA
-                  </a>
-                ) : (
-                  <Link to="/home#solution" className="transition-colors hover:text-[#1E7444]">
-                    Về PENTAVA
-                  </Link>
-                )}
+                <Link to="/about" className="transition-colors hover:text-[#1E7444]">
+                  Về PENTAVA
+                </Link>
               </li>
               <li>
-                {isHome ? (
-                  <a
-                    href="/community"
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Cộng đồng
-                  </a>
-                ) : (
-                  <Link to="/community" className="transition-colors hover:text-[#1E7444]">
-                    Cộng đồng
-                  </Link>
-                )}
+                <Link to="/community" className="transition-colors hover:text-[#1E7444]">
+                  Cộng đồng
+                </Link>
               </li>
               <li>
                 <Link to="/blog" className="transition-colors hover:text-[#1E7444]">
@@ -164,19 +93,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                {isHome ? (
-                  <a
-                    href="#contact"
-                    onClick={(e) => scrollToSection(e, "contact")}
-                    className="transition-colors hover:text-[#1E7444]"
-                  >
-                    Liên hệ
-                  </a>
-                ) : (
-                  <Link to="/home#contact" className="transition-colors hover:text-[#1E7444]">
-                    Liên hệ
-                  </Link>
-                )}
+                <Link to="/contact" className="transition-colors hover:text-[#1E7444]">
+                  Liên hệ
+                </Link>
               </li>
             </ul>
           </div>

@@ -13,6 +13,7 @@ const Support = lazy(() => import("./pages/Support"))
 const About = lazy(() => import("./pages/About"))
 const Community = lazy(() => import("./pages/Community"))
 const Blog = lazy(() => import("./pages/Blog"))
+const Contact = lazy(() => import("./pages/Contact"))
 const Privacy = lazy(() => import("./pages/Privacy"))
 const Login = lazy(() => import("./pages/Login"))
 const Admin = lazy(() => import("./pages/Admin"))
@@ -49,6 +50,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
 
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<ProtectedAdminRoute />} />
 
