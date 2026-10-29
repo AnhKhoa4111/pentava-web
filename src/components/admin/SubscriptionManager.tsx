@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+﻿import { useEffect, useState } from "react"
 import {
   adminSubscriptionService,
   type CreateFeatureRequest,
@@ -9,6 +9,7 @@ import {
   type UpdatePlanInfoRequest,
   type UserSubscriberDetail,
 } from "../../services/adminSubscriptionService"
+import TablePagination from "./common/TablePagination"
 
 type SubTab = "plans" | "features" | "subscribers"
 
@@ -43,6 +44,10 @@ export default function SubscriptionManager() {
 
   // Search & Filters
   const [subscriberSearch, setSubscriberSearch] = useState("")
+  const [featurePage, setFeaturePage] = useState(1)
+  const [featurePageSize, setFeaturePageSize] = useState(10)
+  const [subPage, setSubPage] = useState(1)
+  const [subPageSize, setSubPageSize] = useState(10)
 
   // Modals state
   const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null)
@@ -535,7 +540,7 @@ export default function SubscriptionManager() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#EEF1F5] text-sm">
-                {features.map((item) => (
+                {features.slice((featurePage - 1) * featurePageSize, featurePage * featurePageSize).map((item) => (
                   <tr key={item.id} className="hover:bg-[#F9FAFB]">
                     <td className="px-4 py-3.5 font-mono text-xs font-extrabold text-[#D97706]">
                       {item.featureCode}
@@ -556,6 +561,13 @@ export default function SubscriptionManager() {
               </tbody>
             </table>
           </div>
+          <TablePagination
+            totalItems={features.length}
+            currentPage={featurePage}
+            pageSize={featurePageSize}
+            onPageChange={setFeaturePage}
+            onPageSizeChange={setFeaturePageSize}
+          />
         </div>
       )}
 
@@ -600,7 +612,7 @@ export default function SubscriptionManager() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#EEF1F5] text-sm">
-                {filteredSubscribers.map((sub) => (
+                {filteredSubscribers.slice((subPage - 1) * subPageSize, subPage * subPageSize).map((sub) => (
                   <tr key={sub.userId} className="hover:bg-[#F9FAFB]">
                     <td className="px-4 py-3.5 font-mono text-xs font-extrabold text-[#111827]">
                       #{sub.userId}
@@ -653,6 +665,13 @@ export default function SubscriptionManager() {
               </tbody>
             </table>
           </div>
+          <TablePagination
+            totalItems={filteredSubscribers.length}
+            currentPage={subPage}
+            pageSize={subPageSize}
+            onPageChange={setSubPage}
+            onPageSizeChange={setSubPageSize}
+          />
         </div>
       )}
 

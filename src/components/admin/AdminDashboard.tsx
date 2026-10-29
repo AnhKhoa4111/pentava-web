@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react"
+﻿import { useEffect, useMemo, useState } from "react"
 import {
   adminCashflowService,
   type CashFlowTransaction,
   type CashFlowSummary,
 } from "../../services/adminCashflowService"
 import { adminUserService, type AdminUser } from "../../services/adminUserService"
+import TablePagination from "./common/TablePagination"
 
 interface AdminDashboardProps {
   onNavigate?: (moduleKey: "cashflow" | "users" | "subscriptions" | "contacts") => void
@@ -41,6 +42,8 @@ export default function AdminDashboard({ onNavigate }: AdminDashboardProps) {
 
   // Hover state index for chart (null when not hovering)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [txPage, setTxPage] = useState(1)
+  const [txPageSize, setTxPageSize] = useState(5)
 
   // Load Aggregated Data
   const loadDashboardData = async () => {
@@ -879,7 +882,7 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#EEF1F5]">
-              {transactions.slice(0, 5).map((tx) => (
+              {transactions.slice((txPage - 1) * txPageSize, txPage * txPageSize).map((tx) => (
                 <tr key={tx.id} className="hover:bg-[#F7FAFF]">
                   <td className="py-3 font-mono font-extrabold text-[#111827]">{tx.transactionCode}</td>
                   <td className="py-3 font-extrabold text-[#111827]">{tx.userName || `User #${tx.userId}`}</td>
@@ -914,6 +917,13 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
             </tbody>
           </table>
         </div>
+        <TablePagination
+          totalItems={transactions.length}
+          currentPage={txPage}
+          pageSize={txPageSize}
+          onPageChange={setTxPage}
+          onPageSizeChange={setTxPageSize}
+        />
       </div>
     </div>
   )
