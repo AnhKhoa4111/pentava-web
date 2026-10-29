@@ -83,7 +83,10 @@ export default function ContactSection({
   }
 
   return (
-    <section id={id} className="scroll-mt-20 px-4 pt-6 pb-20 md:pt-10 md:pb-28 md:px-8 bg-white">
+    <section
+      id={id}
+      className="no-scrollbar scroll-mt-20 overflow-hidden bg-white px-4 pt-6 pb-20 md:px-8 md:pt-10 md:pb-28"
+    >
       <div className="mx-auto max-w-[1240px]">
         {/* Header Badge & Title */}
         <div className="mb-12 text-center md:mb-16">
@@ -303,7 +306,7 @@ export default function ContactSection({
                     placeholder="Hãy mô tả chi tiết thắc mắc hoặc điều bạn muốn PENTAVA hỗ trợ..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm font-medium outline-none transition-all focus:border-[#1E7444] focus:bg-white focus:ring-2 focus:ring-emerald-500/20"
+                    className="no-scrollbar w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm font-medium outline-none transition-all [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus:border-[#1E7444] focus:bg-white focus:ring-2 focus:ring-emerald-500/20"
                   />
                 </label>
 

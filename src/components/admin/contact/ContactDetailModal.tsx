@@ -49,7 +49,7 @@ export default function ContactDetailModal({
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-[620px] overflow-y-auto rounded-3xl border-2 border-black bg-white p-6 shadow-[8px_8px_0px_0px_#000] md:p-7"
+        className="no-scrollbar relative max-h-[90vh] w-full max-w-[620px] overflow-y-auto rounded-3xl border-2 border-black bg-white p-6 shadow-[8px_8px_0px_0px_#000] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:p-7"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -179,7 +179,7 @@ export default function ContactDetailModal({
                   value={newAdminNote}
                   onChange={(e) => setNewAdminNote(e.target.value)}
                   placeholder="Ví dụ: Đã gửi email phản hồi lúc 10:00; hoặc đánh dấu spam..."
-                  className="w-full resize-none rounded-xl border-2 border-[#D9D9D9] bg-white p-3 text-xs font-semibold outline-none transition-colors focus:border-[#3A8157]"
+                  className="no-scrollbar w-full resize-none rounded-xl border-2 border-[#D9D9D9] bg-white p-3 text-xs font-semibold outline-none transition-colors [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus:border-[#3A8157]"
                 />
               </div>
             </div>
