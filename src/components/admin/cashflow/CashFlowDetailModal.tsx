@@ -4,10 +4,6 @@ function fmtVnd(n: number) {
   return n.toLocaleString("vi-VN") + " ₫"
 }
 
-function fmtRuby(n: number) {
-  return n.toLocaleString("vi-VN") + " 💎"
-}
-
 function fmtDate(s?: string | null) {
   if (!s) return "—"
   try {
@@ -103,9 +99,8 @@ export default function CashFlowDetailModal({
             <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
               <p className="text-[10px] font-extrabold text-[#727272]">CHIỀU DÒNG TIỀN</p>
               <p
-                className={`mt-1 text-xs font-extrabold ${
-                  tx.direction === "IN" ? "text-[#3A8157]" : "text-[#529CFF]"
-                }`}
+                className={`mt-1 text-xs font-extrabold ${tx.direction === "IN" ? "text-[#3A8157]" : "text-[#529CFF]"
+                  }`}
               >
                 {tx.direction === "IN" ? "📥 Tiền vào (Thu)" : "📤 Tiêu thụ (Chi)"}
               </p>
@@ -131,7 +126,10 @@ export default function CashFlowDetailModal({
             </div>
             <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
               <p className="text-[10px] font-extrabold text-[#727272]">SỐ RUBY</p>
-              <p className="mt-1 text-sm font-extrabold text-[#529CFF]">{fmtRuby(tx.rubyAmount)}</p>
+              <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-extrabold text-[#E11D48]">
+                {tx.rubyAmount.toLocaleString("vi-VN")}
+                <img src="/image/ruby.png" alt="Ruby" className="h-4 w-4 object-contain" />
+              </p>
             </div>
           </div>
 
@@ -167,7 +165,7 @@ export default function CashFlowDetailModal({
           )}
 
           {/* Payment method */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* <div className="grid grid-cols-2 gap-3">
             <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
               <p className="text-[10px] font-extrabold text-[#727272]">PHƯƠNG THỨC</p>
               <p className="mt-1 text-xs font-extrabold text-[#111827]">{tx.paymentMethod}</p>
@@ -182,10 +180,10 @@ export default function CashFlowDetailModal({
                 <p className="text-[11px] text-[#727272]">{tx.accountName}</p>
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* SePay ref */}
-          {tx.sepayReferenceCode && (
+          {/* {tx.sepayReferenceCode && (
             <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">
               <p className="text-[10px] font-extrabold text-[#727272]">
                 MÃ THAM CHIẾU NGÂN HÀNG (SEPAY)
@@ -194,7 +192,7 @@ export default function CashFlowDetailModal({
                 {tx.sepayReferenceCode}
               </p>
             </div>
-          )}
+          )} */}
 
           {/* Description */}
           <div className="rounded-xl border border-[#EEF1F5] bg-[#F7FAFF] p-3">

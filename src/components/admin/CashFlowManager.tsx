@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import {
   adminCashflowService,
-  GATEWAY_CONFIG,
   type CashFlowFilters,
   type CashFlowStatus,
   type CashFlowSummary,
   type CashFlowTransaction,
-  type GatewayConfigInfo,
 } from "../../services/adminCashflowService"
 import CashFlowStatsCards from "./cashflow/CashFlowStatsCards"
 import CashFlowTable from "./cashflow/CashFlowTable"
-import CashFlowGatewayTab from "./cashflow/CashFlowGatewayTab"
 import CashFlowDetailModal from "./cashflow/CashFlowDetailModal"
 
 function fmtVnd(n: number) {
@@ -18,7 +15,7 @@ function fmtVnd(n: number) {
 }
 
 function fmtRuby(n: number) {
-  return n.toLocaleString("vi-VN") + " 💎"
+  return n.toLocaleString("vi-VN") + " Ruby"
 }
 
 const TYPE_LABEL: Record<string, string> = {
@@ -27,14 +24,13 @@ const TYPE_LABEL: Record<string, string> = {
   SHOP_PURCHASE: "Mua Shop",
 }
 
-type Tab = "overview" | "inflow" | "outflow" | "gateway"
+type Tab = "overview" | "inflow" | "outflow"
 
 export default function CashFlowManager() {
   const [activeTab, setActiveTab] = useState<Tab>("overview")
   const [loading, setLoading] = useState(true)
   const [summary, setSummary] = useState<CashFlowSummary | null>(null)
   const [transactions, setTransactions] = useState<CashFlowTransaction[]>([])
-  const [gatewayConfig, setGatewayConfig] = useState<GatewayConfigInfo>(GATEWAY_CONFIG)
 
   // Filters
   const [searchTerm, setSearchTerm] = useState("")
@@ -92,12 +88,7 @@ export default function CashFlowManager() {
   useEffect(() => {
     const init = async () => {
       setLoading(true)
-      const [, , gw] = await Promise.all([
-        fetchSummary(),
-        fetchTransactions(),
-        adminCashflowService.getGatewayConfig(),
-      ])
-      setGatewayConfig(gw)
+      await Promise.all([fetchSummary(), fetchTransactions()])
       setLoading(false)
     }
     void init()
@@ -122,11 +113,9 @@ export default function CashFlowManager() {
         const typeLabel = TYPE_LABEL[newTx.type] ?? newTx.type
         const amtLabel =
           newTx.direction === "IN" ? fmtVnd(newTx.amountVnd) : fmtRuby(newTx.rubyAmount)
-        const eventMsg = `[${new Date().toLocaleTimeString("vi-VN")}] ${
-          newTx.status === "SUCCESS" ? "✅ Khớp lệnh thành công" : "⏳ Đơn mới khởi tạo"
-        }: ${typeLabel} (${amtLabel}) — Mã ${newTx.transactionCode} (${
-          newTx.userName ?? `User #${newTx.userId}`
-        })`
+        const eventMsg = `[${new Date().toLocaleTimeString("vi-VN")}] ${newTx.status === "SUCCESS" ? "✅ Khớp lệnh thành công" : "⏳ Đơn mới khởi tạo"
+          }: ${typeLabel} (${amtLabel}) — Mã ${newTx.transactionCode} (${newTx.userName ?? `User #${newTx.userId}`
+          })`
 
         setLatestRealtimeEvent(eventMsg)
         showToast("success", `🔔 REALTIME: ${eventMsg}`)
@@ -138,7 +127,6 @@ export default function CashFlowManager() {
 
   // Re-fetch on filter change
   useEffect(() => {
-    if (activeTab === "gateway") return
     const direction: "ALL" | "IN" | "OUT" =
       activeTab === "inflow" ? "IN" : activeTab === "outflow" ? "OUT" : "ALL"
 
@@ -183,18 +171,17 @@ export default function CashFlowManager() {
 
   const inflowTxs = transactions.filter((t) => t.direction === "IN")
   const outflowTxs = transactions.filter((t) => t.direction === "OUT")
-  const pendingTxs = transactions.filter((t) => t.status === "PENDING")
+  // const pendingTxs = transactions.filter((t) => t.status === "PENDING")
 
   const TABS: { id: Tab; label: string; icon: string; count?: number }[] = [
     { id: "overview", label: "Sổ quỹ tổng hợp", icon: "list_alt", count: transactions.length },
     { id: "inflow", label: "Tiền vào (Thu)", icon: "south_west", count: inflowTxs.length },
     { id: "outflow", label: "Tiêu thụ Ruby", icon: "north_east", count: outflowTxs.length },
-    { id: "gateway", label: "Cổng SePay & Test", icon: "qr_code_scanner" },
   ]
 
   const statusMeta = {
     CONNECTING: { dot: "bg-amber-400 animate-pulse", text: "Đang kết nối SSE..." },
-    CONNECTED: { dot: "bg-[#3A8157]", text: "Realtime Live (SSE)" },
+    CONNECTED: { dot: "bg-[#3A8157]", text: "SSE" },
     ERROR: { dot: "bg-red-500", text: "Ngắt kết nối SSE" },
   }[realtimeStatus]
 
@@ -203,11 +190,10 @@ export default function CashFlowManager() {
       {/* Toast Notification */}
       {toast && (
         <div
-          className={`fixed right-6 top-24 z-50 flex max-w-md items-center gap-3 rounded-2xl border-2 px-5 py-4 shadow-xl transition-all ${
-            toast.type === "success"
-              ? "border-[#3A8157] bg-white text-[#3A8157]"
-              : "border-red-500 bg-white text-red-600"
-          }`}
+          className={`fixed right-6 top-24 z-50 flex max-w-md items-center gap-3 rounded-2xl border-2 px-5 py-4 shadow-xl transition-all ${toast.type === "success"
+            ? "border-[#3A8157] bg-white text-[#3A8157]"
+            : "border-red-500 bg-white text-red-600"
+            }`}
         >
           <span className="material-symbols-outlined text-[24px]">
             {toast.type === "success" ? "notifications_active" : "error"}
@@ -245,20 +231,20 @@ export default function CashFlowManager() {
               <span className="material-symbols-outlined text-[26px] text-[#3A8157]">
                 payments
               </span>
-              <h2 className="text-2xl font-extrabold text-black">Quản lý Dòng tiền & Sổ quỹ</h2>
+              <h2 className="text-2xl font-extrabold text-black">Quản lý Giao dịch</h2>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D9D9D9] bg-[#F7FAFF] px-3 py-1 text-[11px] font-bold text-[#727272]">
                 <span className={`h-2 w-2 rounded-full ${statusMeta.dot}`} />
                 {statusMeta.text}
               </span>
-              {pendingTxs.length > 0 && (
+              {/* {pendingTxs.length > 0 && (
                 <span className="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-extrabold text-amber-800">
                   ⏳ {pendingTxs.length} chờ duyệt
                 </span>
-              )}
+              )} */}
             </div>
-            <p className="mt-1 text-xs font-semibold text-[#727272]">
-              Đồng bộ thời gian thực qua Server-Sent Events (SSE) khi người dùng mua gói cước hoặc nạp Ruby SePay.
-            </p>
+            {/* <p className="mt-1 text-xs font-semibold text-[#727272]">
+              Đồng bộ thời gian thực qua Server-Sent Events (SSE) khi người dùng thực hiện giao dịch nạp Ruby hoặc đăng ký gói cước.
+            </p> */}
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -295,21 +281,19 @@ export default function CashFlowManager() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-extrabold transition ${
-                activeTab === tab.id
-                  ? "bg-[#3A8157] text-white shadow-sm"
-                  : "bg-[#F7FAFF] text-[#727272] hover:text-black"
-              }`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-extrabold transition ${activeTab === tab.id
+                ? "bg-[#3A8157] text-white shadow-sm"
+                : "bg-[#F7FAFF] text-[#727272] hover:text-black"
+                }`}
             >
               <span className="material-symbols-outlined text-[16px]">{tab.icon}</span>
               {tab.label}
               {tab.count !== undefined && (
                 <span
-                  className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-black ${
-                    activeTab === tab.id
-                      ? "bg-white/20 text-white"
-                      : "bg-[#E5E7EB] text-[#374151]"
-                  }`}
+                  className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-black ${activeTab === tab.id
+                    ? "bg-white/20 text-white"
+                    : "bg-[#E5E7EB] text-[#374151]"
+                    }`}
                 >
                   {tab.count}
                 </span>
@@ -318,9 +302,8 @@ export default function CashFlowManager() {
           ))}
         </div>
 
-        {/* Filter Bar (Hiển thị cho các tab danh sách giao dịch) */}
-        {activeTab !== "gateway" && (
-          <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
+        {/* Filter Bar */}
+        <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
             <div className="relative flex-1">
               <span className="material-symbols-outlined absolute left-4 top-3 text-[20px] text-[#727272]">
                 search
@@ -386,22 +369,21 @@ export default function CashFlowManager() {
                 statusFilter !== "ALL" ||
                 dateFilter !== "ALL" ||
                 Boolean(searchTerm.trim())) && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setTypeFilter("ALL")
-                    setStatusFilter("ALL")
-                    setDateFilter("ALL")
-                    setSearchTerm("")
-                  }}
-                  className="px-2 text-xs font-bold text-red-500 hover:underline"
-                >
-                  Đặt lại
-                </button>
-              )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTypeFilter("ALL")
+                      setStatusFilter("ALL")
+                      setDateFilter("ALL")
+                      setSearchTerm("")
+                    }}
+                    className="px-2 text-xs font-bold text-red-500 hover:underline"
+                  >
+                    Đặt lại
+                  </button>
+                )}
             </div>
           </div>
-        )}
 
         {/* Tab Body */}
         {loading ? (
@@ -410,15 +392,9 @@ export default function CashFlowManager() {
               <span className="material-symbols-outlined animate-spin text-[#3A8157]">
                 progress_activity
               </span>
-              <span className="text-sm font-bold">Đang tải sổ quỹ dòng tiền...</span>
+              <span className="text-sm font-bold">Đang tải danh sách giao dịch...</span>
             </div>
           </div>
-        ) : activeTab === "gateway" ? (
-          <CashFlowGatewayTab
-            config={gatewayConfig}
-            onShowToast={showToast}
-            onSwitchToOverview={() => setActiveTab("overview")}
-          />
         ) : (
           <CashFlowTable
             rows={

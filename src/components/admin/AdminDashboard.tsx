@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   adminCashflowService,
   type CashFlowTransaction,
@@ -15,10 +15,6 @@ type Period = "7D" | "30D" | "90D" | "1Y"
 
 function formatVnd(amount: number): string {
   return `${amount.toLocaleString("vi-VN")} đ`
-}
-
-function formatRuby(amount: number): string {
-  return `${amount.toLocaleString("vi-VN")} 💎`
 }
 
 interface ActivityEvent {
@@ -373,16 +369,22 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
         <div className="rounded-[22px] border border-[#D9D9D9] bg-white p-5 shadow-[0_4px_0px_0px_rgba(0,0,0,0.05)] transition-transform hover:-translate-y-0.5">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold uppercase tracking-wider text-[#727272]">Kinh tế Ruby</span>
-            <span className="material-symbols-outlined text-[24px] text-[#8B63F6]">diamond</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-50">
+              <img src="/image/ruby.png" alt="Ruby" className="h-5 w-5 object-contain" />
+            </span>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-[#111827]">
-              {formatRuby(summary?.rubyCirculating ?? 380)}
+            <span className="flex items-center gap-1.5 text-2xl font-black text-[#111827]">
+              {(summary?.rubyCirculating ?? 380).toLocaleString("vi-VN")}
+              <img src="/image/ruby.png" alt="Ruby" className="h-5 w-5 object-contain" />
             </span>
             <span className="text-[11px] font-bold text-[#727272]">tồn ví</span>
           </div>
           <div className="mt-3 flex items-center justify-between border-t border-[#EEF1F5] pt-2 text-[11px] font-semibold text-[#727272]">
-            <span>Đã tiêu thụ: {summary?.rubySpent ?? 110} 💎</span>
+            <span className="flex items-center gap-1">
+              Đã tiêu thụ: {(summary?.rubySpent ?? 110).toLocaleString("vi-VN")}
+              <img src="/image/ruby.png" alt="Ruby" className="h-3.5 w-3.5 object-contain" />
+            </span>
             <button
               type="button"
               onClick={() => onNavigate?.("cashflow")}
@@ -641,7 +643,10 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
                       <span className="h-2 w-2 rounded-full bg-[#FFC857]"></span>
                       Ruby nạp:
                     </span>
-                    <span className="font-extrabold text-[#D97706]">+{activePoint.ruby} 💎</span>
+                    <span className="flex items-center gap-1 font-extrabold text-[#E11D48]">
+                      +{activePoint.ruby}
+                      <img src="/image/ruby.png" alt="Ruby" className="h-3.5 w-3.5 object-contain" />
+                    </span>
                   </div>
                   <div className="flex items-center justify-between border-t border-dashed border-black/10 pt-1 text-[11px]">
                     <span className="font-semibold text-[#727272]">Tương đương:</span>
@@ -887,8 +892,15 @@ function buildAreaPath(pts: { x: number; y: number }[], baseY: number): string {
                   <td className="py-3 font-mono font-extrabold text-[#111827]">{tx.transactionCode}</td>
                   <td className="py-3 font-extrabold text-[#111827]">{tx.userName || `User #${tx.userId}`}</td>
                   <td className="py-3 font-semibold text-[#727272]">{tx.description}</td>
-                  <td className="py-3 font-black text-[#3A8157]">
-                    {tx.direction === "IN" ? `+${formatVnd(tx.amountVnd)}` : `-${formatRuby(tx.rubyAmount)}`}
+                  <td className="py-3 font-black">
+                    {tx.direction === "IN" ? (
+                      <span className="text-[#3A8157]">+{formatVnd(tx.amountVnd)}</span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[#E11D48]">
+                        -{tx.rubyAmount.toLocaleString("vi-VN")}
+                        <img src="/image/ruby.png" alt="Ruby" className="h-3.5 w-3.5 object-contain" />
+                      </span>
+                    )}
                   </td>
                   <td className="py-3">
                     <span

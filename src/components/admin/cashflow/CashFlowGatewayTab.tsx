@@ -146,7 +146,7 @@ export default function CashFlowGatewayTab({
             alt="QR SePay Demo"
             className="w-40 rounded-xl border border-[#D9D9D9] bg-white p-1 shadow-sm"
             onError={(e) => {
-              ;(e.target as HTMLImageElement).style.display = "none"
+              ; (e.target as HTMLImageElement).style.display = "none"
             }}
           />
           <p className="mt-2.5 text-xs text-[#727272]">
@@ -158,20 +158,20 @@ export default function CashFlowGatewayTab({
 
       {/* Ruby packages */}
       <div>
-        <h3 className="mb-3 text-sm font-extrabold text-[#111827]">
-          💎 Các gói nạp Ruby đang mở bán
+        <h3 className="mb-3 flex items-center gap-1.5 text-sm font-extrabold text-[#111827]">
+          <img src="/image/ruby.png" alt="Ruby" className="h-4 w-4 object-contain" />
+          Các gói nạp Ruby đang mở bán
         </h3>
         <div className="grid gap-3 sm:grid-cols-3">
           {config.packages.map((pkg) => (
             <div
               key={pkg.code}
-              className={`rounded-2xl border p-4 ${
-                pkg.isPopular
+              className={`rounded-2xl border p-4 ${pkg.isPopular
                   ? "border-amber-300 bg-[#FFFBEB]"
                   : pkg.isBestValue
                     ? "border-emerald-300 bg-[#ECFDF5]"
                     : "border-[#D9D9D9] bg-white"
-              }`}
+                }`}
             >
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-xs font-extrabold text-[#111827]">{pkg.name}</span>
@@ -186,7 +186,10 @@ export default function CashFlowGatewayTab({
                   </span>
                 )}
               </div>
-              <p className="text-xl font-black text-[#3A8157]">{pkg.rubyAmount} 💎</p>
+              <p className="flex items-center gap-1.5 text-xl font-black text-[#E11D48]">
+                {pkg.rubyAmount.toLocaleString("vi-VN")}
+                <img src="/image/ruby.png" alt="Ruby" className="h-5 w-5 object-contain" />
+              </p>
               <p className="text-sm font-extrabold text-[#111827]">{fmtVnd(pkg.priceVnd)}</p>
               {pkg.bonusRuby > 0 && (
                 <p className="mt-1 text-[11px] font-bold text-[#3A8157]">
@@ -199,7 +202,7 @@ export default function CashFlowGatewayTab({
       </div>
 
       {/* Webhook info */}
-      <div className="rounded-2xl border border-[#D9D9D9] bg-[#F7FAFF] p-4">
+      {/* <div className="rounded-2xl border border-[#D9D9D9] bg-[#F7FAFF] p-4">
         <p className="mb-1.5 text-[11px] font-extrabold uppercase tracking-wider text-[#727272]">
           SePay Webhook Callback Endpoint
         </p>
@@ -209,7 +212,7 @@ export default function CashFlowGatewayTab({
         <p className="mt-2 text-xs text-[#727272]">
           Khi khách hàng quét mã VietQR chuyển khoản, SePay tự động bắn webhook về endpoint này để xác thực số tiền, cộng Ruby hoặc kích hoạt gói hội viên và đẩy thông báo SSE tới Admin.
         </p>
-      </div>
+      </div> */}
     </div>
   )
 }

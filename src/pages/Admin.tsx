@@ -6,10 +6,9 @@ import ContactManager from "../components/admin/ContactManager"
 import SubscriptionManager from "../components/admin/SubscriptionManager"
 import UserManager from "../components/admin/UserManager"
 import CashFlowManager from "../components/admin/CashFlowManager"
-import AdminDashboard from "../components/admin/AdminDashboard"
 import { authService } from "../services/authService"
 
-export type ModuleKey = "dashboard" | "cashflow" | "users" | "subscriptions" | "contacts"
+export type ModuleKey = "cashflow" | "users" | "subscriptions" | "contacts"
 
 interface AdminModuleItem {
   key: ModuleKey
@@ -20,14 +19,8 @@ interface AdminModuleItem {
 
 const MODULES: AdminModuleItem[] = [
   {
-    key: "dashboard",
-    label: "Bảng điều khiển",
-    icon: "dashboard",
-    color: "#3A8157",
-  },
-  {
     key: "cashflow",
-    label: "Dòng tiền",
+    label: "Quản lý giao dịch",
     icon: "payments",
     color: "#3A8157",
   },
@@ -53,7 +46,7 @@ const MODULES: AdminModuleItem[] = [
 
 export default function Admin() {
   const navigate = useNavigate()
-  const [activeKey, setActiveKey] = useState<ModuleKey>("dashboard")
+  const [activeKey, setActiveKey] = useState<ModuleKey>("cashflow")
 
   const handleLogout = () => {
     authService.removeToken()
@@ -75,7 +68,7 @@ export default function Admin() {
                 Quản trị hệ thống
               </h1>
               <p className="mt-2 max-w-[700px] text-xs font-medium leading-6 text-[#727272] md:text-sm">
-                Giám sát dòng tiền thời gian thực, quản lý tài khoản người dùng, cấu hình gói cước dịch vụ và hỗ trợ khách hàng PENTAVA.
+                Giám sát giao dịch thời gian thực, quản lý tài khoản người dùng, cấu hình gói cước dịch vụ và hỗ trợ khách hàng PENTAVA.
               </p>
             </div>
 
@@ -127,7 +120,6 @@ export default function Admin() {
             </aside>
 
             <section className="min-w-0">
-              {activeKey === "dashboard" && <AdminDashboard onNavigate={setActiveKey} />}
               {activeKey === "cashflow" && <CashFlowManager />}
               {activeKey === "users" && <UserManager />}
               {activeKey === "subscriptions" && <SubscriptionManager />}

@@ -6,19 +6,25 @@ function fmtVnd(n: number) {
   return n.toLocaleString("vi-VN") + " ₫"
 }
 
-function fmtRuby(n: number) {
-  return n.toLocaleString("vi-VN") + " 💎"
-}
-
-function fmtDate(s?: string | null) {
+function fmtTime(s?: string | null) {
   if (!s) return "—"
   try {
-    return new Date(s).toLocaleString("vi-VN", {
+    return new Date(s).toLocaleTimeString("vi-VN", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  } catch {
+    return ""
+  }
+}
+
+function fmtDateOnly(s?: string | null) {
+  if (!s) return "—"
+  try {
+    return new Date(s).toLocaleDateString("vi-VN", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
     })
   } catch {
     return s
@@ -78,18 +84,18 @@ export default function CashFlowTable({
 
   return (
     <div>
-      <div className="overflow-hidden rounded-[20px] border border-[#E5E7EB]">
-        <table className="w-full table-fixed border-collapse text-left text-xs">
+      <div className="overflow-x-auto rounded-[20px] border border-[#E5E7EB]">
+        <table className="w-full min-w-[1150px] table-fixed border-collapse text-left text-xs">
           <thead>
             <tr className="border-b border-[#E5E7EB] bg-[#F9FAFB] text-[10px] font-black uppercase tracking-wider text-[#727272]">
-              <th className="w-[125px] py-3 pl-3 pr-2">Mã GD</th>
-              <th className="w-[88px] px-2 py-3">Phân loại</th>
-              <th className="w-[16%] px-2 py-3">Khách hàng</th>
-              <th className="w-[20%] px-2 py-3">Nội dung</th>
-              <th className="w-[100px] px-2 py-3">Giá trị</th>
-              <th className="w-[100px] px-2 py-3">Trạng thái</th>
-              <th className="w-[105px] px-2 py-3">Thời gian</th>
-              <th className="w-[135px] py-3 pl-2 pr-3 text-right">Thao tác</th>
+              <th className="w-[170px] py-3.5 pl-4 pr-2">Mã GD</th>
+              <th className="w-[95px] px-2.5 py-3.5">Phân loại</th>
+              <th className="w-[170px] px-2.5 py-3.5">Khách hàng</th>
+              <th className="w-[210px] px-2.5 py-3.5">Nội dung</th>
+              <th className="w-[110px] px-2.5 py-3.5">Giá trị</th>
+              <th className="w-[125px] px-2.5 py-3.5">Trạng thái</th>
+              <th className="w-[125px] px-2.5 py-3.5">Thời gian</th>
+              <th className="w-[145px] py-3.5 pl-2 pr-4 text-right">Thao tác</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#E5E7EB] font-semibold text-[#111827]">
@@ -118,23 +124,23 @@ export default function CashFlowTable({
                       isNew ? "bg-[#FFF9ED] ring-2 ring-inset ring-[#FFC857]" : ""
                     }`}
                   >
-                    <td className="whitespace-nowrap py-3 pl-3 pr-2">
+                    <td className="whitespace-nowrap py-3.5 pl-4 pr-2">
                       <div className="flex items-center gap-1.5">
                         {isNew && (
                           <span
-                            className="inline-block h-2.5 w-2.5 animate-ping rounded-full bg-[#3A8157]"
+                            className="inline-block h-2.5 w-2.5 shrink-0 animate-ping rounded-full bg-[#3A8157]"
                             title="Mới nhận qua SSE Realtime"
                           />
                         )}
-                        <span className="font-mono text-xs font-extrabold text-[#111827]">
+                        <span className="font-mono text-xs font-extrabold text-[#111827]" title={tx.transactionCode}>
                           {tx.transactionCode}
                         </span>
                       </div>
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3">
+                    <td className="whitespace-nowrap px-2.5 py-3.5">
                       <span
-                        className={`inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
+                        className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
                           TYPE_COLOR[tx.type] ?? "bg-gray-100 text-gray-700"
                         }`}
                       >
@@ -142,7 +148,7 @@ export default function CashFlowTable({
                       </span>
                     </td>
 
-                    <td className="max-w-[130px] px-2 py-3 xl:max-w-[160px]">
+                    <td className="max-w-[150px] px-2.5 py-3.5">
                       <p className="truncate text-xs font-extrabold text-[#111827]">
                         {tx.userName ?? `User #${tx.userId}`}
                       </p>
@@ -153,27 +159,28 @@ export default function CashFlowTable({
                       )}
                     </td>
 
-                    <td className="max-w-[150px] px-2 py-3 xl:max-w-[200px]">
+                    <td className="max-w-[190px] px-2.5 py-3.5">
                       <p className="truncate text-xs text-[#374151]" title={tx.description}>
                         {tx.description}
                       </p>
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3">
+                    <td className="whitespace-nowrap px-2.5 py-3.5">
                       {tx.direction === "IN" ? (
                         <span className="text-xs font-extrabold text-[#3A8157]">
                           +{fmtVnd(tx.amountVnd)}
                         </span>
                       ) : (
-                        <span className="text-xs font-extrabold text-[#529CFF]">
-                          −{fmtRuby(tx.rubyAmount)}
+                        <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#E11D48]">
+                          −{tx.rubyAmount.toLocaleString("vi-VN")}
+                          <img src="/image/ruby.png" alt="Ruby" className="h-3.5 w-3.5 object-contain" />
                         </span>
                       )}
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3">
+                    <td className="whitespace-nowrap px-2.5 py-3.5">
                       <span
-                        className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                        className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold ${
                           STATUS_BADGE[tx.status] ?? "bg-gray-100 text-gray-700"
                         }`}
                       >
@@ -188,13 +195,16 @@ export default function CashFlowTable({
                       </span>
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3 text-[11px] text-[#727272]">
-                      {fmtDate(tx.createdAt)}
+                    <td className="whitespace-nowrap px-2.5 py-3.5 text-[11px]">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-[#111827]">{fmtTime(tx.createdAt)}</span>
+                        <span className="text-[10px] text-[#727272]">{fmtDateOnly(tx.createdAt)}</span>
+                      </div>
                     </td>
 
-                    <td className="whitespace-nowrap py-3 pl-2 pr-3 text-right">
+                    <td className="whitespace-nowrap py-3.5 pl-2 pr-4 text-right">
                       <div
-                        className="flex items-center justify-end gap-1"
+                        className="flex items-center justify-end gap-1.5"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {tx.status === "PENDING" && onQuickApprove && (
@@ -202,7 +212,7 @@ export default function CashFlowTable({
                             type="button"
                             disabled={isApproving}
                             onClick={() => onQuickApprove(tx.transactionCode)}
-                            className="inline-flex h-7 shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-[#3A8157] px-2 text-[11px] font-extrabold text-white transition hover:bg-[#2F6B47] disabled:opacity-60"
+                            className="inline-flex h-7 shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-[#3A8157] px-2.5 text-[11px] font-extrabold text-white transition hover:bg-[#2F6B47] disabled:opacity-60"
                             title="Duyệt khớp tiền ngay"
                           >
                             <span className="material-symbols-outlined text-[13px]">done_all</span>
@@ -212,7 +222,7 @@ export default function CashFlowTable({
                         <button
                           type="button"
                           onClick={() => onSelectTx(tx)}
-                          className="inline-flex h-7 shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-[#E8F3EC] px-2 text-[11px] font-bold text-[#3A8157] transition hover:bg-[#3A8157] hover:text-white"
+                          className="inline-flex h-7 shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-[#E8F3EC] px-2.5 text-[11px] font-bold text-[#3A8157] transition hover:bg-[#3A8157] hover:text-white"
                         >
                           <span className="material-symbols-outlined text-[13px]">visibility</span>
                           Chi tiết
